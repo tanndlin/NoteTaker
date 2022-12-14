@@ -43,6 +43,8 @@ const EditNote = (props: EditNoteProps) => {
         const matches = body.matchAll(regex);
         const refs = Array.from(matches).map((match) => match[1]);
 
+        console.log(refs);
+
         const findNoteFromRef = (ref: string) => {
             return props.notes.find(
                 (note) => `${note.directory}/${note.title}` === ref
@@ -50,8 +52,6 @@ const EditNote = (props: EditNoteProps) => {
         };
 
         const currentDepth = (note.directory.match(/\//g) || []).length;
-        console.log(note.directory, currentDepth);
-
         let newBody = body;
         refs.forEach((ref) => {
             const note = findNoteFromRef(ref);
