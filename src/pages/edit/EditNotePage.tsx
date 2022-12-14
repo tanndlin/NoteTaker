@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Edit } from './Edit';
 import Options from './Options';
-import { Preview } from '../../common/Preview';
+import { Preview } from '../../common/Preview/Preview';
 import { Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
@@ -44,12 +44,9 @@ const EditNote = (props: EditNoteProps) => {
     }, [body]);
 
     return (
-        <main
-            id="editPageContainer"
-            className="grid grid-cols-3 w-screen h-full"
-        >
+        <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
             <p id="fakeElement" />
-            <div className="px-8 h-full flex flex-col flex-grow">
+            <div className="px-8 flex flex-1 flex-col">
                 <EditableText
                     id="title"
                     className="text-3xl mb-8"
@@ -58,8 +55,11 @@ const EditNote = (props: EditNoteProps) => {
                         edit({ ...note, title: e.target.value });
                     }}
                 />
-                <div id="editTwoPane" className="flex flex-1 w-full">
-                    <section className="w-1/2 mr-4 h-full flex flex-col flex-grow">
+                <div
+                    id="editTwoPane"
+                    className="flex w-full flex-1 max-h-[85vh]"
+                >
+                    <section className="w-1/2 mr-4 flex flex-col flex-grow">
                         <h2 className="text-2xl text-center w-full mb-8">
                             Edit
                         </h2>

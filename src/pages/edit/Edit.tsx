@@ -7,7 +7,7 @@ type EditProps = {
 
 export const Edit = (props: EditProps) => {
     return (
-        <div id="editContainer" className="w-full flex-1">
+        <div className="w-full flex-1">
             <textarea
                 className="text-black w-full h-full p-2 rounded-md"
                 name="editInput"
