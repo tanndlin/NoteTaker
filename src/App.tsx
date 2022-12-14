@@ -4,6 +4,7 @@ import { Note } from './common/types';
 import HomePage from './pages/home/HomePage';
 import EditNote from './pages/edit/EditNotePage';
 import ViewNotePage from './pages/view/ViewNotePage';
+import AboutPage from './pages/about/AboutPage';
 
 function App() {
     const [notes, setNotes] = React.useState(
@@ -44,6 +45,7 @@ function App() {
                             element={<EditNote {...{ notes, setNotes }} />}
                         />
                     </Route>
+                    <Route path="about" element={<AboutPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </BrowserRouter>
