@@ -1,6 +1,11 @@
 a {
     color: rgb(24, 122, 179);
     text-decoration: underline;
+
+    &:hover {
+        color: lighten($color: rgb(24, 122, 179), $amount: 20);
+        text-decoration: underline;
+    }
 }
 
 .markdown-body {
