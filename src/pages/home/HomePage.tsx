@@ -77,7 +77,7 @@ const HomePage = (props: HomePageProps) => {
     };
 
     // Recursively create the file structure
-    const createFileStructure = (heirarchy: Directory, depth: number) => {
+    const createFileStructure = (heirarchy: Directory) => {
         return (
             <ul>
                 {heirarchy.notes.map((note) => (
@@ -86,7 +86,6 @@ const HomePage = (props: HomePageProps) => {
                 {Object.keys(heirarchy.dirs).map((dir) => (
                     <Folder
                         title={dir}
-                        depth={depth}
                         key={dir}
                         isOpen={openStates[dir]}
                         toggleOpen={() =>
@@ -96,7 +95,7 @@ const HomePage = (props: HomePageProps) => {
                             })
                         }
                     >
-                        {createFileStructure(heirarchy.dirs[dir], depth + 1)}
+                        {createFileStructure(heirarchy.dirs[dir])}
                     </Folder>
                 ))}
             </ul>
@@ -147,7 +146,7 @@ const HomePage = (props: HomePageProps) => {
                         />
                     </div>
                 </header>
-                {createFileStructure(getHeirarchy(props.notes, searchTerm), 0)}
+                {createFileStructure(getHeirarchy(props.notes, searchTerm))}
             </article>
         </main>
     );

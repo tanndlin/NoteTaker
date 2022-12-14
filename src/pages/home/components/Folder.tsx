@@ -3,7 +3,6 @@ import './FileSystem.scss';
 
 type FolderProps = {
     title: string;
-    depth: number;
     children: React.ReactNode;
     isOpen: boolean;
     toggleOpen: () => void;
@@ -11,10 +10,7 @@ type FolderProps = {
 
 const Folder = (props: FolderProps) => {
     return (
-        <ul
-            className={`folder ${props.isOpen ? '' : 'folded'}`}
-            style={{ marginLeft: `${props.depth * 2}rem` }}
-        >
+        <ul className={`folder ${props.isOpen ? '' : 'folded'} ml-8`}>
             <h1 className="cursor-pointer text-lg" onClick={props.toggleOpen}>
                 {props.title}
             </h1>
