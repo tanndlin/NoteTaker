@@ -25,6 +25,15 @@ const HomePage = (props: HomePageProps) => {
         window.location.href = `/${id}/edit`;
     };
 
+    const matchesSearch = (term: string, note: Note) => {
+        if (!term) return true;
+        if (!term.startsWith('text:'))
+            return note.title.toLowerCase() === term.toLowerCase();
+
+        const text = term.substring(5);
+        return note.body.toLowerCase().includes(text.toLowerCase());
+    };
+
     // This will display notes in a folder heirarchy according to their directory
     const getHeirarchy = (notes: Note[], searchTerm: string) => {
         const heirarchy: Directory = { notes: [], dirs: {} };
@@ -39,10 +48,7 @@ const HomePage = (props: HomePageProps) => {
                 currentDir = currentDir.dirs[dir];
             });
 
-            if (
-                !searchTerm ||
-                note.title.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
+            if (matchesSearch(searchTerm, note)) {
                 currentDir.notes.push(note);
             }
 
