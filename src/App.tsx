@@ -27,7 +27,7 @@ function App() {
     };
 
     return (
-        <div className="py-4 h-screen w-screen">
+        <div className="py-4 h-screen w-screen bg-primary">
             <BrowserRouter>
                 <Routes>
                     <Route
