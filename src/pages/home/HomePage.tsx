@@ -28,7 +28,9 @@ const HomePage = (props: HomePageProps) => {
     const matchesSearch = (term: string, note: Note) => {
         if (!term) return true;
         if (!term.startsWith('text:'))
-            return note.title.toLowerCase() === term.toLowerCase();
+            return [note.title, note.directory].some((e) =>
+                e.toLowerCase().includes(term.toLowerCase())
+            );
 
         const text = term.substring(5);
         return note.body.toLowerCase().includes(text.toLowerCase());
