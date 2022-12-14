@@ -56,11 +56,6 @@ const HomePage = (props: HomePageProps) => {
             if (matchesSearch(searchTerm, note)) {
                 currentDir.notes.push(note);
             }
-
-            // Add the note to the open states if it's not already there
-            if (!openStates[dir]) {
-                setOpenStates({ ...openStates, [dir]: true });
-            }
         });
 
         // Prune empty directories
@@ -109,9 +104,24 @@ const HomePage = (props: HomePageProps) => {
     };
 
     React.useEffect(() => {
-        console.log(openStates);
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
+
+    React.useEffect(() => {
+        // Make sure all dirs are in the open states
+        const newOpenStates = { ...openStates };
+        const bfs = (dir: Directory) => {
+            Object.keys(dir.dirs).forEach((key) => {
+                if (newOpenStates[key] === undefined) {
+                    newOpenStates[key] = true;
+                }
+                bfs(dir.dirs[key]);
+            });
+        };
+
+        bfs(getHeirarchy(props.notes, searchTerm));
+        setOpenStates(newOpenStates);
+    }, [props.notes]);
 
     return (
         <main className="container mx-auto h-full p-8 flex flex-col">
