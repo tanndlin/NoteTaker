@@ -1,8 +1,8 @@
 import React from 'react';
 
 type EditProps = {
-    markdown: string;
-    setMarkdown: React.Dispatch<React.SetStateAction<string>>;
+    body: string;
+    edit: (body: string) => void;
 };
 
 export const Edit = (props: EditProps) => {
@@ -12,8 +12,10 @@ export const Edit = (props: EditProps) => {
                 className="text-black w-full h-full p-2 rounded-md"
                 name="editInput"
                 id="editInput"
-                value={props.markdown}
-                onChange={(e) => props.setMarkdown(e.target.value)}
+                value={props.body}
+                onChange={(e) => {
+                    props.edit(e.target.value);
+                }}
             />
         </div>
     );

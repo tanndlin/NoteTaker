@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import 'github-markdown-css';
 
 type PreviewProps = {
-    markdown: string;
+    body: string;
 };
 
 export const Preview = (props: PreviewProps) => {
@@ -14,7 +14,7 @@ export const Preview = (props: PreviewProps) => {
                 className="flex-1 bg-secondary rounded-md p-2"
             >
                 <ReactMarkdown className="markdown-body">
-                    {props.markdown}
+                    {props.body}
                 </ReactMarkdown>
             </div>
         </>
