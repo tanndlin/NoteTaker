@@ -10,7 +10,7 @@ export const File = (props: FileProps) => {
 
     return (
         <li key={note.id} className="ml-8">
-            <a href={`/${note.id}/edit`}>{note.title}</a>
+            <a href={`/${note.id}`}>{note.title}</a>
         </li>
     );
 };

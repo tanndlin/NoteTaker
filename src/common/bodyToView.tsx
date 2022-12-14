@@ -25,7 +25,7 @@ export const createLinks = (note: Note, notes: Note[]) => {
 
         newBody = newBody.replace(
             `ref(${ref.replace(/ /g, '_')})`,
-            `${'../'.repeat(currentDepth)}${note.id}/edit`
+            `${'../'.repeat(currentDepth)}${note.id}`
         );
     });
 
