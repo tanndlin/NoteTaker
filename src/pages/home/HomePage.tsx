@@ -39,6 +39,11 @@ const HomePage = (props: HomePageProps) => {
         const heirarchy: Directory = { notes: [], dirs: {} };
         notes.forEach((note) => {
             const dir = note.directory;
+            if (dir === '/') {
+                heirarchy.notes.push(note);
+                return;
+            }
+
             const [_, ...dirs] = dir.split('/');
             let currentDir = heirarchy;
             dirs.forEach((dir) => {
