@@ -41,7 +41,9 @@ const EditNote = (props: EditNoteProps) => {
     const createLinks = (body: string) => {
         const regex = /\]\(ref\((.+)\)\)/g;
         const matches = body.matchAll(regex);
-        const refs = Array.from(matches).map((match) => match[1]);
+        const refs = Array.from(matches).map((match) =>
+            match[1].replace(/_/g, ' ')
+        );
 
         console.log(refs);
 
@@ -55,12 +57,14 @@ const EditNote = (props: EditNoteProps) => {
         let newBody = body;
         refs.forEach((ref) => {
             const note = findNoteFromRef(ref);
+            console.log(ref, note);
+
             if (!note) {
                 return;
             }
 
             newBody = newBody.replace(
-                `ref(${ref})`,
+                `ref(${ref.replace(/ /g, '_')})`,
                 `${'../'.repeat(currentDepth)}${note.id}/edit`
             );
         });
