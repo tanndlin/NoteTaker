@@ -38,6 +38,40 @@ const EditNote = (props: EditNoteProps) => {
         window.location.href = '/';
     };
 
+    const createLinks = (body: string) => {
+        const regex = /\]\(ref\((.+)\)\)/g;
+        const matches = body.matchAll(regex);
+        const refs = Array.from(matches).map((match) => match[1]);
+
+        const findNoteFromRef = (ref: string) => {
+            return props.notes.find(
+                (note) => `${note.directory}/${note.title}` === ref
+            );
+        };
+
+        const currentDepth = (note.directory.match(/\//g) || []).length;
+        console.log(note.directory, currentDepth);
+
+        let newBody = body;
+        refs.forEach((ref) => {
+            const note = findNoteFromRef(ref);
+            if (!note) {
+                return;
+            }
+
+            newBody = newBody.replace(
+                `ref(${ref})`,
+                `${'../'.repeat(currentDepth)}${note.id}/edit`
+            );
+        });
+
+        return newBody;
+    };
+
+    React.useEffect(() => {
+        console.log(createLinks(body));
+    }, [body]);
+
     return (
         <main
             id="editPageContainer"
@@ -69,7 +103,7 @@ const EditNote = (props: EditNoteProps) => {
                         <h2 className="text-2xl text-center w-full mb-8">
                             Preview
                         </h2>
-                        <Preview {...{ body }} />
+                        <Preview body={createLinks(body)} />
                     </section>
                 </div>
             </div>
