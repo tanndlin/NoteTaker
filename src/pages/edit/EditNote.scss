@@ -16,3 +16,13 @@ a {
     display: grid;
     grid-template-columns: 1fr 60vw 1fr;
 }
+
+@media (max-width: 1380px) {
+    #editPageContainer {
+        grid-template-columns: 80vw 1fr;
+    }
+
+    #fakeElement {
+        display: none;
+    }
+}

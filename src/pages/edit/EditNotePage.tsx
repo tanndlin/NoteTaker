@@ -48,7 +48,7 @@ const EditNote = (props: EditNoteProps) => {
             id="editPageContainer"
             className="grid grid-cols-3 w-screen h-full"
         >
-            <p />
+            <p id="fakeElement" />
             <div className="px-8 h-full flex flex-col flex-grow">
                 <EditableText
                     id="title"
@@ -58,7 +58,7 @@ const EditNote = (props: EditNoteProps) => {
                         edit({ ...note, title: e.target.value });
                     }}
                 />
-                <div className="flex flex-1 w-full">
+                <div id="editTwoPane" className="flex flex-1 w-full">
                     <section className="w-1/2 mr-4 h-full flex flex-col flex-grow">
                         <h2 className="text-2xl text-center w-full mb-8">
                             Edit
