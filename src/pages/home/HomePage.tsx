@@ -112,13 +112,17 @@ const HomePage = (props: HomePageProps) => {
         <main className="container mx-auto h-full p-8 flex flex-col">
             <header className="flex justify-between">
                 <h1 className="text-4xl font-bold">Home</h1>
-                <button onClick={handleNew}>New Note</button>
+                <a className="text-xl" href="/about">
+                    About
+                </a>
             </header>
             <article className="bg-secondary w-full min-h-1/2 my-auto p-4 rounded-md">
                 <header className="flex justify-between mb-8">
                     <h2 className="text-xl">Notes</h2>
                     <div className="flex gap-4">
-                        <FoldingOptions {...{ openStates, setOpenStates }} />
+                        <FoldingOptions
+                            {...{ openStates, setOpenStates, handleNew }}
+                        />
                         <input
                             className="rounded-md px-2 py-1"
                             type="text"

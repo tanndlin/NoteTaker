@@ -3,6 +3,7 @@ import React from 'react';
 type FolderOptionsProps = {
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
+    handleNew: () => void;
 };
 
 const FoldingOptions = (props: FolderOptionsProps) => {
@@ -24,6 +25,22 @@ const FoldingOptions = (props: FolderOptionsProps) => {
 
     return (
         <span className="flex justify-between gap-4">
+            <button className="bg-transparent" onClick={props.handleNew}>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                </svg>
+            </button>
             <button className="bg-transparent" onClick={expandAll}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

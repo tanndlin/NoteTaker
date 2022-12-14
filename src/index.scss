@@ -56,3 +56,11 @@ input[type='text'] {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.markdown-body {
+  background-color: transparent !important;
+
+  &>ul {
+    list-style: outside;
+  }
+}
