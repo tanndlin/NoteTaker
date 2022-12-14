@@ -24,7 +24,9 @@ const Options = (props: OptionsProps) => {
                         id="directory"
                         value={props.directory}
                         onChange={(e) => {
-                            props.edit(e.target.value);
+                            let val = e.target.value;
+                            if (!val.startsWith('/')) val = '/' + val;
+                            props.edit(val);
                         }}
                     />
                 </span>
