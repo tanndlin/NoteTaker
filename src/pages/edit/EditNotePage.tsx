@@ -31,6 +31,13 @@ const EditNote = (props: EditNoteProps) => {
         props.setNotes(newNotes);
     };
 
+    const deleteNote = () => {
+        const newNotes = props.notes.filter((n) => n.id !== note.id);
+        props.setNotes(newNotes);
+
+        window.location.href = '/';
+    };
+
     return (
         <main
             id="editPageContainer"
@@ -71,6 +78,7 @@ const EditNote = (props: EditNoteProps) => {
                 edit={(directory) => {
                     edit({ ...note, directory });
                 }}
+                deleteNote={deleteNote}
             />
         </main>
     );
