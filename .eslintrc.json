@@ -11,14 +11,22 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
-    "plugins": ["prettier"],
+    "plugins": [
+        "prettier",
+        "react"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "rules": {
-        "eqeqeq": ["error", "smart"],
-        "eol-last": ["error"],
+        "eqeqeq": [
+            "error",
+            "smart"
+        ],
+        "eol-last": [
+            "error"
+        ],
         "curly": "warn",
         "no-var": 2,
         "prefer-const": "error",
@@ -27,9 +35,18 @@
         "spaced-comment": "warn",
         "prettier/prettier": [
             "error",
-            { "singleQuote": true, "endOfLine": "auto" }
+            {
+                "singleQuote": true,
+                "endOfLine": "auto"
+            }
         ],
-        "quotes": [2, "single", { "avoidEscape": true }],
+        "quotes": [
+            2,
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
         "no-unused-vars": [
             "error",
             {
@@ -49,8 +66,13 @@
         "requireConfigFile": false,
         "babelOptions": {
             "parserOpts": {
-                "plugins": ["jsx"]
+                "plugins": [
+                    "jsx"
+                ]
             }
+        },
+        "ecmaFeatures": {
+            "jsx": true
         }
     },
     "root": true,
@@ -58,5 +80,15 @@
         "react": {
             "version": "detect"
         }
-    }
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.tsx"
+            ],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ]
 }
