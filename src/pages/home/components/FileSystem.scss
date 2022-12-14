@@ -1,0 +1,37 @@
+.folder {
+
+    // Display an arrow before the folder name using border
+    &>h1:before {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid white;
+        margin-right: 5px;
+        margin-bottom: 3px;
+        transition: transform 0.3s ease;
+        transform: rotate(90deg);
+    }
+
+    &>ul {
+        transition: 300ms ease;
+        max-height: 9999px;
+    }
+
+    &.folded {
+
+        // Change the borders to point down
+        &>h1:before {
+            transform: rotate(0deg);
+        }
+
+        &>ul {
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: 0 0;
+        }
+    }
+}

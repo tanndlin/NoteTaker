@@ -1,4 +1,5 @@
 import React from 'react';
+import './FileSystem.scss';
 
 type FolderProps = {
     title: string;
@@ -7,9 +8,19 @@ type FolderProps = {
 };
 
 const Folder = (props: FolderProps) => {
+    const [folded, setFolded] = React.useState(true);
+
     return (
-        <ul style={{ marginLeft: `${props.depth * 2}rem` }}>
-            <h1>{props.title}</h1>
+        <ul
+            className={`folder ${folded ? 'folded' : ''}`}
+            style={{ marginLeft: `${props.depth * 2}rem` }}
+        >
+            <h1
+                className="cursor-pointer text-lg"
+                onClick={() => setFolded(!folded)}
+            >
+                {props.title}
+            </h1>
             {props.children}
         </ul>
     );
