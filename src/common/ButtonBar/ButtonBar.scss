@@ -1,0 +1,13 @@
+@media (min-width: 300px) {
+    .buttonBar {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.buttonBar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 2rem;
+}

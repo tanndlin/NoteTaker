@@ -2,10 +2,11 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Edit } from './Edit';
 import Options from './Options';
-import { Preview } from './Preview';
+import { Preview } from '../../common/Preview';
 import { Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
+import { createLinks } from '../../common/bodyToView';
 
 type EditNoteProps = {
     notes: Note[];
@@ -38,42 +39,8 @@ const EditNote = (props: EditNoteProps) => {
         window.location.href = '/';
     };
 
-    const createLinks = (body: string) => {
-        const regex = /\]\(ref\((.+)\)\)/g;
-        const matches = body.matchAll(regex);
-        const refs = Array.from(matches).map((match) =>
-            match[1].replace(/_/g, ' ')
-        );
-
-        console.log(refs);
-
-        const findNoteFromRef = (ref: string) => {
-            return props.notes.find(
-                (note) => `${note.directory}/${note.title}` === ref
-            );
-        };
-
-        const currentDepth = (note.directory.match(/\//g) || []).length;
-        let newBody = body;
-        refs.forEach((ref) => {
-            const note = findNoteFromRef(ref);
-            console.log(ref, note);
-
-            if (!note) {
-                return;
-            }
-
-            newBody = newBody.replace(
-                `ref(${ref.replace(/ /g, '_')})`,
-                `${'../'.repeat(currentDepth)}${note.id}/edit`
-            );
-        });
-
-        return newBody;
-    };
-
     React.useEffect(() => {
-        console.log(createLinks(body));
+        console.log(createLinks(note, props.notes));
     }, [body]);
 
     return (
@@ -107,7 +74,7 @@ const EditNote = (props: EditNoteProps) => {
                         <h2 className="text-2xl text-center w-full mb-8">
                             Preview
                         </h2>
-                        <Preview body={createLinks(body)} />
+                        <Preview body={createLinks(note, props.notes)} />
                     </section>
                 </div>
             </div>

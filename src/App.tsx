@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Note } from './common/types';
 import HomePage from './pages/home/HomePage';
 import EditNote from './pages/edit/EditNotePage';
+import ViewNotePage from './pages/view/ViewNotePage';
 
 function App() {
     const [notes, setNotes] = React.useState(
@@ -34,7 +35,10 @@ function App() {
                         element={<HomePage {...{ notes, createNote }} />}
                     />
                     <Route path="/:id">
-                        <Route index element={<h1>Show</h1>} />
+                        <Route
+                            index
+                            element={<ViewNotePage {...{ notes }} />}
+                        />
                         <Route
                             path="edit"
                             element={<EditNote {...{ notes, setNotes }} />}
