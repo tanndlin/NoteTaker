@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Edit } from './Edit';
 import Options from './Options';
 import { Preview } from './Preview';
-import './EditNote.scss';
 import { Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
+import './EditNote.scss';
 
 type EditNoteProps = {
     notes: Note[];
