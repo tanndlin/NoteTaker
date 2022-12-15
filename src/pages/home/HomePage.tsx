@@ -87,14 +87,16 @@ export const HomePage = (props: HomePageProps) => {
                         />
                     </div>
                 </header>
-                <FolderView
-                    {...{
-                        notes: props.notes,
-                        searchTerm,
-                        openStates,
-                        setOpenStates
-                    }}
-                />
+                <section className="pb-4">
+                    <FolderView
+                        {...{
+                            notes: props.notes,
+                            searchTerm,
+                            openStates,
+                            setOpenStates
+                        }}
+                    />
+                </section>
             </article>
         </main>
     );
