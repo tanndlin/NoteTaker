@@ -8,3 +8,8 @@ export interface Note {
 export type IconProps = {
     className?: string;
 };
+
+export type Directory = {
+    notes: Note[];
+    dirs: { [key: string]: Directory };
+};

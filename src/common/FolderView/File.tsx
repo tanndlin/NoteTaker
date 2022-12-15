@@ -1,5 +1,5 @@
 import React from 'react';
-import { Note } from '../../../common/types';
+import { Note } from '../types';
 
 type FileProps = {
     note: Note;
