@@ -40,9 +40,9 @@ const GraphPage = (props: GraphPageProps) => {
         <main className="flex h-full flex-grow">
             <aside className="bg-secondary h-full p-4 flex">
                 <div className="flex flex-col justify-between">
-                    <section>
-                        <h1 className="w-min">Files</h1>
-                        <div>
+                    <section className="overflow-auto overflow-x-hidden">
+                        <h1>Files</h1>
+                        <div className="w-max mr-4 mb-4">
                             <FolderView
                                 {...{
                                     notes,
