@@ -1,28 +1,12 @@
 import React from 'react';
 
 type FolderOptionsProps = {
-    openStates: { [key: string]: boolean };
-    setOpenStates: (openStates: { [key: string]: boolean }) => void;
     handleNew: () => void;
+    expandAll: () => void;
+    foldAll: () => void;
 };
 
 const FoldingOptions = (props: FolderOptionsProps) => {
-    const expandAll = () => {
-        const openStates: { [key: string]: boolean } = {};
-        Object.keys(props.openStates).forEach((key) => {
-            openStates[key] = true;
-        });
-        props.setOpenStates(openStates);
-    };
-
-    const foldAll = () => {
-        const openStates: { [key: string]: boolean } = {};
-        Object.keys(props.openStates).forEach((key) => {
-            openStates[key] = false;
-        });
-        props.setOpenStates(openStates);
-    };
-
     return (
         <span className="flex justify-between gap-4">
             <button className="bg-transparent" onClick={props.handleNew}>
@@ -41,7 +25,7 @@ const FoldingOptions = (props: FolderOptionsProps) => {
                     />
                 </svg>
             </button>
-            <button className="bg-transparent" onClick={expandAll}>
+            <button className="bg-transparent" onClick={props.expandAll}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -57,7 +41,7 @@ const FoldingOptions = (props: FolderOptionsProps) => {
                     />
                 </svg>
             </button>
-            <button className="bg-transparent" onClick={foldAll}>
+            <button className="bg-transparent" onClick={props.foldAll}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

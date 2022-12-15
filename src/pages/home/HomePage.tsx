@@ -104,6 +104,22 @@ const HomePage = (props: HomePageProps) => {
         );
     };
 
+    const expandAll = () => {
+        const newOpenStates = { ...openStates };
+        Object.keys(openStates).forEach((key) => {
+            newOpenStates[key] = true;
+        });
+        setOpenStates(newOpenStates);
+    };
+
+    const foldAll = () => {
+        const newOpenStates = { ...openStates };
+        Object.keys(openStates).forEach((key) => {
+            newOpenStates[key] = false;
+        });
+        setOpenStates(newOpenStates);
+    };
+
     React.useEffect(() => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
@@ -137,14 +153,17 @@ const HomePage = (props: HomePageProps) => {
                     <h2 className="text-xl">Notes</h2>
                     <div className="flex gap-4">
                         <FoldingOptions
-                            {...{ openStates, setOpenStates, handleNew }}
+                            {...{ expandAll, foldAll, handleNew }}
                         />
                         <input
                             className="rounded-md px-2 py-1"
                             type="text"
                             placeholder="Search"
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => {
+                                expandAll();
+                                setSearchTerm(e.target.value);
+                            }}
                         />
                     </div>
                 </header>
