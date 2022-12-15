@@ -10,6 +10,15 @@ type GraphProps = { notes: Note[] };
 const GraphView = (props: GraphProps) => {
     const { notes } = props;
 
+    const [graph, setGraph] = React.useState({
+        nodes: [],
+        edges: []
+    } as IGraph);
+
+    React.useEffect(() => {
+        setGraph(getGraph());
+    }, [notes]);
+
     const getGraph = () => {
         const graph: IGraph = { nodes: [], edges: [] };
         notes.forEach((note) => {
@@ -17,7 +26,7 @@ const GraphView = (props: GraphProps) => {
                 id: note.id,
                 label: note.title,
                 size: 10,
-                group: 'myGroup'
+                group: note.directory.split('/')[1] || 'root'
             });
         });
 
@@ -33,8 +42,9 @@ const GraphView = (props: GraphProps) => {
                 const id = graph.nodes.length;
                 graph.nodes.push({
                     id,
-                    label: `/${dir}`,
-                    size: 20
+                    label: dir,
+                    size: 20,
+                    group: dir.split('/')[1] || 'root'
                 });
                 graph.edges.push({ from: parentID, to: id });
                 addHeiarchyEdges(heirarchy.dirs[dir], id);
@@ -52,6 +62,24 @@ const GraphView = (props: GraphProps) => {
         });
         return graph;
     };
+
+    const colors = [
+        '#e6194b',
+        '#3cb44b',
+        '#ffe119',
+        '#4363d8',
+        '#f58231',
+        '#911eb4',
+        '#46f0f0',
+        '#f032e6'
+    ];
+
+    const groups: any = {};
+    Object.keys(getHeirarchy(notes, '').dirs).forEach((dir, i) => {
+        groups[dir] = {
+            color: colors[i % colors.length]
+        };
+    });
 
     const options = {
         layout: {
@@ -74,8 +102,8 @@ const GraphView = (props: GraphProps) => {
                 type: 'continuous'
             }
         },
-        height: '100%',
-        width: '100%'
+        groups,
+        autoResize: true
     };
 
     const events = {
@@ -90,7 +118,7 @@ const GraphView = (props: GraphProps) => {
 
     return (
         <div className="w-full h-full">
-            <Graph {...{ graph: getGraph(), options, events }} />
+            <Graph graph={graph} options={options} events={events} />
         </div>
     );
 };

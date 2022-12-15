@@ -22,7 +22,7 @@ export const FolderView = (props: FolderViewProps) => {
                 ))}
                 {Object.keys(heirarchy.dirs).map((dir) => (
                     <Folder
-                        title={dir}
+                        title={dir.split('/').pop() || ''}
                         key={dir}
                         isOpen={openStates[dir]}
                         toggleOpen={() =>
@@ -69,11 +69,13 @@ export const getHeirarchy = (notes: Note[], searchTerm: string) => {
 
         const [_, ...dirs] = dir.split('/');
         let currentDir = heirarchy;
+        let dirBuilder = '';
         dirs.forEach((dir) => {
-            if (!currentDir.dirs[dir]) {
-                currentDir.dirs[dir] = { notes: [], dirs: {} };
+            dirBuilder += `/${dir}`;
+            if (!currentDir.dirs[dirBuilder]) {
+                currentDir.dirs[dirBuilder] = { notes: [], dirs: {} };
             }
-            currentDir = currentDir.dirs[dir];
+            currentDir = currentDir.dirs[dirBuilder];
         });
 
         if (matchesSearch(searchTerm, note)) {
