@@ -1,5 +1,7 @@
 import React from 'react';
 import { FolderView } from '../../common/FolderView/FolderView';
+import FolderMinusIcon from '../../common/Icons/FolderMinusIcon';
+import FolderOpenIcon from '../../common/Icons/FolderOpenIcon';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
@@ -18,6 +20,22 @@ const GraphPage = (props: GraphPageProps) => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
 
+    const expandAll = () => {
+        const newOpenStates = { ...openStates };
+        Object.keys(openStates).forEach((key) => {
+            newOpenStates[key] = true;
+        });
+        setOpenStates(newOpenStates);
+    };
+
+    const foldAll = () => {
+        const newOpenStates = { ...openStates };
+        Object.keys(openStates).forEach((key) => {
+            newOpenStates[key] = false;
+        });
+        setOpenStates(newOpenStates);
+    };
+
     return (
         <main className="flex h-full flex-grow">
             <aside className="bg-secondary h-full p-4 flex">
@@ -35,10 +53,19 @@ const GraphPage = (props: GraphPageProps) => {
                             />
                         </div>
                     </section>
-
-                    <button onClick={() => (window.location.href = '/')}>
-                        <HomeIcon className="mx-auto" />
-                    </button>
+                    <footer className="flex flex-col gap-8">
+                        <span className="flex gap-8 justify-center">
+                            <button onClick={expandAll}>
+                                <FolderOpenIcon className="mx-auto" />
+                            </button>
+                            <button onClick={foldAll}>
+                                <FolderMinusIcon className="mx-auto" />
+                            </button>
+                        </span>
+                        <button onClick={() => (window.location.href = '/')}>
+                            <HomeIcon className="mx-auto" />
+                        </button>
+                    </footer>
                 </div>
             </aside>
 
