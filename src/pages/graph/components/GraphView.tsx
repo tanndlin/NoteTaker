@@ -57,7 +57,7 @@ const GraphView = (props: GraphProps) => {
         notes.forEach((note) => {
             const refs = getRefs(note, notes);
             refs.forEach((ref) => {
-                graph.edges.push({ from: note.id, to: ref.note.id, width: 2 });
+                graph.edges.push({ from: note.id, to: ref.note.id, width: 3 });
             });
         });
         return graph;
