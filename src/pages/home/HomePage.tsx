@@ -69,7 +69,7 @@ export const HomePage = (props: HomePageProps) => {
                 </span>
             </header>
             <article className="bg-secondary container min-h-1/2 my-auto p-4 rounded-md overflow-auto">
-                <header className="flex justify-between mb-8">
+                <header className="flex justify-between mb-8 sticky top-0 bg-secondary">
                     <h2 className="text-xl">Notes</h2>
                     <div className="flex gap-4">
                         <FoldingOptions
