@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Note } from './common/types';
-import HomePage from './pages/home/HomePage';
+import { HomePage } from './pages/home/HomePage';
 import EditNote from './pages/edit/EditNotePage';
 import ViewNotePage from './pages/view/ViewNotePage';
 import AboutPage from './pages/about/AboutPage';
+import GraphPage from './pages/graph/GraphPage';
 
 function App() {
     const [notes, setNotes] = React.useState(
@@ -46,6 +47,7 @@ function App() {
                         />
                     </Route>
                     <Route path="about" element={<AboutPage />} />
+                    <Route path="graph" element={<GraphPage notes={notes} />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </BrowserRouter>
