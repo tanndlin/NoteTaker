@@ -1,0 +1,7 @@
+.markdown-body {
+    background-color: transparent !important;
+
+    & ul {
+        list-style: outside;
+    }
+}

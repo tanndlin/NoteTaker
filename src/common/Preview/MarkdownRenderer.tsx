@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import 'github-markdown-css';
+import './Markdown.scss';
 
 type MarkdownRendererProps = {
     markdown: string;
