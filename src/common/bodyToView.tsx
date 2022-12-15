@@ -7,8 +7,6 @@ export const createLinks = (note: Note, notes: Note[]) => {
         match[1].replace(/_/g, ' ')
     );
 
-    console.log(refs);
-
     const findNoteFromRef = (ref: string) => {
         return notes.find((note) => `${note.directory}/${note.title}` === ref);
     };
@@ -17,8 +15,6 @@ export const createLinks = (note: Note, notes: Note[]) => {
     let newBody = note.body;
     refs.forEach((ref) => {
         const note = findNoteFromRef(ref);
-        console.log(ref, note);
-
         if (!note) {
             return;
         }

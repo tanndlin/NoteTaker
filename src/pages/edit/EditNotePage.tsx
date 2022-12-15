@@ -39,10 +39,6 @@ const EditNote = (props: EditNoteProps) => {
         window.location.href = '/';
     };
 
-    React.useEffect(() => {
-        console.log(createLinks(note, props.notes));
-    }, [body]);
-
     return (
         <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
             <p id="fakeElement" />
