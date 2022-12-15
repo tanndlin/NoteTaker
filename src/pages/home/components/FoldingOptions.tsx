@@ -1,6 +1,6 @@
 import React from 'react';
 import FolderMinusIcon from '../../../common/Icons/FolderMinusIcon';
-import OpenFolderIcon from '../../../common/Icons/OpenFolderIcon';
+import FolderOpenIcon from '../../../common/Icons/FolderOpenIcon';
 import PlusIcon from '../../../common/Icons/PlusIcon';
 
 type FolderOptionsProps = {
@@ -16,7 +16,7 @@ const FoldingOptions = (props: FolderOptionsProps) => {
                 <PlusIcon />
             </button>
             <button className="bg-transparent" onClick={props.expandAll}>
-                <OpenFolderIcon />
+                <FolderOpenIcon />
             </button>
             <button className="bg-transparent" onClick={props.foldAll}>
                 <FolderMinusIcon />
