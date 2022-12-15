@@ -1,4 +1,5 @@
 import React from 'react';
+import HomeIcon from '../../common/Icons/HomeIcon';
 import MarkdownRenderer from '../../common/Preview/MarkdownRenderer';
 
 const AboutPage = () => {
@@ -47,7 +48,7 @@ For example [this](#top) hyperlink will take you to the top heading.
                     Welcome to Note Taker!
                 </h1>
                 <button onClick={() => (window.location.href = '/')}>
-                    Home
+                    <HomeIcon />
                 </button>
             </span>
 
