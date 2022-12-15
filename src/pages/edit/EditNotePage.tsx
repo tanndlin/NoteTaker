@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Edit } from './Edit';
+import { Edit } from './components/Edit';
 import Options from './Options';
 import { Preview } from '../../common/Preview/Preview';
 import { Note } from '../../common/types';
@@ -76,10 +76,12 @@ const EditNote = (props: EditNoteProps) => {
             </div>
             <Options
                 directory={directory}
-                edit={(directory) => {
-                    edit({ ...note, directory });
+                edit={(newKeys) => {
+                    edit({ ...note, ...newKeys });
                 }}
                 deleteNote={deleteNote}
+                notes={props.notes}
+                note={note}
             />
         </main>
     );

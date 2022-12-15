@@ -4,11 +4,15 @@ import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
 import TrashIcon from '../../common/Icons/TrashIcon';
 import EditableText from '../../components/EditableText/EditableText';
+import PotentialRefs from './components/PotentialRefs';
+import { Note } from '../../common/types';
 
 type OptionsProps = {
     directory: string;
-    edit: (directory: string) => void;
+    edit: (newKeys: any) => void;
     deleteNote: () => void;
+    note: Note;
+    notes: Note[];
 };
 
 const Options = (props: OptionsProps) => {
@@ -29,7 +33,7 @@ const Options = (props: OptionsProps) => {
                         onChange={(e) => {
                             let val = e.target.value;
                             if (!val.startsWith('/')) val = '/' + val;
-                            props.edit(val);
+                            props.edit({ directory: val });
                         }}
                     />
                 </span>
@@ -51,6 +55,11 @@ const Options = (props: OptionsProps) => {
                         <TrashIcon className="mx-auto" />
                     </button>
                 </ButtonBar>
+                <PotentialRefs
+                    notes={props.notes}
+                    note={props.note}
+                    edit={props.edit}
+                />
             </div>
         </aside>
     );
