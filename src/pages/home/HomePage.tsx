@@ -81,7 +81,7 @@ const HomePage = (props: HomePageProps) => {
     // Recursively create the file structure
     const createFileStructure = (heirarchy: Directory) => {
         return (
-            <ul>
+            <ul className="dirs">
                 {heirarchy.notes.map((note) => (
                     <File note={note} key={note.id} />
                 ))}

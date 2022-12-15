@@ -1,19 +1,80 @@
 .folder {
+    position: relative;
 
-    // Display an arrow before the folder name using border
-    &>h1:before {
-        content: '';
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid white;
-        margin-right: 5px;
-        margin-bottom: 3px;
-        transition: transform 0.3s ease;
-        transform: rotate(90deg);
+    &>h1 {
+
+        // Display an arrow after the folder name using border
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid white;
+            margin-left: 5px;
+            margin-bottom: 3px;
+            transition: transform 0.3s ease;
+            transform: rotate(90deg);
+        }
     }
+
+    &>.dirs {
+
+        // Sub folders
+        &>ul {
+            &:before {
+                position: absolute;
+                content: '';
+                display: inline-block;
+                width: 2rem;
+                height: 1.70rem;
+                top: 0%;
+                left: -1.75rem;
+                border-bottom: 1px solid white;
+                border-left: 1px solid white;
+            }
+        }
+
+        // Notes in the folder
+        &>li {
+            position: relative;
+
+            &:before {
+                position: absolute;
+                content: '';
+                display: inline-block;
+                width: 1rem;
+                height: 99%;
+                top: -50%;
+                left: -1.75rem;
+                border-bottom: 1px solid white;
+                border-left: 1px solid white;
+            }
+
+            &:first-child:before {
+                top: -10%;
+                height: 70%;
+            }
+
+        }
+
+        // Line to connect all the sub folders
+        &:has(.folder) {
+            &:before {
+                position: absolute;
+                content: '';
+                display: inline-block;
+                width: 0;
+                height: 50%;
+                top: 20%;
+                left: .25rem;
+                border-bottom: 1px solid white;
+                border-left: 1px solid white;
+            }
+        }
+    }
+
 
     &>ul {
         transition: 300ms ease;
@@ -23,9 +84,14 @@
     &.folded {
 
         // Change the borders to point down
-        &>h1:before {
+        &>h1:after {
             transform: rotate(0deg);
         }
+
+        &>h1:before {
+            display: none;
+        }
+
 
         &>ul {
             max-height: 0;

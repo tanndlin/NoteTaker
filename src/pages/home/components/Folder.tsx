@@ -10,7 +10,7 @@ type FolderProps = {
 
 const Folder = (props: FolderProps) => {
     return (
-        <ul className={`folder ${props.isOpen ? '' : 'folded'} ml-8`}>
+        <ul className={`folder ${props.isOpen ? '' : 'folded'} ml-8 mt-2`}>
             <h1 className="cursor-pointer text-lg" onClick={props.toggleOpen}>
                 {props.title}
             </h1>
