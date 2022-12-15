@@ -59,9 +59,14 @@ export const HomePage = (props: HomePageProps) => {
         <main className="container mx-auto h-full p-8 flex flex-col">
             <header className="flex justify-between">
                 <h1 className="text-4xl font-bold">Home</h1>
-                <a className="text-xl" href="/about">
-                    About
-                </a>
+                <span className="flex flex-col">
+                    <a className="text-xl" href="/about">
+                        About
+                    </a>
+                    <a className="text-xl" href="/graph">
+                        Graph
+                    </a>
+                </span>
             </header>
             <article className="bg-secondary container min-h-1/2 my-auto p-4 rounded-md overflow-auto">
                 <header className="flex justify-between mb-8">
