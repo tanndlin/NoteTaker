@@ -22,19 +22,18 @@
     &>.dirs {
 
         // Sub folders
-        &>ul {
-            &:before {
-                position: absolute;
-                content: '';
-                display: inline-block;
-                width: 2rem;
-                height: 1.70rem;
-                top: 0%;
-                left: -1.75rem;
-                border-bottom: 1px solid white;
-                border-left: 1px solid white;
-            }
-        }
+        // &>ul:before {
+        //     position: absolute;
+        //     content: '';
+        //     display: inline-block;
+        //     width: 2rem;
+        //     height: 1.70rem;
+        //     top: 0%;
+        //     left: -1.75rem;
+        //     border-bottom: 1px solid white;
+        //     border-left: 1px solid white;
+
+        // }
 
         // Notes in the folder
         &>li {
@@ -60,19 +59,19 @@
         }
 
         // Line to connect all the sub folders
-        &:has(.folder) {
-            &:before {
-                position: absolute;
-                content: '';
-                display: inline-block;
-                width: 0;
-                height: 50%;
-                top: 20%;
-                left: .25rem;
-                border-bottom: 1px solid white;
-                border-left: 1px solid white;
-            }
-        }
+        // &:has(.folder) {
+        //     &:before {
+        //         position: absolute;
+        //         content: '';
+        //         display: inline-block;
+        //         width: 0;
+        //         height: 80%;
+        //         top: 12.5%;
+        //         left: .25rem;
+        //         border-bottom: 1px solid white;
+        //         border-left: 1px solid white;
+        //     }
+        // }
     }
 
 
