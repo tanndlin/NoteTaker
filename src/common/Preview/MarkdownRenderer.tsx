@@ -10,6 +10,8 @@ const MarkdownRenderer = (props: MarkdownRendererProps) => {
     const HeadingRenderer = (props: any) => {
         const { level, ...rest } = props;
 
+        if (!props.children) return null;
+
         const idRegex = /\s*{#([\w-]+)}\s*/;
         const idMatch = props.children[0].match(idRegex);
         if (idMatch) {
