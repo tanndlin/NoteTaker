@@ -20,7 +20,10 @@ const PotentialRefs = (props: PotentialRefsProps) => {
             .filter((n) => n.id !== note.id)
             .reduce((acc: Note[], n: Note) => {
                 // eslint-disable-next-line no-useless-escape
-                const regex = new RegExp(`(?<!(\\[))${n.title}(?!(\\]))`, 'gi');
+                const regex = new RegExp(
+                    `(?<!(\\[|/))${n.title}(?!(\\]|/))`,
+                    'gi'
+                );
                 if (note.body.match(regex)) {
                     acc.push(n);
                 }
@@ -31,7 +34,7 @@ const PotentialRefs = (props: PotentialRefsProps) => {
 
     const assignRef = (ref: Note) => () => {
         // eslint-disable-next-line no-useless-escape
-        const regex = new RegExp(`(?<!(\\[))${ref.title}(?!(\\]))`, 'gi');
+        const regex = new RegExp(`(?<!(\\[|/))${ref.title}(?!(\\]|/))`, 'gi');
         const newBody = note.body.replace(
             regex,
             `[${ref.title}](ref(${ref.directory}/${ref.title.replace(
