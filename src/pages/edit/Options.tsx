@@ -1,5 +1,8 @@
 import React from 'react';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
+import HomeIcon from '../../common/Icons/HomeIcon';
+import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
+import TrashIcon from '../../common/Icons/TrashIcon';
 import EditableText from '../../components/EditableText/EditableText';
 
 type OptionsProps = {
@@ -36,14 +39,16 @@ const Options = (props: OptionsProps) => {
                             window.location.href = '/';
                         }}
                     >
-                        Home
+                        <HomeIcon className="mx-auto" />
                     </button>
-                    <button onClick={gotoView}>View Note</button>
+                    <button onClick={gotoView}>
+                        <MagnifyingGlassIcon className="mx-auto" />
+                    </button>
                     <button
                         className="bg-red-500 hover:bg-red-400"
                         onClick={props.deleteNote}
                     >
-                        Delete Note
+                        <TrashIcon className="mx-auto" />
                     </button>
                 </ButtonBar>
             </div>

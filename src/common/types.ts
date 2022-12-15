@@ -4,3 +4,7 @@ export interface Note {
     body: string;
     directory: string;
 }
+
+export type IconProps = {
+    className?: string;
+};

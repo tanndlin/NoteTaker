@@ -1,5 +1,7 @@
 import React from 'react';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
+import EditIcon from '../../common/Icons/EditIcon';
+import HomeIcon from '../../common/Icons/HomeIcon';
 
 type PreviewOptionsProps = {
     directory: string;
@@ -25,9 +27,11 @@ const ViewOptions = (props: PreviewOptionsProps) => {
                             window.location.href = '/';
                         }}
                     >
-                        Home
+                        <HomeIcon className="mx-auto" />
                     </button>
-                    <button onClick={gotoEdit}>Edit Note</button>
+                    <button onClick={gotoEdit}>
+                        <EditIcon className="mx-auto" />
+                    </button>
                 </ButtonBar>
             </div>
         </aside>
