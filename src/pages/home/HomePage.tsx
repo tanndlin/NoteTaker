@@ -148,7 +148,7 @@ const HomePage = (props: HomePageProps) => {
                     About
                 </a>
             </header>
-            <article className="bg-secondary w-full min-h-1/2 my-auto p-4 rounded-md">
+            <article className="bg-secondary w-full min-h-1/2 my-auto p-4 rounded-md overflow-auto">
                 <header className="flex justify-between mb-8">
                     <h2 className="text-xl">Notes</h2>
                     <div className="flex gap-4">
