@@ -26,7 +26,8 @@ const GraphView = (props: GraphProps) => {
                 id: note.id,
                 label: note.title,
                 size: 10,
-                group: note.directory.split('/')[1] || 'root'
+                group: note.directory.split('/')[1] || 'root',
+                font: { face: 'roboto' }
             });
         });
 
@@ -44,7 +45,8 @@ const GraphView = (props: GraphProps) => {
                     id,
                     label: dir,
                     size: 20,
-                    group: dir.split('/')[1] || 'root'
+                    group: dir.split('/')[1] || 'root',
+                    font: { face: 'roboto' }
                 });
                 graph.edges.push({ from: parentID, to: id });
                 addHeiarchyEdges(heirarchy.dirs[dir], id);

@@ -8,6 +8,7 @@ export type Node = {
     label: string;
     size?: number;
     group?: string;
+    font?: Font;
 };
 
 export type Edge = {
@@ -15,6 +16,10 @@ export type Edge = {
     to: number;
     width?: number;
     arrows?: Arrow;
+};
+
+export type Font = {
+    face: string;
 };
 
 export type Arrow = {
