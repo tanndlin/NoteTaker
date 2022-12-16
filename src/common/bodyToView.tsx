@@ -22,7 +22,7 @@ export const getRefs = (
     const findNoteFromRef = (ref: string) => {
         return notes.find((note) => `${note.directory}/${note.title}` === ref);
     };
-    const regex = /\]\(ref\((.+)\)\)/g;
+    const regex = /\]\(ref\((\S+)\)\)/g;
     const matches = note.body.matchAll(regex);
     const refNames = Array.from(matches).map((match) =>
         match[1].replace(/_/g, ' ')
