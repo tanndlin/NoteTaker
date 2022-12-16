@@ -20,6 +20,8 @@ const EditNote = (props: EditNoteProps) => {
         return <h1>404</h1>;
     }
 
+    document.title = note.title;
+
     const { title, body, directory } = note;
 
     const edit = (note: Note) => {

@@ -15,6 +15,9 @@ const ViewNotePage = (props: ViewNoteProps) => {
     if (!note) {
         return <h1>404</h1>;
     }
+
+    document.title = note.title;
+
     return (
         <main
             id="previewPageContainer"
