@@ -21,7 +21,7 @@ const PotentialRefs = (props: PotentialRefsProps) => {
             .reduce((acc: Note[], n: Note) => {
                 // eslint-disable-next-line no-useless-escape
                 const regex = new RegExp(
-                    `(?<!(\\[|/))${n.title}(?!(\\]|/))`,
+                    `(?<!(\\[|/))${n.title.split('').join('\\')}(?!(\\]|/))`,
                     'gi'
                 );
                 if (note.body.match(regex)) {
