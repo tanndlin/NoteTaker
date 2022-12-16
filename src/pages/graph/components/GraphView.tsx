@@ -60,6 +60,47 @@ const GraphView = (props: GraphProps) => {
                 graph.edges.push({ from: note.id, to: ref.note.id, width: 3 });
             });
         });
+
+        // Find duplicate edges with reversed to and from
+        const duplicateEdges = graph.edges.filter((edge, i) => {
+            return (
+                graph.edges.findIndex(
+                    (e) => e.from === edge.to && e.to === edge.from
+                ) !== -1
+            );
+        });
+
+        // Delete duplicate edges
+        duplicateEdges.forEach((edge) => {
+            const index = graph.edges.findIndex(
+                (e) => e.from === edge.from && e.to === edge.to
+            );
+            graph.edges.splice(index, 1);
+        });
+
+        // Get each double edge connection
+        const twoWayConnections: Set<number>[] = [];
+        duplicateEdges.forEach((edge) => {
+            const index = twoWayConnections.findIndex((set) => {
+                return set.has(edge.from) && set.has(edge.to);
+            });
+            if (index === -1) {
+                twoWayConnections.push(new Set([edge.from, edge.to]));
+            }
+        });
+
+        // Add an edge for each two way connection
+        twoWayConnections.forEach((set) => {
+            const from = Array.from(set)[0];
+            const to = Array.from(set)[1];
+            graph.edges.push({
+                from,
+                to,
+                width: 3,
+                arrows: { to: { enabled: false } }
+            });
+        });
+
         return graph;
     };
 

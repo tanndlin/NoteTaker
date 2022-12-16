@@ -14,4 +14,13 @@ export type Edge = {
     from: number;
     to: number;
     width?: number;
+    arrows?: Arrow;
+};
+
+export type Arrow = {
+    to: ArrowTo;
+};
+
+export type ArrowTo = {
+    enabled: boolean;
 };
