@@ -38,7 +38,7 @@ const GraphPage = (props: GraphPageProps) => {
 
     return (
         <main className="flex h-full flex-grow">
-            <aside className="bg-secondary h-full p-4 flex">
+            <aside className="bg-secondary h-full p-4 ml-4 flex">
                 <div className="flex flex-col justify-between">
                     <section className="overflow-auto overflow-x-hidden">
                         <h1>Files</h1>
