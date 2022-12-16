@@ -64,7 +64,7 @@ const GraphView = (props: GraphProps) => {
         });
 
         // Find duplicate edges with reversed to and from
-        const duplicateEdges = graph.edges.filter((edge, i) => {
+        const duplicateEdges = graph.edges.filter((edge) => {
             return (
                 graph.edges.findIndex(
                     (e) => e.from === edge.to && e.to === edge.from
