@@ -16,20 +16,25 @@ const PotentialRefs = (props: PotentialRefsProps) => {
     }, [props.note]);
 
     const getPotentialRefs = (): Note[] => {
-        return notes
-            .filter((n) => n.id !== note.id)
-            .reduce((acc: Note[], n: Note) => {
-                // eslint-disable-next-line no-useless-escape
-                const regex = new RegExp(
-                    `(?<!(\\[|/))${n.title.split('').join('\\')}(?!(\\]|/))`,
-                    'gi'
-                );
-                if (note.body.match(regex)) {
-                    acc.push(n);
-                }
+        try {
+            return notes
+                .filter((n) => n.id !== note.id)
+                .reduce((acc: Note[], n: Note) => {
+                    // eslint-disable-next-line no-useless-escape
+                    const regex = new RegExp(
+                        `(?<!(\\[|/))${n.title}(?!(\\]|/))`,
+                        'gi'
+                    );
+                    if (note.body.match(regex)) {
+                        acc.push(n);
+                    }
 
-                return acc;
-            }, []);
+                    return acc;
+                }, []);
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
     };
 
     const assignRef = (ref: Note) => () => {
