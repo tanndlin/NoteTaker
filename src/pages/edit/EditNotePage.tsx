@@ -14,8 +14,10 @@ type EditNoteProps = {
 };
 
 const EditNote = (props: EditNoteProps) => {
+    const { notes, setNotes } = props;
+
     const { id } = useParams();
-    const note = props.notes.find((note) => note.id === Number(id));
+    const note = notes.find((note) => note.id === Number(id));
     if (!note) {
         return <h1>404</h1>;
     }
@@ -25,25 +27,25 @@ const EditNote = (props: EditNoteProps) => {
     const { title, body, directory } = note;
 
     const edit = (note: Note) => {
-        const newNotes = props.notes.map((n) => {
+        const newNotes = notes.map((n) => {
             if (n.id === note.id) {
                 return note;
             }
             return n;
         });
-        props.setNotes(newNotes);
+        setNotes(newNotes);
     };
 
     const deleteNote = () => {
-        const newNotes = props.notes.filter((n) => n.id !== note.id);
-        props.setNotes(newNotes);
+        const newNotes = notes.filter((n) => n.id !== note.id);
+        setNotes(newNotes);
 
         window.location.href = '/';
     };
 
     return (
         <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
-            <p id="fakeElement" />
+            <p />
             <div className="px-8 flex flex-1 flex-col">
                 <EditableText
                     id="title"
@@ -72,7 +74,7 @@ const EditNote = (props: EditNoteProps) => {
                         <h2 className="text-2xl text-center w-full mb-8">
                             Preview
                         </h2>
-                        <Preview body={createLinks(note, props.notes)} />
+                        <Preview body={createLinks(note, notes)} />
                     </section>
                 </div>
             </div>

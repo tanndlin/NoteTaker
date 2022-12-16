@@ -39,11 +39,17 @@ function App() {
                     <Route path="/:id">
                         <Route
                             index
-                            element={<ViewNotePage {...{ notes }} />}
+                            element={
+                                <ViewNotePage {...{ notes, createNote }} />
+                            }
                         />
                         <Route
                             path="edit"
-                            element={<EditNote {...{ notes, setNotes }} />}
+                            element={
+                                <EditNote
+                                    {...{ notes, createNote, setNotes }}
+                                />
+                            }
                         />
                     </Route>
                     <Route path="about" element={<AboutPage />} />

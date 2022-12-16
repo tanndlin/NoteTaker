@@ -1,4 +1,4 @@
-#previewPageContainer {
+.TriplePane {
     display: grid;
-    grid-template-columns: 1fr 60vw 1fr;
+    grid-template-columns: 1fr 2fr .5fr;
 }

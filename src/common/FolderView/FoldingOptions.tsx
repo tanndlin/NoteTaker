@@ -1,7 +1,7 @@
 import React from 'react';
-import FolderMinusIcon from '../../../common/Icons/FolderMinusIcon';
-import FolderOpenIcon from '../../../common/Icons/FolderOpenIcon';
-import PlusIcon from '../../../common/Icons/PlusIcon';
+import FolderMinusIcon from '../Icons/FolderMinusIcon';
+import FolderOpenIcon from '../Icons/FolderOpenIcon';
+import PlusIcon from '../Icons/PlusIcon';
 
 type FolderOptionsProps = {
     handleNew: () => void;

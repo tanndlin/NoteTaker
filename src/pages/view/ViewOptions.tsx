@@ -14,7 +14,7 @@ const ViewOptions = (props: PreviewOptionsProps) => {
     };
 
     return (
-        <aside className="mt-16 mx-8">
+        <aside className="mt-16">
             <h2 className="text-center text-2xl mb-8">Options</h2>
             <div className="flex flex-col gap-8">
                 <span className="flex flex-col">

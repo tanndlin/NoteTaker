@@ -5,11 +5,15 @@ import { Note } from '../../common/types';
 import { Preview } from '../../common/Preview/Preview';
 import ViewOptions from './ViewOptions';
 import './ViewNote.scss';
+import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
 type ViewNoteProps = {
     notes: Note[];
+    createNote: () => number;
 };
 
 const ViewNotePage = (props: ViewNoteProps) => {
+    const { notes, createNote } = props;
+
     const { id } = useParams();
     const note = props.notes.find((note) => note.id === Number(id));
     if (!note) {
@@ -19,17 +23,18 @@ const ViewNotePage = (props: ViewNoteProps) => {
     document.title = note.title;
 
     return (
-        <main
-            id="previewPageContainer"
-            className="grid grid-cols-3 w-screen h-full"
-        >
-            <p />
-            <div className="px-8 max-h-[95vh] flex flex-col">
-                <h1 className="text-3xl mb-8">{note.title}</h1>
+        <div className="h-full">
+            <header className="grid grid-cols-3 w-screen TriplePane px-8 h-1/10">
+                <p />
+                <h1 className="text-3xl mx-8 mb-8">{note.title}</h1>
+                <p />
+            </header>
+            <main className="grid grid-cols-3 gap-8 TriplePane mx-8 h-9/10 pb-8">
+                <FolderViewWrapper {...{ notes, createNote }} />
                 <Preview body={createLinks(note, props.notes)} />
-            </div>
-            <ViewOptions directory={note.directory} />
-        </main>
+                <ViewOptions directory={note.directory} />
+            </main>
+        </div>
     );
 };
 
