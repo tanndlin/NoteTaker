@@ -45,7 +45,7 @@ const EditNote = (props: EditNoteProps) => {
 
     return (
         <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
-            <p />
+            <p id="fakeElement" />
             <div className="px-8 flex flex-1 flex-col">
                 <EditableText
                     id="title"
