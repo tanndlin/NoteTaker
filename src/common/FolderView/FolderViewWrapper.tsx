@@ -6,11 +6,12 @@ import { Directory, Note } from '../types';
 type FolderViewWrapperProps = {
     notes: Note[];
     createNote: () => number;
+    className?: string;
 };
 
 // Self-sufficient wrapper for FolderView
 const FolderViewWrapper = (props: FolderViewWrapperProps) => {
-    const { notes } = props;
+    const { notes, className } = props;
 
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
@@ -60,7 +61,12 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     }, [props.notes]);
 
     return (
-        <div className="rounded-md bg-secondary h-full py-6 px-4 overflow-auto">
+        <div
+            className={
+                'rounded-md bg-secondary h-full py-6 px-4 overflow-y-auto overflow-x-hidden ' +
+                className
+            }
+        >
             <header className="flex justify-between mb-8 sticky top-0 bg-secondary z-50 pt-4">
                 <h2 className="text-xl">Notes</h2>
                 <div className="flex gap-4">

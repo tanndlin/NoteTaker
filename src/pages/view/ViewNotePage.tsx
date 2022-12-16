@@ -30,7 +30,9 @@ const ViewNotePage = (props: ViewNoteProps) => {
                 <p />
             </header>
             <main className="grid grid-cols-3 gap-8 TriplePane mx-8 h-9/10 pb-8">
-                <FolderViewWrapper {...{ notes, createNote }} />
+                <FolderViewWrapper
+                    {...{ notes, createNote, className: 'viewPageFolderView' }}
+                />
                 <Preview body={createLinks(note, props.notes)} />
                 <ViewOptions directory={note.directory} />
             </main>

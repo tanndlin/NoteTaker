@@ -2,3 +2,17 @@
     display: grid;
     grid-template-columns: 1fr 2fr .5fr;
 }
+
+@media (max-width: 1300px) {
+    .TriplePane {
+        grid-template-columns: 1fr 60vw 1fr;
+    }
+
+    .viewPageFolderView {
+        background-color: transparent;
+
+        & * {
+            display: none;
+        }
+    }
+}
