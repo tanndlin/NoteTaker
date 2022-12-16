@@ -23,7 +23,7 @@ export const HomePage = (props: HomePageProps) => {
                     </a>
                 </span>
             </header>
-            <article className="bg-secondary container min-h-1/2 my-auto p-4 pt-0 rounded-md overflow-auto">
+            <article className="bg-secondary container min-h-1/2 mt-16 p-4 pt-0 rounded-md overflow-auto">
                 <FolderViewWrapper {...{ notes, createNote }} />
             </article>
         </main>

@@ -16,8 +16,9 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
     );
-
     const [searchTerm, setSearchTerm] = React.useState('');
+
+    const [queue, setQueue] = React.useState<string[]>([]);
 
     React.useEffect(() => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
@@ -27,14 +28,28 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
         const id = props.createNote();
         window.location.href = `/${id}/edit`;
     };
-
     const expandAll = () => {
-        const newOpenStates = { ...openStates };
-        Object.keys(openStates).forEach((key) => {
-            newOpenStates[key] = true;
-        });
-        setOpenStates(newOpenStates);
+        const heirarchy = getHeirarchy(props.notes, searchTerm);
+        const dfs = (dir: Directory) => {
+            Object.keys(dir.dirs).forEach((key) => {
+                queue.push(key);
+                dfs(dir.dirs[key]);
+            });
+        };
+        dfs(heirarchy);
+
+        const key = queue.shift()!;
+        setOpenStates({ ...openStates, [key]: true });
     };
+
+    React.useEffect(() => {
+        if (queue.length === 0) return;
+        const key = queue.shift()!;
+
+        setTimeout(() => {
+            setOpenStates({ ...openStates, [key]: true });
+        }, 100);
+    }, [openStates]);
 
     const foldAll = () => {
         const newOpenStates = { ...openStates };
