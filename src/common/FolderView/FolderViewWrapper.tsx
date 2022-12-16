@@ -13,12 +13,11 @@ type FolderViewWrapperProps = {
 const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     const { notes, className } = props;
 
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const [queue, _setQueue] = React.useState<string[]>([]);
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
     );
-    const [searchTerm, setSearchTerm] = React.useState('');
-
-    const [queue, setQueue] = React.useState<string[]>([]);
 
     React.useEffect(() => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
