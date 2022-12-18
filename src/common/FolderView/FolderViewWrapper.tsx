@@ -77,8 +77,10 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     return (
         <div
             className={
-                'rounded-md bg-secondary h-full py-6 px-4 overflow-y-auto overflow-x-hidden ' +
+                'rounded-md bg-secondary h-full py-6 px-4 overflow-y-auto overflow-x-hidden' +
                 className
+                    ? ` ${className}`
+                    : ''
             }
         >
             <header className="flex justify-between mb-8 sticky top-0 bg-secondary z-50 pt-4">
