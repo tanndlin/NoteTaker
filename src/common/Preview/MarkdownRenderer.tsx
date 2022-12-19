@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import 'github-markdown-css';
 import './Markdown.scss';
+import remarkGfm from 'remark-gfm';
 
 type MarkdownRendererProps = {
     markdown: string;
@@ -28,6 +29,7 @@ const MarkdownRenderer = (props: MarkdownRendererProps) => {
     return (
         <ReactMarkdown
             className="markdown-body"
+            remarkPlugins={[remarkGfm]}
             components={{
                 header: HeadingRenderer,
                 h1: HeadingRenderer,
