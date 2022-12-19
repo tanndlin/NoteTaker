@@ -7,6 +7,8 @@ import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
+import './GraphPage.scss';
+
 type GraphPageProps = {
     notes: Note[];
 };
@@ -54,7 +56,7 @@ const GraphPage = (props: GraphPageProps) => {
 
     return (
         <main className="flex h-full flex-grow">
-            <aside className="bg-secondary h-full p-4 ml-4 flex">
+            <aside id="graphFolderContainer">
                 <div className="flex flex-col justify-between">
                     <section className="overflow-auto overflow-x-hidden">
                         <h1>Files</h1>
