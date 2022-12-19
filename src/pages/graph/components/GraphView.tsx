@@ -150,7 +150,7 @@ const GraphView = (props: GraphProps) => {
     };
 
     const events = {
-        select: function (event: { nodes: any; edges: any }) {
+        select: function (event: { nodes: number[]; edges: string[] }) {
             const { nodes, edges } = event;
             console.log('Selected nodes:');
             console.log(nodes);
