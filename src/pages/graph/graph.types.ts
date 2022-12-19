@@ -4,7 +4,7 @@ export type IGraph = {
 };
 
 export type Node = {
-    id: number;
+    id: ID;
     label: string;
     size?: number;
     group?: string;
@@ -12,11 +12,13 @@ export type Node = {
 };
 
 export type Edge = {
-    from: number;
-    to: number;
+    from: ID;
+    to: ID;
     width?: number;
     arrows?: Arrow;
 };
+
+export type ID = number | string;
 
 export type Font = {
     face: string;

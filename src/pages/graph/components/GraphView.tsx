@@ -3,12 +3,15 @@ import Graph from 'react-graph-vis';
 import { getRefs } from '../../../common/bodyToView';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { Directory, Note } from '../../../common/types';
-import { IGraph } from '../graph.types';
+import { ID, IGraph } from '../graph.types';
 
-type GraphProps = { notes: Note[] };
+type GraphProps = {
+    notes: Note[];
+    setFilter: React.Dispatch<React.SetStateAction<ID[]>>;
+};
 
 const GraphView = (props: GraphProps) => {
-    const { notes } = props;
+    const { notes, setFilter } = props;
 
     const [graph, setGraph] = React.useState({
         nodes: [],
@@ -31,8 +34,8 @@ const GraphView = (props: GraphProps) => {
             });
         });
 
-        const heirarchy = getHeirarchy(notes, '');
-        const addHeiarchyEdges = (heirarchy: Directory, parentID: number) => {
+        const heirarchy = getHeirarchy(notes, () => true);
+        const addHeiarchyEdges = (heirarchy: Directory, parentID: ID) => {
             if (parentID !== -1) {
                 heirarchy.notes.forEach((note) => {
                     graph.edges.push({ from: parentID, to: note.id });
@@ -40,7 +43,7 @@ const GraphView = (props: GraphProps) => {
             }
 
             Object.keys(heirarchy.dirs).forEach((dir) => {
-                const id = graph.nodes.length;
+                const id = dir;
                 graph.nodes.push({
                     id,
                     label: dir,
@@ -81,7 +84,7 @@ const GraphView = (props: GraphProps) => {
         });
 
         // Get each double edge connection
-        const twoWayConnections: Set<number>[] = [];
+        const twoWayConnections: Set<ID>[] = [];
         duplicateEdges.forEach((edge) => {
             const index = twoWayConnections.findIndex((set) => {
                 return set.has(edge.from) && set.has(edge.to);
@@ -118,7 +121,7 @@ const GraphView = (props: GraphProps) => {
     ];
 
     const groups: any = {};
-    Object.keys(getHeirarchy(notes, '').dirs).forEach((dir, i) => {
+    Object.keys(getHeirarchy(notes, () => true).dirs).forEach((dir, i) => {
         groups[dir] = {
             color: colors[i % colors.length]
         };
@@ -151,11 +154,8 @@ const GraphView = (props: GraphProps) => {
 
     const events = {
         select: function (event: { nodes: number[]; edges: string[] }) {
-            const { nodes, edges } = event;
-            console.log('Selected nodes:');
-            console.log(nodes);
-            console.log('Selected edges:');
-            console.log(edges);
+            const { nodes } = event;
+            setFilter(nodes);
         }
     };
 

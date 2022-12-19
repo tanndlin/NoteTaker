@@ -23,12 +23,16 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
 
+    const search = (note: Note) =>
+        note.title.toLowerCase().includes(searchTerm.toLowerCase());
+
     const handleNew = () => {
         const id = props.createNote();
         window.location.href = `/${id}/edit`;
     };
+
     const expandAll = () => {
-        const heirarchy = getHeirarchy(props.notes, searchTerm);
+        const heirarchy = getHeirarchy(props.notes, search);
         const dfs = (dir: Directory) => {
             Object.keys(dir.dirs).forEach((key) => {
                 queue.push(key);
@@ -70,7 +74,7 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             });
         };
 
-        bfs(getHeirarchy(props.notes, searchTerm));
+        bfs(getHeirarchy(props.notes, search));
         setOpenStates(newOpenStates);
     }, [props.notes]);
 
@@ -99,7 +103,7 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             </header>
             <div>
                 <FolderView
-                    {...{ notes, searchTerm, openStates, setOpenStates }}
+                    {...{ notes, filter: search, openStates, setOpenStates }}
                 />
             </div>
         </div>

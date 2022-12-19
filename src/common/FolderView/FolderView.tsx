@@ -5,13 +5,13 @@ import Folder from './Folder';
 
 type FolderViewProps = {
     notes: Note[];
-    searchTerm: string;
+    filter: (note: Note) => boolean;
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
 };
 
 export const FolderView = (props: FolderViewProps) => {
-    const { notes, searchTerm, openStates, setOpenStates } = props;
+    const { notes, filter, openStates, setOpenStates } = props;
 
     // Recursively create the file structure
     const createFileStructure = (heirarchy: Directory) => {
@@ -41,24 +41,16 @@ export const FolderView = (props: FolderViewProps) => {
 
     return (
         <div className="w-full h-full">
-            {createFileStructure(getHeirarchy(notes, searchTerm))}
+            {createFileStructure(getHeirarchy(notes, filter))}
         </div>
     );
 };
 
-const matchesSearch = (term: string, note: Note) => {
-    if (!term) return true;
-    if (!term.startsWith('text:'))
-        return [note.title, note.directory].some((e) =>
-            e.toLowerCase().includes(term.toLowerCase())
-        );
-
-    const text = term.substring(5);
-    return note.body.toLowerCase().includes(text.toLowerCase());
-};
-
 // This will display notes in a folder heirarchy according to their directory
-export const getHeirarchy = (notes: Note[], searchTerm: string) => {
+export const getHeirarchy = (
+    notes: Note[],
+    filter: (note: Note) => boolean
+) => {
     const heirarchy: Directory = { notes: [], dirs: {} };
     notes.forEach((note) => {
         const dir = note.directory;
@@ -78,7 +70,7 @@ export const getHeirarchy = (notes: Note[], searchTerm: string) => {
             currentDir = currentDir.dirs[dirBuilder];
         });
 
-        if (matchesSearch(searchTerm, note)) {
+        if (filter(note)) {
             currentDir.notes.push(note);
         }
     });

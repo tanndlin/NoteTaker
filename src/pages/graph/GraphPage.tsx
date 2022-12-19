@@ -5,6 +5,7 @@ import FolderOpenIcon from '../../common/Icons/FolderOpenIcon';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
+import { ID } from './graph.types';
 
 type GraphPageProps = {
     notes: Note[];
@@ -15,6 +16,7 @@ const GraphPage = (props: GraphPageProps) => {
     const [openStates, setOpenStates] = React.useState<{
         [key: string]: boolean;
     }>(JSON.parse(localStorage.getItem('openStates') || '{}'));
+    const [filter, setFilter] = React.useState([] as ID[]);
 
     React.useEffect(() => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
@@ -36,6 +38,20 @@ const GraphPage = (props: GraphPageProps) => {
         setOpenStates(newOpenStates);
     };
 
+    const filterFunction = (note: Note) => {
+        if (!filter.length) {
+            return true;
+        }
+
+        // Check if ID is in filter
+        if (filter.some((id) => id === note.id)) {
+            return true;
+        }
+
+        // Check for dirName in note.directory
+        return filter.some((dirName) => note.directory.includes(dirName + ''));
+    };
+
     return (
         <main className="flex h-full flex-grow">
             <aside className="bg-secondary h-full p-4 ml-4 flex">
@@ -46,7 +62,7 @@ const GraphPage = (props: GraphPageProps) => {
                             <FolderView
                                 {...{
                                     notes,
-                                    searchTerm: '',
+                                    filter: filterFunction,
                                     openStates,
                                     setOpenStates
                                 }}
@@ -70,7 +86,7 @@ const GraphPage = (props: GraphPageProps) => {
             </aside>
 
             <section className="h-full flex-1">
-                <GraphView notes={notes} />
+                <GraphView notes={notes} setFilter={setFilter} />
             </section>
         </main>
     );
