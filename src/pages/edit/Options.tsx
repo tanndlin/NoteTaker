@@ -46,7 +46,7 @@ const Options = (props: OptionsProps) => {
                         <HomeIcon className="mx-auto" />
                     </button>
                     <button onClick={gotoView}>
-                        <MagnifyingGlassIcon className="mx-auto" />
+                        <MagnifyingGlassIcon className="mx-auto w-6" />
                     </button>
                     <button
                         className="bg-red-500 hover:bg-red-400"
