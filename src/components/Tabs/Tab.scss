@@ -16,7 +16,7 @@
 }
 
 .tabHeader {
-    @apply border-tertiary border-2;
+    @apply border-tertiary border-2 rounded-t-md;
     padding: 3px 10px;
     // height: 28px;
     margin-top: auto;
