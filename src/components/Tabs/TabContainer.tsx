@@ -20,10 +20,10 @@ const TabContainer = (props: TabContainerProps) => {
         notes[activeTab]
     ]);
 
-    const note = props.notes[activeTab];
+    const note = tabbedNotes[activeTab];
 
     const closeTab = (tab: Note) => {
-        if (tabbedNotes.length === 1) return;
+        if (tabbedNotes.length === 1) window.location.href = '/';
 
         const newTabbedNotes = tabbedNotes.filter((t) => t.id !== tab.id);
         setTabbedNotes(newTabbedNotes);
