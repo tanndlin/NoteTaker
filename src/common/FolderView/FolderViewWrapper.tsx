@@ -7,11 +7,12 @@ type FolderViewWrapperProps = {
     notes: Note[];
     createNote: () => number;
     className?: string;
+    onClick: (id: number) => void;
 };
 
 // Self-sufficient wrapper for FolderView
 const FolderViewWrapper = (props: FolderViewWrapperProps) => {
-    const { notes, className } = props;
+    const { notes, className, onClick } = props;
 
     const [searchTerm, setSearchTerm] = React.useState('');
     const [queue, _setQueue] = React.useState<string[]>([]);
@@ -103,7 +104,13 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             </header>
             <div>
                 <FolderView
-                    {...{ notes, filter: search, openStates, setOpenStates }}
+                    {...{
+                        notes,
+                        filter: search,
+                        openStates,
+                        setOpenStates,
+                        onClick
+                    }}
                 />
             </div>
         </div>

@@ -54,6 +54,10 @@ const GraphPage = (props: GraphPageProps) => {
         return filter.some((dirName) => note.directory.includes(dirName + ''));
     };
 
+    const onClick = (id: number) => {
+        window.location.href = `/${id}`;
+    };
+
     return (
         <main className="flex h-full flex-grow">
             <aside id="graphFolderContainer">
@@ -66,7 +70,8 @@ const GraphPage = (props: GraphPageProps) => {
                                     notes,
                                     filter: filterFunction,
                                     openStates,
-                                    setOpenStates
+                                    setOpenStates,
+                                    onClick
                                 }}
                             />
                         </div>

@@ -8,17 +8,18 @@ type FolderViewProps = {
     filter: (note: Note) => boolean;
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
+    onClick: (id: number) => void;
 };
 
 export const FolderView = (props: FolderViewProps) => {
-    const { notes, filter, openStates, setOpenStates } = props;
+    const { notes, filter, openStates, setOpenStates, onClick } = props;
 
     // Recursively create the file structure
     const createFileStructure = (heirarchy: Directory) => {
         return (
             <ul className="dirs">
                 {heirarchy.notes.map((note) => (
-                    <File note={note} key={note.id} />
+                    <File note={note} key={note.id} onClick={onClick} />
                 ))}
                 {Object.keys(heirarchy.dirs).map((dir) => (
                     <Folder

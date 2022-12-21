@@ -1,0 +1,42 @@
+#tabsContainer {
+    height: 100%;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: min-content min-content minmax(0, auto);
+}
+
+.tabBar {
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 5px;
+    }
+}
+
+.tabHeader {
+    @apply border-tertiary border-2;
+    padding: 3px 10px;
+    // height: 28px;
+    margin-top: auto;
+    display: flex;
+
+    &:hover {
+        @apply bg-tertiary;
+    }
+
+    &.active {
+        padding-top: 10px;
+    }
+
+    &>h1 {
+        margin-top: auto;
+    }
+}
+
+.tab {
+    &.inactive {
+        display: none;
+    }
+}

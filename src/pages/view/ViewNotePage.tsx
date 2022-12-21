@@ -6,6 +6,7 @@ import { Preview } from '../../common/Preview/Preview';
 import ViewOptions from './ViewOptions';
 import './ViewNote.scss';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
+import TabContainer from '../../components/Tabs/TabContainer';
 type ViewNoteProps = {
     notes: Note[];
     createNote: () => number;
@@ -22,22 +23,7 @@ const ViewNotePage = (props: ViewNoteProps) => {
 
     document.title = note.title;
 
-    return (
-        <div className="h-full">
-            <header className="grid grid-cols-3 w-screen TriplePane px-8 h-1/10">
-                <p />
-                <h1 className="text-3xl mx-8 mb-8">{note.title}</h1>
-                <p />
-            </header>
-            <main className="grid grid-cols-3 gap-8 TriplePane mx-8 h-9/10 pb-8">
-                <FolderViewWrapper
-                    {...{ notes, createNote, className: 'viewPageFolderView' }}
-                />
-                <Preview body={createLinks(note, props.notes)} />
-                <ViewOptions directory={note.directory} />
-            </main>
-        </div>
-    );
+    return <TabContainer notes={notes} createNote={createNote} />;
 };
 
 export default ViewNotePage;
