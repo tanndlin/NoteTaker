@@ -28,6 +28,8 @@ const TabContainer = (props: TabContainerProps) => {
         const newTabbedNotes = tabbedNotes.filter((t) => t.id !== tab.id);
         setTabbedNotes(newTabbedNotes);
 
+        if (tabbedNotes.indexOf(tab) < activeTab) setActiveTab(activeTab - 1);
+
         if (tab.id === tabbedNotes[activeTab].id) {
             setActiveTab(0);
         }

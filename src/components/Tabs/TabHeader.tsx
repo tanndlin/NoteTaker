@@ -31,7 +31,11 @@ const TabHeader = (props: TabHeaderProps) => {
             onClick={tryOpenTab}
         >
             <h1>{tab.title}</h1>
-            <Close callback={closeTab} />
+            <Close
+                callback={() => {
+                    closeTab(tab);
+                }}
+            />
         </div>
     );
 };
