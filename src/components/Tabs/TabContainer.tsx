@@ -87,7 +87,7 @@ const TabContainer = (props: TabContainerProps) => {
                         />
                     ))}
                 </article>
-                <ViewOptions directory={note.directory} />
+                <ViewOptions note={note} />
             </main>
         </div>
     );

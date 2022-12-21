@@ -2,14 +2,16 @@ import React from 'react';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import EditIcon from '../../common/Icons/EditIcon';
 import HomeIcon from '../../common/Icons/HomeIcon';
+import { Note } from '../../common/types';
 
 type PreviewOptionsProps = {
-    directory: string;
+    note: Note;
 };
 
 const ViewOptions = (props: PreviewOptionsProps) => {
+    const { directory, id } = props.note;
+
     const gotoEdit = () => {
-        const id = window.location.pathname.split('/')[1];
         window.location.href = `/${id}/edit`;
     };
 
@@ -19,7 +21,7 @@ const ViewOptions = (props: PreviewOptionsProps) => {
             <div className="flex flex-col gap-8">
                 <span className="flex flex-col">
                     <label htmlFor="directory">Directory</label>
-                    <h2>{props.directory}</h2>
+                    <h2>{directory}</h2>
                 </span>
                 <ButtonBar>
                     <button
