@@ -49,7 +49,6 @@ const PotentialRefs = (props: PotentialRefsProps) => {
         );
 
         props.edit({ body: newBody });
-        console.log(newBody);
     };
 
     if (!potentialRefs.length) return <></>;
