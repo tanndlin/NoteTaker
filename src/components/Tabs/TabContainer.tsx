@@ -15,11 +15,12 @@ type TabContainerProps = {
 const TabContainer = (props: TabContainerProps) => {
     const { notes, createNote } = props;
 
-    const [activeTab, setActiveTab] = React.useState(0);
+    const id = window.location.pathname.split('/')[1];
     const [tabbedNotes, setTabbedNotes] = React.useState<Note[]>([
-        notes[activeTab]
+        notes.find((note) => note.id === parseInt(id))!
     ]);
 
+    const [activeTab, setActiveTab] = React.useState(0);
     const note = tabbedNotes[activeTab];
 
     const closeTab = (tab: Note) => {
