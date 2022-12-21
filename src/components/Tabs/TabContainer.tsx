@@ -22,6 +22,17 @@ const TabContainer = (props: TabContainerProps) => {
 
     const note = props.notes[activeTab];
 
+    const closeTab = (tab: Note) => {
+        if (tabbedNotes.length === 1) return;
+
+        const newTabbedNotes = tabbedNotes.filter((t) => t.id !== tab.id);
+        setTabbedNotes(newTabbedNotes);
+
+        if (tab.id === tabbedNotes[activeTab].id) {
+            setActiveTab(0);
+        }
+    };
+
     return (
         <div id="tabsContainer">
             <header className="grid grid-cols-3 w-screen TriplePane px-8">
@@ -38,6 +49,7 @@ const TabContainer = (props: TabContainerProps) => {
                             tab={tab}
                             active={index === activeTab}
                             onClick={() => setActiveTab(index)}
+                            closeTab={closeTab}
                         />
                     ))}
                 </div>

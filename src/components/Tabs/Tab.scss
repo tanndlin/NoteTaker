@@ -20,7 +20,15 @@
     padding: 3px 10px;
     // height: 28px;
     margin-top: auto;
+    padding-right: 30px;
     display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    &>.close {
+        margin-left: 10px;
+        font-size: x-large;
+    }
 
     &:hover {
         @apply bg-tertiary;

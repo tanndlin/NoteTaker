@@ -1,0 +1,21 @@
+.close {
+    position: absolute;
+    top: -.5rem;
+    right: .5rem;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: 300ms;
+
+    &:hover {
+        color: #ff0000;
+    }
+}
+
+*:hover>.close {
+    visibility: visible;
+    opacity: 1;
+}
