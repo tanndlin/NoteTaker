@@ -52,9 +52,12 @@ function App() {
                             }
                         />
                     </Route>
-                    <Route path="about" element={<AboutPage />} />
-                    <Route path="graph" element={<GraphPage notes={notes} />} />
-                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route
+                        path="/graph"
+                        element={<GraphPage notes={notes} />}
+                    />
+                    <Route path="**" element={<Navigate to="/" />} />
                 </Routes>
             </BrowserRouter>
         </div>
