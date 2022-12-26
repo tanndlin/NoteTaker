@@ -82,7 +82,7 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     return (
         <div
             className={
-                'rounded-md bg-secondary h-full py-6 px-4 overflow-y-auto overflow-x-hidden' +
+                'rounded-md bg-secondary h-full px-4 overflow-y-auto overflow-x-hidden' +
                 (className ? ` ${className}` : '')
             }
         >
