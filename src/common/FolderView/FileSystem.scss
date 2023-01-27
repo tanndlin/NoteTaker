@@ -23,20 +23,6 @@
 
     &>.dirs {
 
-        // Sub folders
-        // &>ul:before {
-        //     position: absolute;
-        //     content: '';
-        //     display: inline-block;
-        //     width: 2rem;
-        //     height: 1.70rem;
-        //     top: 0%;
-        //     left: -1.75rem;
-        //     border-bottom: 1px solid white;
-        //     border-left: 1px solid white;
-
-        // }
-
         // Notes in the folder
         &>li {
             position: relative;
@@ -59,21 +45,6 @@
             }
 
         }
-
-        // Line to connect all the sub folders
-        // &:has(.folder) {
-        //     &:before {
-        //         position: absolute;
-        //         content: '';
-        //         display: inline-block;
-        //         width: 0;
-        //         height: 80%;
-        //         top: 12.5%;
-        //         left: .25rem;
-        //         border-bottom: 1px solid white;
-        //         border-left: 1px solid white;
-        //     }
-        // }
     }
 
 
@@ -82,6 +53,8 @@
         transition: 300ms linear;
     }
 
+
+    // Me when chess
     &.folded {
 
         // Change the borders to point down
@@ -107,6 +80,8 @@
     }
 
     &>a:hover {
+        cursor: pointer;
+
         &+svg {
             margin-left: .5rem;
             opacity: 1;
