@@ -7,7 +7,7 @@ type FolderViewWrapperProps = {
     notes: Note[];
     createNote: () => number;
     className?: string;
-    onClick: (id: number) => void;
+    onClick: (note: Note) => void;
 };
 
 // Self-sufficient wrapper for FolderView

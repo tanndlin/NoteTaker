@@ -36,6 +36,15 @@ const TabContainer = (props: TabContainerProps) => {
         }
     };
 
+    const openTab = (note: Note) => {
+        if (!tabbedNotes.includes(note)) {
+            setTabbedNotes([...tabbedNotes, note]);
+            setActiveTab(tabbedNotes.length);
+        } else {
+            setActiveTab(tabbedNotes.indexOf(note));
+        }
+    };
+
     return (
         <div id="tabsContainer">
             <header className="grid grid-cols-3 w-screen TriplePane px-8">
@@ -64,17 +73,7 @@ const TabContainer = (props: TabContainerProps) => {
                         notes,
                         createNote,
                         className: 'viewPageFolderView',
-                        onClick: (id: number) => {
-                            const note = notes.find((note) => note.id === id);
-                            if (!note) return;
-
-                            if (!tabbedNotes.includes(note)) {
-                                setTabbedNotes([...tabbedNotes, note]);
-                                setActiveTab(tabbedNotes.length);
-                            } else {
-                                setActiveTab(tabbedNotes.indexOf(note));
-                            }
-                        }
+                        onClick: openTab
                     }}
                 />
                 <article className="activeTabContainer overflow-auto min-h-[calc(100%-48px-62px)] h-full">
@@ -84,6 +83,13 @@ const TabContainer = (props: TabContainerProps) => {
                             tab={tab}
                             notes={notes}
                             active={index === activeTab}
+                            onClick={(id: number) => {
+                                const note = notes.find(
+                                    (note) => note.id === id
+                                );
+
+                                if (note) openTab(note);
+                            }}
                         />
                     ))}
                 </article>

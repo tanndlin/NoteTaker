@@ -10,8 +10,8 @@ type HomePageProps = {
 export const HomePage = (props: HomePageProps) => {
     const { notes, createNote } = props;
 
-    const onClick = (id: number) => {
-        window.location.href = `/${id}`;
+    const onClick = (note: Note) => {
+        window.location.href = `/${note.id}`;
     };
 
     return (

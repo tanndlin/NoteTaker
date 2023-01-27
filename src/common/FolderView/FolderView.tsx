@@ -8,7 +8,7 @@ type FolderViewProps = {
     filter: (note: Note) => boolean;
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
-    onClick: (id: number) => void;
+    onClick: (note: Note) => void;
 };
 
 export const FolderView = (props: FolderViewProps) => {

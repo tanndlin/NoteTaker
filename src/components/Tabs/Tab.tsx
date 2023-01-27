@@ -7,10 +7,11 @@ type TabProps = {
     tab: Note;
     active: boolean;
     notes: Note[];
+    onClick: (id: number) => void;
 };
 
 const Tab = (props: TabProps) => {
-    const { tab, active } = props;
+    const { tab, active, onClick } = props;
 
     return (
         <section
@@ -20,7 +21,7 @@ const Tab = (props: TabProps) => {
             aria-hidden={!active}
             hidden={!active}
         >
-            <Preview body={createLinks(tab, props.notes)} />
+            <Preview body={createLinks(tab, props.notes)} onClick={onClick} />
         </section>
     );
 };

@@ -54,8 +54,8 @@ const GraphPage = (props: GraphPageProps) => {
         return filter.some((dirName) => note.directory.includes(dirName + ''));
     };
 
-    const onClick = (id: number) => {
-        window.location.href = `/${id}`;
+    const onClick = (note: Note) => {
+        window.location.href = `/${note.id}`;
     };
 
     return (

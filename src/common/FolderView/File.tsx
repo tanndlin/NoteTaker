@@ -4,7 +4,7 @@ import MagnifyingGlassIcon from '../Icons/MagnifyingGlassIcon';
 
 type FileProps = {
     note: Note;
-    onClick: (id: number) => void;
+    onClick: (note: Note) => void;
 };
 
 export const File = (props: FileProps) => {
@@ -12,7 +12,7 @@ export const File = (props: FileProps) => {
 
     return (
         <li key={note.id} className="file ml-8 flex">
-            <a onClick={() => onClick(note.id)}>{note.title}</a>
+            <a onClick={() => onClick(note)}>{note.title}</a>
             <MagnifyingGlassIcon className="w-4" />
         </li>
     );
