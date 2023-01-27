@@ -22,6 +22,8 @@ export const Preview = (props: PreviewProps) => {
                 if (e.target instanceof HTMLAnchorElement) {
                     if (!props.onClick) return;
 
+                    if (e.target.href.includes('http')) return;
+
                     e.preventDefault();
                     props.onClick(getID(e.target.href));
                 }
