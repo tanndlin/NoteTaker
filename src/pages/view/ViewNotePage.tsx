@@ -1,11 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { createLinks } from '../../common/bodyToView';
 import { Note } from '../../common/types';
-import { Preview } from '../../common/Preview/Preview';
-import ViewOptions from './ViewOptions';
 import './ViewNote.scss';
-import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
 import TabContainer from '../../components/Tabs/TabContainer';
 type ViewNoteProps = {
     notes: Note[];
