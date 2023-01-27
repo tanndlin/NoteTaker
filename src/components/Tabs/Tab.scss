@@ -25,6 +25,9 @@
     justify-content: space-between;
     position: relative;
 
+    @apply bg-secondary;
+
+
     &>.close {
         margin-left: 10px;
         font-size: x-large;
@@ -36,6 +39,7 @@
 
     &.active {
         padding-top: 10px;
+        background-color: rgb(51 61 75);
     }
 
     &>h1 {
