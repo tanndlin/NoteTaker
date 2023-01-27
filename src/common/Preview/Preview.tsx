@@ -22,7 +22,10 @@ export const Preview = (props: PreviewProps) => {
                 if (e.target instanceof HTMLAnchorElement) {
                     if (!props.onClick) return;
 
-                    if (e.target.href.includes('http')) return;
+                    const isCurrentDomain = e.target.href.includes(
+                        window.location.origin
+                    );
+                    if (!isCurrentDomain) return;
 
                     e.preventDefault();
                     props.onClick(getID(e.target.href));
