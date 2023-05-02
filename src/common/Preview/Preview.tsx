@@ -33,15 +33,22 @@ export const Preview = (props: PreviewProps) => {
     const [tooltipContent, settooltipContent] = React.useState(<></>);
     const [tooltipPosition, settooltipPosition] = React.useState([0, 0]);
 
+    const [currentID, setCurrentID] = React.useState<number | null>(null);
+
     const removeTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
     const showTooltip = (el: HTMLAnchorElement) => {
         const isCurrentDomain = el.href.includes(window.location.origin);
         if (!isCurrentDomain) return;
 
-        if (removeTimeout.current) clearTimeout(removeTimeout.current);
+        if (removeTimeout.current) {
+            clearTimeout(removeTimeout.current);
+            removeTimeout.current = null;
+        }
 
         const id = getID(el.href);
+        setCurrentID(id);
+
         const tooltipContent = getTextFromID(id);
         settooltipContent(tooltipContent);
 
@@ -73,9 +80,13 @@ export const Preview = (props: PreviewProps) => {
             }}
             onMouseMove={(e) => {
                 const tooltip = document.querySelector('.tooltip');
-                // console.log(tooltip);
+
                 if (e.target instanceof HTMLAnchorElement) {
+                    const id = getID(e.target.href);
                     if (tooltipVisible) return;
+                    if (currentID !== id && tooltip?.contains(e.target as Node))
+                        // this does not work
+                        return;
 
                     const el = e.target;
                     showTooltip(el);
@@ -85,11 +96,15 @@ export const Preview = (props: PreviewProps) => {
                         tooltip?.contains(e.target as Node)
                     )
                 ) {
-                    if (removeTimeout.current)
-                        clearTimeout(removeTimeout.current);
+                    if (removeTimeout.current) {
+                        return;
+                    }
+
                     removeTimeout.current = setTimeout(() => {
                         setTooltipVisible(false);
-                    }, 1000);
+                        setCurrentID(null);
+                        removeTimeout.current = null;
+                    }, 500);
                 }
             }}
         >
