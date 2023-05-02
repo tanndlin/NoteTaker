@@ -2,7 +2,7 @@ import { Note } from './types';
 
 export const createLinks = (note: Note, notes: Note[]) => {
     const currentDepth = (note.directory.match(/\//g) || []).length;
-    let newBody = note.body;
+    let newBody = note.body + '';
     const refs = getRefs(note, notes);
 
     refs.forEach((ref) => {

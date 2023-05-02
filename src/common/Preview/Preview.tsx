@@ -33,9 +33,13 @@ export const Preview = (props: PreviewProps) => {
     const [tooltipContent, settooltipContent] = React.useState(<></>);
     const [tooltipPosition, settooltipPosition] = React.useState([0, 0]);
 
+    const removeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
     const showTooltip = (el: HTMLAnchorElement) => {
         const isCurrentDomain = el.href.includes(window.location.origin);
         if (!isCurrentDomain) return;
+
+        if (removeTimeout.current) clearTimeout(removeTimeout.current);
 
         const id = getID(el.href);
         const tooltipContent = getTextFromID(id);
@@ -81,7 +85,11 @@ export const Preview = (props: PreviewProps) => {
                         tooltip?.contains(e.target as Node)
                     )
                 ) {
-                    setTooltipVisible(false);
+                    if (removeTimeout.current)
+                        clearTimeout(removeTimeout.current);
+                    removeTimeout.current = setTimeout(() => {
+                        setTooltipVisible(false);
+                    }, 1000);
                 }
             }}
         >
