@@ -74,7 +74,10 @@ const EditNote = (props: EditNoteProps) => {
                         <h2 className="text-2xl text-center w-full mb-8">
                             Preview
                         </h2>
-                        <Preview body={createLinks(note, notes)} />
+                        <Preview
+                            body={createLinks(note, notes)}
+                            notes={notes}
+                        />
                     </section>
                 </div>
             </div>

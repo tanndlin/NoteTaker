@@ -1,3 +1,15 @@
 #previewContainer {
     // height: 900px !important;
 }
+
+.tooltip {
+    display: none;
+    position: absolute;
+    @apply bg-tertiary rounded-md p-4;
+}
+
+.tooltip-content {
+    overflow: auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
