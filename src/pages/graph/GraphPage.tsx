@@ -1,12 +1,9 @@
 import React from 'react';
-import { FolderView } from '../../common/FolderView/FolderView';
-import FolderMinusIcon from '../../common/Icons/FolderMinusIcon';
-import FolderOpenIcon from '../../common/Icons/FolderOpenIcon';
-import HomeIcon from '../../common/Icons/HomeIcon';
 import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
+import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import './GraphPage.scss';
 
 type GraphPageProps = {
@@ -54,41 +51,15 @@ const GraphPage = (props: GraphPageProps) => {
         return filter.some((dirName) => note.directory.includes(dirName + ''));
     };
 
-    const onClick = (note: Note) => {
-        window.location.href = `/${note.id}`;
-    };
-
     return (
         <main className="flex h-full flex-grow">
             <aside id="graphFolderContainer">
-                <div className="flex flex-col justify-between">
-                    <section className="overflow-auto overflow-x-hidden">
-                        <h1>Files</h1>
-                        <div className="w-max mr-4 mb-4">
-                            <FolderView
-                                {...{
-                                    notes,
-                                    filter: filterFunction,
-                                    openStates,
-                                    setOpenStates,
-                                    onClick
-                                }}
-                            />
-                        </div>
-                    </section>
-                    <footer className="flex flex-col gap-8">
-                        <span className="flex gap-8 justify-center">
-                            <button onClick={expandAll}>
-                                <FolderOpenIcon className="mx-auto" />
-                            </button>
-                            <button onClick={foldAll}>
-                                <FolderMinusIcon className="mx-auto" />
-                            </button>
-                        </span>
-                        <button onClick={() => (window.location.href = '/')}>
-                            <HomeIcon className="mx-auto" />
-                        </button>
-                    </footer>
+                <div className="flex flex-col">
+                    <h1 className="text-2xl">Files</h1>
+                    <FolderViewMinWrapper
+                        notes={notes}
+                        filter={filterFunction}
+                    />
                 </div>
             </aside>
 

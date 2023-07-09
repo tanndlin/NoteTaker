@@ -1,8 +1,8 @@
 import React from 'react';
+import { createLinks } from '../bodyToView';
+import { Note } from '../types';
 import MarkdownRenderer from './MarkdownRenderer';
 import './Preview.scss';
-import { Note } from '../types';
-import { createLinks } from '../bodyToView';
 
 type PreviewProps = {
     body: string;
@@ -20,7 +20,9 @@ export const Preview = (props: PreviewProps) => {
 
     const getTextFromID = (id: number) => {
         const note = props.notes.find((note) => note.id === id);
-        if (!note) return <></>;
+        if (!note) {
+            return <></>;
+        }
 
         return (
             <div className="tooltip-content">
@@ -39,7 +41,9 @@ export const Preview = (props: PreviewProps) => {
 
     const showTooltip = (el: HTMLAnchorElement) => {
         const isCurrentDomain = el.href.includes(window.location.origin);
-        if (!isCurrentDomain) return;
+        if (!isCurrentDomain) {
+            return;
+        }
 
         if (removeTimeout.current) {
             clearTimeout(removeTimeout.current);
@@ -67,12 +71,16 @@ export const Preview = (props: PreviewProps) => {
                 console.log(e.target);
 
                 if (e.target instanceof HTMLAnchorElement) {
-                    if (!props.onClick) return;
+                    if (!props.onClick) {
+                        return;
+                    }
 
                     const isCurrentDomain = e.target.href.includes(
                         window.location.origin
                     );
-                    if (!isCurrentDomain) return;
+                    if (!isCurrentDomain) {
+                        return;
+                    }
 
                     e.preventDefault();
                     props.onClick(getID(e.target.href));
@@ -83,10 +91,16 @@ export const Preview = (props: PreviewProps) => {
 
                 if (e.target instanceof HTMLAnchorElement) {
                     const id = getID(e.target.href);
-                    if (tooltipVisible) return;
-                    if (currentID !== id && tooltip?.contains(e.target as Node))
+                    if (tooltipVisible) {
+                        return;
+                    }
+                    if (
+                        currentID !== id &&
+                        tooltip?.contains(e.target as Node)
+                    ) {
                         // this does not work
                         return;
+                    }
 
                     const el = e.target;
                     showTooltip(el);

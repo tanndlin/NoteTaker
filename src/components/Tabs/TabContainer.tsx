@@ -1,9 +1,9 @@
 import React from 'react';
-import Tab from './Tab';
-import TabHeader from './TabHeader';
+import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
 import { Note } from '../../common/types';
 import ViewOptions from '../../pages/view/ViewOptions';
-import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
+import Tab from './Tab';
+import TabHeader from './TabHeader';
 
 import './Tab.scss';
 
@@ -24,12 +24,16 @@ const TabContainer = (props: TabContainerProps) => {
     const note = tabbedNotes[activeTab];
 
     const closeTab = (tab: Note) => {
-        if (tabbedNotes.length === 1) window.location.href = '/';
+        if (tabbedNotes.length === 1) {
+            window.location.href = '/';
+        }
 
         const newTabbedNotes = tabbedNotes.filter((t) => t.id !== tab.id);
         setTabbedNotes(newTabbedNotes);
 
-        if (tabbedNotes.indexOf(tab) < activeTab) setActiveTab(activeTab - 1);
+        if (tabbedNotes.indexOf(tab) < activeTab) {
+            setActiveTab(activeTab - 1);
+        }
 
         if (tab.id === tabbedNotes[activeTab].id) {
             setActiveTab(0);
@@ -88,7 +92,9 @@ const TabContainer = (props: TabContainerProps) => {
                                     (note) => note.id === id
                                 );
 
-                                if (note) openTab(note);
+                                if (note) {
+                                    openTab(note);
+                                }
                             }}
                         />
                     ))}

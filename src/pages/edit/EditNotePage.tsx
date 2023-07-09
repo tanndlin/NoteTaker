@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Edit } from './components/Edit';
-import Options from './Options';
+import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
+import { createLinks } from '../../common/bodyToView';
 import { Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
-import { createLinks } from '../../common/bodyToView';
+import Options from './Options';
+import { Edit } from './components/Edit';
 
 type EditNoteProps = {
     notes: Note[];
@@ -45,7 +46,15 @@ const EditNote = (props: EditNoteProps) => {
 
     return (
         <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
-            <p id="fakeElement" />
+            <div className="h-full p-4 pt-16 flex flex-col max-h-[85vh]">
+                <h1 className="text-2xl mb-8 mx-auto">Files</h1>
+                <FolderViewMinWrapper
+                    notes={notes}
+                    onClick={(note: Note) =>
+                        (window.location.href = `/${note.id}/edit`)
+                    }
+                />
+            </div>
             <div className="px-8 flex flex-1 flex-col">
                 <EditableText
                     id="title"

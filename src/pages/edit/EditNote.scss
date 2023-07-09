@@ -16,9 +16,9 @@ a {
 @media (max-width: 1380px) {
     #editPageContainer {
         grid-template-columns: 80vw 1fr;
-    }
 
-    #fakeElement {
-        display: none;
+        & > :first-child {
+            display: none;
+        }
     }
 }
