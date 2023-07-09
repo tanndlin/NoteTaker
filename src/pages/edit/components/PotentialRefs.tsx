@@ -51,7 +51,9 @@ const PotentialRefs = (props: PotentialRefsProps) => {
         props.edit({ body: newBody });
     };
 
-    if (!potentialRefs.length) return <></>;
+    if (!potentialRefs.length) {
+        return <></>;
+    }
 
     return (
         <div className="p-4 bg-secondary rounded-md">
@@ -59,7 +61,9 @@ const PotentialRefs = (props: PotentialRefsProps) => {
             <ul>
                 {potentialRefs.map((ref) => (
                     <li key={ref.id}>
-                        <a onClick={assignRef(ref)}>{ref.title}</a>
+                        <a className="cursor-pointer" onClick={assignRef(ref)}>
+                            {ref.title}
+                        </a>
                     </li>
                 ))}
             </ul>
