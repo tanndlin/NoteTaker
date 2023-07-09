@@ -1,13 +1,14 @@
-import React from 'react';
-
 type CloseProps = {
-    callback: (e: any) => void;
+    className?: string;
+    callback: (e: unknown) => void;
 };
 
 const Close = (props: CloseProps) => {
+    const className = 'close ' + props.className ?? '';
+
     return (
         <input
-            className="close"
+            className={className}
             type="button"
             value="&times;"
             onClick={props.callback}

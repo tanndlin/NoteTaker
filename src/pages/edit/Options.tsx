@@ -1,14 +1,14 @@
-import React from 'react';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
-import TrashIcon from '../../common/Icons/TrashIcon';
-import EditableText from '../../components/EditableText/EditableText';
-import PotentialRefs from './components/PotentialRefs';
 import { Note } from '../../common/types';
+import EditableText from '../../components/EditableText/EditableText';
+import DeleteButton from './components/DeleteButton';
+import PotentialRefs from './components/PotentialRefs';
 
 type OptionsProps = {
     directory: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     edit: (newKeys: any) => void;
     deleteNote: () => void;
     note: Note;
@@ -32,7 +32,9 @@ const Options = (props: OptionsProps) => {
                         value={props.directory}
                         onChange={(e) => {
                             let val = e.target.value;
-                            if (!val.startsWith('/')) val = '/' + val;
+                            if (!val.startsWith('/')) {
+                                val = '/' + val;
+                            }
                             props.edit({ directory: val });
                         }}
                     />
@@ -48,12 +50,10 @@ const Options = (props: OptionsProps) => {
                     <button onClick={gotoView}>
                         <MagnifyingGlassIcon className="mx-auto w-6" />
                     </button>
-                    <button
-                        className="bg-red-500 hover:bg-red-400"
-                        onClick={props.deleteNote}
-                    >
-                        <TrashIcon className="mx-auto" />
-                    </button>
+                    <DeleteButton
+                        deleteNote={props.deleteNote}
+                        name={props.note.title}
+                    />
                 </ButtonBar>
                 <PotentialRefs
                     notes={props.notes}

@@ -7,19 +7,26 @@
         "browser": true
     },
     "extends": [
+        "react-app",
         "eslint-config-prettier",
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:@typescript-eslint/recommended"
     ],
     "plugins": [
         "prettier",
-        "react"
+        "react",
+        "@typescript-eslint"
     ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "rules": {
+        "import/no-unresolved": 0,
         "eqeqeq": [
             "error",
             "smart"
@@ -47,17 +54,10 @@
                 "avoidEscape": true
             }
         ],
-        "no-unused-vars": [
-            "warn",
-            {
-                "caughtErrors": "none",
-                "argsIgnorePattern": "^_",
-                "varsIgnorePattern": "^_",
-                "caughtErrorsIgnorePattern": "^_"
-            }
-        ],
         "react/prop-types": 0,
-        "react/jsx-key": 0
+        "react/jsx-key": 0,
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off"
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -67,12 +67,12 @@
         "babelOptions": {
             "parserOpts": {
                 "plugins": [
-                    "jsx"
+                    "tsx"
                 ]
             }
         },
         "ecmaFeatures": {
-            "jsx": true
+            "tsx": true
         }
     },
     "root": true,
