@@ -1,7 +1,7 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
-import { getRefs } from '../../../common/bodyToView';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
+import { getRefs } from '../../../common/bodyToView';
 import { Directory, Note } from '../../../common/types';
 import { ID, IGraph } from '../graph.types';
 
@@ -149,7 +149,14 @@ const GraphView = (props: GraphProps) => {
             }
         },
         groups,
-        autoResize: true
+        autoResize: true,
+        physics: {
+            barnesHut: {
+                gravitationalConstant: -5000,
+                springConstant: 0.001,
+                springLength: 200
+            }
+        }
     };
 
     const events = {
