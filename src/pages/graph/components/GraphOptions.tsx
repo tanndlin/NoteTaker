@@ -20,12 +20,16 @@ const GraphOptions = (props: Props) => {
         setConfig({ ...config, edgeSize: value });
     };
 
+    const toggleShowFolders = () => {
+        setConfig({ ...config, showFolders: !showFolders });
+    };
+
     return (
         <div className="absolute top-0 right-0 z-10 mr-4 flex flex-col gap-4">
             <div className="graph-options">
                 <Foldable title="Config" className="flex flex-col">
                     <span className="flex flex-col">
-                        <label htmlFor="node size">Node Size</label>
+                        <label htmlFor="nodeSize">Node Size</label>
                         <input
                             type="range"
                             value={nodeSize}
@@ -35,13 +39,21 @@ const GraphOptions = (props: Props) => {
                         />
                     </span>
                     <span className="flex flex-col">
-                        <label htmlFor="node size">Edge Size</label>
+                        <label htmlFor="edgeSize">Edge Size</label>
                         <input
                             type="range"
                             value={edgeSize}
                             min={1}
                             max={10}
                             onChange={(e) => setEdgeSize(+e.target.value)}
+                        />
+                    </span>
+                    <span className="flex flex-col">
+                        <label htmlFor="showFolders">Show Folders</label>
+                        <input
+                            type="checkbox"
+                            checked={showFolders}
+                            onChange={toggleShowFolders}
                         />
                     </span>
                 </Foldable>

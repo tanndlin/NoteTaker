@@ -49,6 +49,10 @@ const GraphView = (props: GraphProps) => {
     }, [config]);
 
     React.useEffect(() => {
+        setGraph(getGraph());
+    }, [config.showFolders]);
+
+    React.useEffect(() => {
         if (!nodesLeftToAdd.length) {
             return;
         }
@@ -115,6 +119,7 @@ const GraphView = (props: GraphProps) => {
                 graph.nodes.push({
                     id: ref.ref,
                     label: name,
+                    size: 10,
                     group: ref.ref.split('/')[1] || 'root',
                     color: '#515151'
                 });
