@@ -15,11 +15,12 @@ type GraphProps = {
 const GraphView = (props: GraphProps) => {
     const { notes, setFilter, createNote } = props;
 
-    const [config, setConfig] = React.useState({
-        nodeSize: 10,
-        edgeSize: 3,
-        showFolders: false
-    } as IGraphConfig);
+    const [config, setConfig] = React.useState(
+        JSON.parse(
+            localStorage.getItem('graphConfig') ||
+                '{"nodeSize": 10, "edgeSize":3, "showFolders": false}'
+        ) as IGraphConfig
+    );
     const [nodesLeftToAdd, setNodesLeftToAdd] = React.useState([] as Node[]);
     const [edges, setEdges] = React.useState([] as Edge[]);
     const [index, setIndex] = React.useState(0);
@@ -46,6 +47,8 @@ const GraphView = (props: GraphProps) => {
                 width: config.edgeSize
             }
         });
+
+        localStorage.setItem('graphConfig', JSON.stringify(config));
     }, [config]);
 
     React.useEffect(() => {
