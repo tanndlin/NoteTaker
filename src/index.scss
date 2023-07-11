@@ -81,17 +81,26 @@ input[type='text'] {
 
 .foldable {
     transition: 200ms;
+    max-height: 500px;
     overflow: hidden;
+
+    & .foldable-content {
+        transition: 200ms;
+        position: relative;
+        opacity: 1;
+    }
 }
 
 .foldable.folded {
     max-height: 20px;
+
+    & .foldable-content {
+        opacity: 0;
+        // unselectable
+        pointer-events: none;
+    }
 }
 
 .foldable .title {
-    display: none;
-}
-
-.foldable.folded .title {
-    display: block;
+    margin-left: 4px;
 }

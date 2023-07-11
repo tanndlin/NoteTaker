@@ -22,7 +22,7 @@ const Foldable = (props: Props) => {
         <div className={className}>
             <button
                 onClick={toggleOpen}
-                className="bg-transparent hover:bg-transparent absolute left-0 top-2"
+                className="bg-transparent hover:bg-transparent absolute left-0"
             >
                 {open && <ChevronDownIcon className="w-4 h-4" />}
                 {!open && (
@@ -31,8 +31,10 @@ const Foldable = (props: Props) => {
             </button>
 
             <div className="ml-6">
-                <h1 className="title">{title}</h1>
-                {children}
+                <h1 className="title cursor-pointer" onClick={toggleOpen}>
+                    {title}
+                </h1>
+                <div className="foldable-content">{children}</div>
             </div>
         </div>
     );
