@@ -49,7 +49,9 @@ const GraphView = (props: GraphProps) => {
     }, [config]);
 
     React.useEffect(() => {
-        setGraph(getGraph());
+        const graph = getGraph();
+        setGraph(graph);
+        setEdges(graph.edges);
     }, [config.showFolders]);
 
     React.useEffect(() => {
