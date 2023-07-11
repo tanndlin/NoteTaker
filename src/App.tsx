@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Note } from './common/types';
-import { HomePage } from './pages/home/HomePage';
-import EditNote from './pages/edit/EditNotePage';
-import ViewNotePage from './pages/view/ViewNotePage';
 import AboutPage from './pages/about/AboutPage';
+import EditNote from './pages/edit/EditNotePage';
 import GraphPage from './pages/graph/GraphPage';
+import { HomePage } from './pages/home/HomePage';
+import ViewNotePage from './pages/view/ViewNotePage';
 
 function App() {
     const [notes, setNotes] = React.useState(
@@ -16,12 +16,16 @@ function App() {
         localStorage.setItem('notes', JSON.stringify(notes));
     }, [notes]);
 
-    const createNote = () => {
+    const createNote = (options?: { title?: string; directory?: string }) => {
+        if (!options) {
+            options = { title: 'Title', directory: '/' };
+        }
+
         const newNote = {
             id: Date.now(),
-            title: 'Title',
-            body: '# Hello World',
-            directory: '/'
+            title: options.title ?? 'Title',
+            body: `# ${options.title ?? 'Hello World'}`,
+            directory: options.directory ?? '/'
         };
         setNotes([...notes, newNote]);
 
@@ -55,7 +59,23 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route
                         path="/graph"
-                        element={<GraphPage notes={notes} />}
+                        element={
+                            <GraphPage
+                                notes={notes}
+                                createNote={(qualifiedName: string) => {
+                                    const split = qualifiedName.split('/');
+                                    const title = split[split.length - 1];
+
+                                    // dir is everything before the last
+                                    const directory = split
+                                        .slice(0, split.length - 1)
+                                        .join('/');
+                                    const id = createNote({ title, directory });
+
+                                    window.location.href = `/${id}`;
+                                }}
+                            />
+                        }
                     />
                     <Route path="**" element={<Navigate to="/" />} />
                 </Routes>

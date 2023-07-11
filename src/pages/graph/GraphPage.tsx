@@ -8,10 +8,11 @@ import './GraphPage.scss';
 
 type GraphPageProps = {
     notes: Note[];
+    createNote: (qualifiedName: string) => void;
 };
 
 const GraphPage = (props: GraphPageProps) => {
-    const { notes } = props;
+    const { notes, createNote } = props;
     const [openStates, setOpenStates] = React.useState<{
         [key: string]: boolean;
     }>(JSON.parse(localStorage.getItem('openStates') || '{}'));
@@ -20,22 +21,6 @@ const GraphPage = (props: GraphPageProps) => {
     React.useEffect(() => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
-
-    const expandAll = () => {
-        const newOpenStates = { ...openStates };
-        Object.keys(openStates).forEach((key) => {
-            newOpenStates[key] = true;
-        });
-        setOpenStates(newOpenStates);
-    };
-
-    const foldAll = () => {
-        const newOpenStates = { ...openStates };
-        Object.keys(openStates).forEach((key) => {
-            newOpenStates[key] = false;
-        });
-        setOpenStates(newOpenStates);
-    };
 
     const filterFunction = (note: Note) => {
         if (!filter.length) {
@@ -64,7 +49,7 @@ const GraphPage = (props: GraphPageProps) => {
             </aside>
 
             <section className="h-full flex-1">
-                <GraphView notes={notes} setFilter={setFilter} />
+                <GraphView {...{ ...props, setFilter }} />
             </section>
         </main>
     );

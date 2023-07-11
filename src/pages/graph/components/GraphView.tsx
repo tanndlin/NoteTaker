@@ -8,10 +8,11 @@ import { ID, IGraph } from '../graph.types';
 type GraphProps = {
     notes: Note[];
     setFilter: React.Dispatch<React.SetStateAction<ID[]>>;
+    createNote(qualifiedName: string): void;
 };
 
 const GraphView = (props: GraphProps) => {
-    const { notes, setFilter } = props;
+    const { notes, setFilter, createNote } = props;
 
     const showFolders = false;
 
@@ -101,8 +102,6 @@ const GraphView = (props: GraphProps) => {
 
                 graph.edges.push({ from: note.id, to: ref.note.id, width: 3 });
             });
-
-            console.log(note.title, refs);
         });
 
         // Find duplicate edges with reversed to and from
@@ -144,8 +143,6 @@ const GraphView = (props: GraphProps) => {
                 arrows: { to: { enabled: false } }
             });
         });
-
-        console.log(graph);
 
         return graph;
     };
@@ -201,9 +198,22 @@ const GraphView = (props: GraphProps) => {
     };
 
     const events = {
-        select: function (event: { nodes: number[]; edges: string[] }) {
+        select: function (event: {
+            nodes: (number | string)[];
+            edges: string[];
+        }) {
             const { nodes } = event;
             setFilter(nodes);
+            console.log(nodes);
+
+            if (nodes.length === 1) {
+                const [node] = nodes;
+
+                const found = notes.find((note) => note.id === node);
+                if (!found) {
+                    createNote(node + '');
+                }
+            }
         }
     };
 
