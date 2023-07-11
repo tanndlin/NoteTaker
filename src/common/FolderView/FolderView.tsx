@@ -1,4 +1,3 @@
-import React from 'react';
 import { Directory, Note } from '../types';
 import { File } from './File';
 import Folder from './Folder';
@@ -60,6 +59,7 @@ export const getHeirarchy = (
             return;
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, ...dirs] = dir.split('/');
         let currentDir = heirarchy;
         let dirBuilder = '';

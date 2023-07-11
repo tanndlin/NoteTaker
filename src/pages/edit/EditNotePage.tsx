@@ -8,6 +8,7 @@ import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
 import Options from './Options';
 import { Edit } from './components/Edit';
+import Stats from './components/Stats';
 
 type EditNoteProps = {
     notes: Note[];
@@ -90,15 +91,18 @@ const EditNote = (props: EditNoteProps) => {
                     </section>
                 </div>
             </div>
-            <Options
-                directory={directory}
-                edit={(newKeys) => {
-                    edit({ ...note, ...newKeys });
-                }}
-                deleteNote={deleteNote}
-                notes={props.notes}
-                note={note}
-            />
+            <div>
+                <Options
+                    directory={directory}
+                    edit={(newKeys) => {
+                        edit({ ...note, ...newKeys });
+                    }}
+                    deleteNote={deleteNote}
+                    notes={props.notes}
+                    note={note}
+                />
+                <Stats note={note} notes={notes} />
+            </div>
         </main>
     );
 };
