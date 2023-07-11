@@ -13,6 +13,8 @@ type GraphProps = {
 const GraphView = (props: GraphProps) => {
     const { notes, setFilter } = props;
 
+    const showFolders = false;
+
     const [graph, setGraph] = React.useState({
         nodes: [],
         edges: []
@@ -56,14 +58,51 @@ const GraphView = (props: GraphProps) => {
             });
         };
 
-        addHeiarchyEdges(heirarchy, -1);
+        // Add nodes that represent an unfilled node
+        notes.forEach((note) => {
+            const refs = getRefs(note, notes);
+            const unfilled = refs.filter((ref) => !ref.note);
+            // Remove duplicates
+            const unique = unfilled.filter(
+                (ref) => !graph.nodes.find((node) => node.id === ref.ref)
+            );
+
+            unique.forEach((ref) => {
+                const split = ref.ref.split('/');
+                const name = split[split.length - 1];
+
+                graph.nodes.push({
+                    id: ref.ref,
+                    label: name,
+                    size: 10,
+                    group: ref.ref.split('/')[1] || 'root',
+                    font: { face: 'roboto' },
+                    color: '#515151'
+                });
+            });
+        });
+
+        if (showFolders) {
+            addHeiarchyEdges(heirarchy, -1);
+        }
 
         // Add reference edges
         notes.forEach((note) => {
             const refs = getRefs(note, notes);
             refs.forEach((ref) => {
+                if (!ref.note) {
+                    graph.edges.push({
+                        from: note.id,
+                        to: ref.ref,
+                        width: 3
+                    });
+                    return;
+                }
+
                 graph.edges.push({ from: note.id, to: ref.note.id, width: 3 });
             });
+
+            console.log(note.title, refs);
         });
 
         // Find duplicate edges with reversed to and from
@@ -105,6 +144,8 @@ const GraphView = (props: GraphProps) => {
                 arrows: { to: { enabled: false } }
             });
         });
+
+        console.log(graph);
 
         return graph;
     };

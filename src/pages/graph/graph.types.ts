@@ -9,6 +9,7 @@ export type Node = {
     size?: number;
     group?: string;
     font?: Font;
+    color?: string;
 };
 
 export type Edge = {
