@@ -3,7 +3,8 @@ import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { getRefs } from '../../../common/bodyToView';
 import { Directory, Note } from '../../../common/types';
-import { ID, IGraph } from '../graph.types';
+import { Edge, ID, IGraph, Node } from '../graph.types';
+import GraphOptions from './GraphOptions';
 
 type GraphProps = {
     notes: Note[];
@@ -16,14 +17,39 @@ const GraphView = (props: GraphProps) => {
 
     const showFolders = false;
 
+    const [nodesLeftToAdd, setNodesLeftToAdd] = React.useState([] as Node[]);
+    const [edges, setEdges] = React.useState([] as Edge[]);
+    const [index, setIndex] = React.useState(0);
     const [graph, setGraph] = React.useState({
         nodes: [],
         edges: []
     } as IGraph);
 
     React.useEffect(() => {
-        setGraph(getGraph());
+        const graph = getGraph();
+        setGraph(graph);
+        setEdges(graph.edges);
     }, [notes]);
+
+    React.useEffect(() => {
+        if (!nodesLeftToAdd.length) {
+            return;
+        }
+
+        if (index > nodesLeftToAdd.length) {
+            setNodesLeftToAdd([]);
+            setIndex(0);
+            return;
+        }
+
+        setTimeout(() => {
+            setGraph({
+                nodes: nodesLeftToAdd.slice(0, index),
+                edges: edges
+            });
+            setIndex(index + 1);
+        }, 100);
+    }, [graph, index, nodesLeftToAdd]);
 
     const getGraph = () => {
         const graph: IGraph = { nodes: [], edges: [] };
@@ -158,6 +184,7 @@ const GraphView = (props: GraphProps) => {
         '#f032e6'
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const groups: any = {};
     Object.keys(getHeirarchy(notes, () => true).dirs).forEach((dir, i) => {
         groups[dir] = {
@@ -217,8 +244,14 @@ const GraphView = (props: GraphProps) => {
         }
     };
 
+    const startTimelapse = () => {
+        setNodesLeftToAdd([...graph.nodes]);
+        setGraph({ nodes: [], edges });
+    };
+
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full relative">
+            <GraphOptions startTimelapse={startTimelapse} />
             <Graph graph={graph} options={options} events={events} />
         </div>
     );
