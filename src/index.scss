@@ -78,3 +78,20 @@ input[type='text'] {
     visibility: visible !important;
     opacity: 1 !important;
 }
+
+.foldable {
+    transition: 200ms;
+    overflow: hidden;
+}
+
+.foldable.folded {
+    max-height: 20px;
+}
+
+.foldable .title {
+    display: none;
+}
+
+.foldable.folded .title {
+    display: block;
+}

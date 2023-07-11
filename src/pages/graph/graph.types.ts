@@ -32,3 +32,9 @@ export type Arrow = {
 export type ArrowTo = {
     enabled: boolean;
 };
+
+export type IGraphConfig = {
+    nodeSize: number;
+    edgeSize: number;
+    showFolders: boolean;
+};

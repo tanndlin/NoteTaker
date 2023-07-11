@@ -3,7 +3,7 @@ import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { getRefs } from '../../../common/bodyToView';
 import { Directory, Note } from '../../../common/types';
-import { Edge, ID, IGraph, Node } from '../graph.types';
+import { Edge, ID, IGraph, IGraphConfig, Node } from '../graph.types';
 import GraphOptions from './GraphOptions';
 
 type GraphProps = {
@@ -15,8 +15,11 @@ type GraphProps = {
 const GraphView = (props: GraphProps) => {
     const { notes, setFilter, createNote } = props;
 
-    const showFolders = false;
-
+    const [config, setConfig] = React.useState({
+        nodeSize: 10,
+        edgeSize: 3,
+        showFolders: false
+    } as IGraphConfig);
     const [nodesLeftToAdd, setNodesLeftToAdd] = React.useState([] as Node[]);
     const [edges, setEdges] = React.useState([] as Edge[]);
     const [index, setIndex] = React.useState(0);
@@ -30,6 +33,20 @@ const GraphView = (props: GraphProps) => {
         setGraph(graph);
         setEdges(graph.edges);
     }, [notes]);
+
+    React.useEffect(() => {
+        setOptions({
+            ...options,
+            nodes: {
+                ...options.nodes,
+                size: config.nodeSize
+            },
+            edges: {
+                ...options.edges,
+                width: config.edgeSize
+            }
+        });
+    }, [config]);
 
     React.useEffect(() => {
         if (!nodesLeftToAdd.length) {
@@ -57,9 +74,7 @@ const GraphView = (props: GraphProps) => {
             graph.nodes.push({
                 id: note.id,
                 label: note.title,
-                size: 10,
-                group: note.directory.split('/')[1] || 'root',
-                font: { face: 'roboto' }
+                group: note.directory.split('/')[1] || 'root'
             });
         });
 
@@ -77,8 +92,7 @@ const GraphView = (props: GraphProps) => {
                     id,
                     label: dir,
                     size: 20,
-                    group: dir.split('/')[1] || 'root',
-                    font: { face: 'roboto' }
+                    group: dir.split('/')[1] || 'root'
                 });
                 graph.edges.push({ from: parentID, to: id });
                 addHeiarchyEdges(heirarchy.dirs[dir], id);
@@ -101,15 +115,13 @@ const GraphView = (props: GraphProps) => {
                 graph.nodes.push({
                     id: ref.ref,
                     label: name,
-                    size: 10,
                     group: ref.ref.split('/')[1] || 'root',
-                    font: { face: 'roboto' },
                     color: '#515151'
                 });
             });
         });
 
-        if (showFolders) {
+        if (config.showFolders) {
             addHeiarchyEdges(heirarchy, -1);
         }
 
@@ -120,13 +132,12 @@ const GraphView = (props: GraphProps) => {
                 if (!ref.note) {
                     graph.edges.push({
                         from: note.id,
-                        to: ref.ref,
-                        width: 3
+                        to: ref.ref
                     });
                     return;
                 }
 
-                graph.edges.push({ from: note.id, to: ref.note.id, width: 3 });
+                graph.edges.push({ from: note.id, to: ref.note.id });
             });
         });
 
@@ -165,12 +176,22 @@ const GraphView = (props: GraphProps) => {
             graph.edges.push({
                 from,
                 to,
-                width: 3,
                 arrows: { to: { enabled: false } }
             });
         });
 
         return graph;
+    };
+
+    const getGroups = () => {
+        const groups: { [key: string]: { color: string } } = {};
+        Object.keys(getHeirarchy(notes, () => true).dirs).forEach((dir, i) => {
+            groups[dir] = {
+                color: colors[i % colors.length]
+            };
+        });
+
+        return groups;
     };
 
     const colors = [
@@ -184,46 +205,6 @@ const GraphView = (props: GraphProps) => {
         '#f032e6'
     ];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const groups: any = {};
-    Object.keys(getHeirarchy(notes, () => true).dirs).forEach((dir, i) => {
-        groups[dir] = {
-            color: colors[i % colors.length]
-        };
-    });
-
-    const options = {
-        layout: {
-            hierarchical: false
-        },
-        nodes: {
-            shape: 'dot',
-            size: 10,
-            font: {
-                size: 20,
-                color: '#ffffff'
-            },
-            borderWidth: 2,
-            shadow: true
-        },
-        edges: {
-            color: { inherit: true },
-            width: 0.15,
-            smooth: {
-                type: 'continuous'
-            }
-        },
-        groups,
-        autoResize: true,
-        physics: {
-            barnesHut: {
-                gravitationalConstant: -5000,
-                springConstant: 0.001,
-                springLength: 200
-            }
-        }
-    };
-
     const events = {
         select: function (event: {
             nodes: (number | string)[];
@@ -231,7 +212,6 @@ const GraphView = (props: GraphProps) => {
         }) {
             const { nodes } = event;
             setFilter(nodes);
-            console.log(nodes);
 
             if (nodes.length === 1) {
                 const [node] = nodes;
@@ -249,9 +229,46 @@ const GraphView = (props: GraphProps) => {
         setGraph({ nodes: [], edges });
     };
 
+    const [options, setOptions] = React.useState({
+        layout: {
+            hierarchical: false
+        },
+        nodes: {
+            shape: 'dot',
+            size: config.nodeSize,
+            font: {
+                size: 20,
+                color: '#ffffff',
+                face: 'roboto'
+            },
+            borderWidth: 2,
+            shadow: true
+        },
+        edges: {
+            color: { inherit: true },
+            width: config.edgeSize,
+            smooth: {
+                type: 'continuous'
+            }
+        },
+        groups: getGroups(),
+        autoResize: true,
+        physics: {
+            barnesHut: {
+                gravitationalConstant: -5000,
+                springConstant: 0.001,
+                springLength: 200
+            }
+        }
+    });
+
     return (
         <div className="w-full h-full relative">
-            <GraphOptions startTimelapse={startTimelapse} />
+            <GraphOptions
+                config={config}
+                setConfig={setConfig}
+                startTimelapse={startTimelapse}
+            />
             <Graph graph={graph} options={options} events={events} />
         </div>
     );

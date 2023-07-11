@@ -68,8 +68,6 @@ export const Preview = (props: PreviewProps) => {
         <div
             className="bg-secondary rounded-md p-4 flex-1 overflow-auto"
             onClick={(e) => {
-                console.log(e.target);
-
                 if (e.target instanceof HTMLAnchorElement) {
                     if (!props.onClick) {
                         return;
