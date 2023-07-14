@@ -1,10 +1,11 @@
 import AnimatedLink from '../../common/AnimatedLink';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
-import { Note } from '../../common/types';
+import { Configs, Note } from '../../common/types';
 
 type HomePageProps = {
     notes: Note[];
     createNote: () => number;
+    configs: Configs;
 };
 
 export const HomePage = (props: HomePageProps) => {

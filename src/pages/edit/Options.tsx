@@ -1,7 +1,7 @@
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
-import { Note } from '../../common/types';
+import { Configs, Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
 import DeleteButton from './components/DeleteButton';
 import PotentialRefs from './components/PotentialRefs';
@@ -13,29 +13,34 @@ type OptionsProps = {
     deleteNote: () => void;
     note: Note;
     notes: Note[];
+    configs: Configs;
+    setConfigs: (configs: Configs) => void;
 };
 
 const Options = (props: OptionsProps) => {
+    const { directory, edit, deleteNote, note, notes, configs, setConfigs } =
+        props;
+
     const gotoView = () => {
         const id = window.location.pathname.split('/')[1];
         window.location.href = `/${id}`;
     };
 
     return (
-        <aside className="mt-16 mx-8">
-            <h2 className="text-center text-2xl mb-8">Options</h2>
+        <aside className="mx-8 mt-16">
+            <h2 className="mb-8 text-2xl text-center">Options</h2>
             <div className="flex flex-col gap-8">
                 <span className="flex flex-col">
                     <label htmlFor="directory">Directory</label>
                     <EditableText
                         id="directory"
-                        value={props.directory}
+                        value={directory}
                         onChange={(e) => {
                             let val = e.target.value;
                             if (!val.startsWith('/')) {
                                 val = '/' + val;
                             }
-                            props.edit({ directory: val });
+                            edit({ directory: val });
                         }}
                     />
                 </span>
@@ -48,18 +53,16 @@ const Options = (props: OptionsProps) => {
                         <HomeIcon className="mx-auto" />
                     </button>
                     <button onClick={gotoView}>
-                        <MagnifyingGlassIcon className="mx-auto w-6" />
+                        <MagnifyingGlassIcon className="w-6 mx-auto" />
                     </button>
                     <DeleteButton
-                        deleteNote={props.deleteNote}
-                        name={props.note.title}
+                        deleteNote={deleteNote}
+                        name={note.title}
+                        configs={configs}
+                        setConfigs={setConfigs}
                     />
                 </ButtonBar>
-                <PotentialRefs
-                    notes={props.notes}
-                    note={props.note}
-                    edit={props.edit}
-                />
+                <PotentialRefs notes={notes} note={note} edit={edit} />
             </div>
         </aside>
     );

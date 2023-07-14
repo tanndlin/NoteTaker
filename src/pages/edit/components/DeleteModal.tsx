@@ -5,16 +5,17 @@ type Props = {
     open: boolean;
     setOpen: (open: boolean) => void;
     deleteNote: () => void;
-    dontAsk: boolean;
-    setDontAsk: (dontAsk: boolean) => void;
+    askOnDelete: boolean;
+    setAskOnDelete: (askOnDelete: boolean) => void;
 };
 
 const DeleteModal = (props: Props) => {
-    const { name, open, setOpen, deleteNote, dontAsk, setDontAsk } = props;
+    const { name, open, setOpen, deleteNote, askOnDelete, setAskOnDelete } =
+        props;
 
     return (
         <dialog
-            className="modal-overlay text-white"
+            className="text-white modal-overlay"
             open={open}
             onClick={(e) => {
                 if (e.target === e.currentTarget) {
@@ -28,23 +29,23 @@ const DeleteModal = (props: Props) => {
                         className="visible"
                         callback={() => setOpen(false)}
                     />
-                    <h1 className="text-xl font-bold py-2">Delete Note</h1>
+                    <h1 className="py-2 text-xl font-bold">Delete Note</h1>
                 </header>
                 <p>Are you sure you want to delete {`"${name}"`}?</p>
-                <footer className="mt-8 flex flex-row">
-                    <div className="w-1/2 flex flex-row">
+                <footer className="flex flex-row mt-8">
+                    <div className="flex flex-row w-1/2">
                         <input
                             type="checkbox"
-                            id="dontAsk"
-                            className="mr-2 my-auto"
-                            checked={dontAsk}
-                            onChange={(e) => setDontAsk(e.target.checked)}
+                            id="askOnDelete"
+                            className="my-auto mr-2"
+                            checked={!askOnDelete}
+                            onChange={(e) => setAskOnDelete(!e.target.checked)}
                         />
-                        <label htmlFor="dontAsk" className="my-auto">
+                        <label htmlFor="askOnDelete" className="my-auto">
                             {"Don't ask again"}
                         </label>
                     </div>
-                    <div className="w-1/2 ml-auto flex flex-row gap-4 justify-end">
+                    <div className="flex flex-row justify-end w-1/2 gap-4 ml-auto">
                         <button
                             className="hover:bg-gray-700"
                             onClick={() => setOpen(false)}

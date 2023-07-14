@@ -1,15 +1,15 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Note } from '../../common/types';
-import './ViewNote.scss';
+import { Configs, Note } from '../../common/types';
 import TabContainer from '../../components/Tabs/TabContainer';
+import './ViewNote.scss';
 type ViewNoteProps = {
     notes: Note[];
     createNote: () => number;
+    configs: Configs;
 };
 
 const ViewNotePage = (props: ViewNoteProps) => {
-    const { notes, createNote } = props;
+    const { notes, createNote, configs } = props;
 
     const { id } = useParams();
     const note = props.notes.find((note) => note.id === Number(id));

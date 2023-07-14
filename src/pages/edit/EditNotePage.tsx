@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
 import { createLinks } from '../../common/bodyToView';
-import { Note } from '../../common/types';
+import { Configs, Note } from '../../common/types';
 import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
 import Options from './Options';
@@ -13,10 +13,12 @@ import Stats from './components/Stats';
 type EditNoteProps = {
     notes: Note[];
     setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+    configs: Configs;
+    setConfigs: (configs: Configs) => void;
 };
 
 const EditNote = (props: EditNoteProps) => {
-    const { notes, setNotes } = props;
+    const { notes, setNotes, configs, setConfigs } = props;
 
     const { id } = useParams();
     const note = notes.find((note) => note.id === Number(id));
@@ -46,9 +48,9 @@ const EditNote = (props: EditNoteProps) => {
     };
 
     return (
-        <main id="editPageContainer" className="grid grid-cols-3 w-full h-full">
+        <main id="editPageContainer" className="grid w-full h-full grid-cols-3">
             <div className="h-full p-4 pt-16 flex flex-col max-h-[85vh]">
-                <h1 className="text-2xl mb-8 mx-auto">Files</h1>
+                <h1 className="mx-auto mb-8 text-2xl">Files</h1>
                 <FolderViewMinWrapper
                     notes={notes}
                     onClick={(note: Note) =>
@@ -56,10 +58,10 @@ const EditNote = (props: EditNoteProps) => {
                     }
                 />
             </div>
-            <div className="px-8 flex flex-1 flex-col">
+            <div className="flex flex-col flex-1 px-8">
                 <EditableText
                     id="title"
-                    className="text-3xl mb-8"
+                    className="mb-8 text-3xl"
                     value={title}
                     onChange={(e) => {
                         edit({ ...note, title: e.target.value });
@@ -69,8 +71,8 @@ const EditNote = (props: EditNoteProps) => {
                     id="editTwoPane"
                     className="flex w-full flex-1 max-h-[85vh]"
                 >
-                    <section className="w-1/2 mr-4 flex flex-col flex-grow">
-                        <h2 className="text-2xl text-center w-full mb-8">
+                    <section className="flex flex-col flex-grow w-1/2 mr-4">
+                        <h2 className="w-full mb-8 text-2xl text-center">
                             Edit
                         </h2>
                         <Edit
@@ -80,8 +82,8 @@ const EditNote = (props: EditNoteProps) => {
                             }}
                         />
                     </section>
-                    <section className="w-1/2 pl-4 border-l-2 border-tertiary flex flex-col flex-grow">
-                        <h2 className="text-2xl text-center w-full mb-8">
+                    <section className="flex flex-col flex-grow w-1/2 pl-4 border-l-2 border-tertiary">
+                        <h2 className="w-full mb-8 text-2xl text-center">
                             Preview
                         </h2>
                         <Preview
@@ -100,6 +102,8 @@ const EditNote = (props: EditNoteProps) => {
                     deleteNote={deleteNote}
                     notes={props.notes}
                     note={note}
+                    configs={configs}
+                    setConfigs={setConfigs}
                 />
                 <Stats note={note} notes={notes} />
             </div>

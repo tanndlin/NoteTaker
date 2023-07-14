@@ -2,24 +2,30 @@ import { useState } from 'react';
 import AnimatedLink from '../../common/AnimatedLink';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import TabbedContainer from '../../common/TabbedContainer';
-import { Note } from '../../common/types';
+import { Configs, Note } from '../../common/types';
 import AppearanceSettings from './components/AppearanceSettings';
 import ExportSettings from './components/ExportSettings';
 import GeneralSettings from './components/GeneralSettings';
 import './settings.scss';
 
 type Props = {
+    configs: Configs;
+    setConfigs: (configs: Configs) => void;
     notes: Note[];
 };
 
-const SettingsPage = (props: Props) => {
-    const { notes } = props;
+export type ConfigProps = {
+    title: string;
+    description: string;
+};
 
+const SettingsPage = (props: Props) => {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
         <div className="settings-page">
             <TabbedContainer
+                className="px-16"
                 activeTab={activeTab}
                 setActiveTab={(n) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,9 +40,9 @@ const SettingsPage = (props: Props) => {
             </TabbedContainer>
             <div className="settings-page-container">
                 <p></p>
-                {activeTab === 0 && <GeneralSettings notes={notes} />}
-                {activeTab === 1 && <AppearanceSettings notes={notes} />}
-                {activeTab === 2 && <ExportSettings notes={notes} />}
+                {activeTab === 0 && <GeneralSettings {...props} />}
+                {activeTab === 1 && <AppearanceSettings {...props} />}
+                {activeTab === 2 && <ExportSettings {...props} />}
                 <button className="w-20 h-10 mx-auto">
                     <AnimatedLink to="/">
                         <HomeIcon className="mx-auto text-white" />

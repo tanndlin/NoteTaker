@@ -13,3 +13,11 @@ export type Directory = {
     notes: Note[];
     dirs: { [key: string]: Directory };
 };
+
+export type Configs = {
+    general: GeneralConfigs;
+};
+
+export type GeneralConfigs = {
+    askOnDelete: boolean;
+};

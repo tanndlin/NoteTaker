@@ -51,14 +51,14 @@ const TabContainer = (props: TabContainerProps) => {
 
     return (
         <div id="tabsContainer">
-            <header className="grid grid-cols-3 w-screen TriplePane px-8">
+            <header className="grid w-screen grid-cols-3 px-8 TriplePane">
                 <p />
-                <h1 className="text-3xl mx-8 mb-8">{note.title}</h1>
+                <h1 className="mx-8 mb-8 text-3xl">{note.title}</h1>
                 <p />
             </header>
-            <div className="grid grid-cols-3 w-screen TriplePane px-8">
+            <div className="grid w-screen grid-cols-3 px-8 TriplePane">
                 <p />
-                <div className="tabBar mx-4">
+                <div className="mx-4 tabBar">
                     {tabbedNotes.map((tab, index) => (
                         <TabHeader
                             key={index}
@@ -71,7 +71,7 @@ const TabContainer = (props: TabContainerProps) => {
                 </div>
                 <p />
             </div>
-            <main className="grid grid-cols-3 gap-8 TriplePane mx-8 pb-8 h-full">
+            <main className="grid h-full grid-cols-3 gap-8 pb-8 mx-8 TriplePane">
                 <FolderViewWrapper
                     {...{
                         notes,

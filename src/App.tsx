@@ -13,9 +13,20 @@ function App() {
         JSON.parse(localStorage.getItem('notes') || '[]') as Note[]
     );
 
+    const [configs, setConfigs] = React.useState(
+        JSON.parse(
+            localStorage.getItem('configs') ||
+                '{"general": {"askOnDelete":true}}'
+        )
+    );
+
     React.useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
     }, [notes]);
+
+    React.useEffect(() => {
+        localStorage.setItem('configs', JSON.stringify(configs));
+    }, [configs]);
 
     const createNote = (options?: { title?: string; directory?: string }) => {
         if (!options) {
@@ -39,20 +50,30 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<HomePage {...{ notes, createNote }} />}
+                        element={
+                            <HomePage {...{ notes, createNote, configs }} />
+                        }
                     />
                     <Route path="/:id">
                         <Route
                             index
                             element={
-                                <ViewNotePage {...{ notes, createNote }} />
+                                <ViewNotePage
+                                    {...{ notes, createNote, configs }}
+                                />
                             }
                         />
                         <Route
                             path="edit"
                             element={
                                 <EditNote
-                                    {...{ notes, createNote, setNotes }}
+                                    {...{
+                                        notes,
+                                        createNote,
+                                        setNotes,
+                                        configs,
+                                        setConfigs
+                                    }}
                                 />
                             }
                         />
@@ -80,7 +101,13 @@ function App() {
                     />
                     <Route
                         path="/settings"
-                        element={<SettingsPage notes={notes} />}
+                        element={
+                            <SettingsPage
+                                notes={notes}
+                                configs={configs}
+                                setConfigs={setConfigs}
+                            />
+                        }
                     />
                     <Route path="**" element={<Navigate to="/" />} />
                 </Routes>

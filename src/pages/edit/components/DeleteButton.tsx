@@ -1,42 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TrashIcon from '../../../common/Icons/TrashIcon';
+import { Configs } from '../../../common/types';
 import DeleteModal from './DeleteModal';
 
 type Props = {
     name: string;
     deleteNote: () => void;
+    configs: Configs;
+    setConfigs: (configs: Configs) => void;
 };
 
 const DeleteButton = (props: Props) => {
+    const { name, deleteNote, configs, setConfigs } = props;
+    const { askOnDelete } = configs.general;
+
     const [open, setOpen] = useState(false);
-    const [dontAsk, setDontAsk] = useState(
-        localStorage.getItem('dontAskDelete') === 'true'
-    );
+
+    const setAskOnDelete = (b: boolean) => {
+        console.log('Setting ask on delete to ', b);
+
+        setConfigs({
+            ...configs,
+            general: {
+                ...configs.general,
+                askOnDelete: b
+            }
+        });
+    };
 
     const handleDeleteButtonClicked = () => {
-        if (dontAsk) {
-            props.deleteNote();
+        if (!askOnDelete) {
+            deleteNote();
             return;
         }
 
         setOpen(true);
     };
 
-    useEffect(() => {
-        localStorage.setItem('dontAskDelete', dontAsk.toString());
-    }, [dontAsk]);
-
     return (
         <>
             <DeleteModal
-                name={props.name}
+                name={name}
                 open={open}
-                deleteNote={props.deleteNote}
+                deleteNote={deleteNote}
                 setOpen={(open: boolean) => {
                     setOpen(open);
                 }}
-                dontAsk={dontAsk}
-                setDontAsk={(dontAsk: boolean) => setDontAsk(dontAsk)}
+                askOnDelete={askOnDelete}
+                setAskOnDelete={setAskOnDelete}
             />
             <button
                 className="bg-red-500 hover:bg-red-400"
