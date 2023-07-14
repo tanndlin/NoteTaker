@@ -20,10 +20,12 @@ export type Configs = {
 
 export type GeneralConfigs = {
     askOnDelete: boolean;
+    createUnfilledNote: boolean;
 };
 
 export const defaultConfigs: Configs = {
     general: {
-        askOnDelete: true
+        askOnDelete: true,
+        createUnfilledNote: true
     }
 };

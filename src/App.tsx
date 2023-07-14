@@ -82,6 +82,7 @@ function App() {
                         path="/graph"
                         element={
                             <GraphPage
+                                configs={configs}
                                 notes={notes}
                                 createNote={(qualifiedName: string) => {
                                     const split = qualifiedName.split('/');

@@ -2,7 +2,7 @@ import React from 'react';
 import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { getRefs } from '../../../common/bodyToView';
-import { Directory, Note } from '../../../common/types';
+import { Configs, Directory, Note } from '../../../common/types';
 import { Edge, ID, IGraph, IGraphConfig, Node } from '../graph.types';
 import GraphOptions from './GraphOptions';
 
@@ -10,10 +10,11 @@ type GraphProps = {
     notes: Note[];
     setFilter: React.Dispatch<React.SetStateAction<ID[]>>;
     createNote(qualifiedName: string): void;
+    configs: Configs;
 };
 
 const GraphView = (props: GraphProps) => {
-    const { notes, setFilter, createNote } = props;
+    const { notes, setFilter, createNote, configs } = props;
 
     const [config, setConfig] = React.useState(
         JSON.parse(
@@ -227,7 +228,7 @@ const GraphView = (props: GraphProps) => {
                 const [node] = nodes;
 
                 const found = notes.find((note) => note.id === node);
-                if (!found) {
+                if (!found && configs.general.createUnfilledNote) {
                     createNote(node + '');
                 }
             }
@@ -273,7 +274,7 @@ const GraphView = (props: GraphProps) => {
     });
 
     return (
-        <div className="w-full h-full relative">
+        <div className="relative w-full h-full">
             <GraphOptions
                 config={config}
                 setConfig={setConfig}

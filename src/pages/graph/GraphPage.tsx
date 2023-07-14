@@ -1,5 +1,5 @@
 import React from 'react';
-import { Note } from '../../common/types';
+import { Configs, Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
@@ -9,18 +9,12 @@ import './GraphPage.scss';
 type GraphPageProps = {
     notes: Note[];
     createNote: (qualifiedName: string) => void;
+    configs: Configs;
 };
 
 const GraphPage = (props: GraphPageProps) => {
-    const { notes, createNote } = props;
-    const [openStates, setOpenStates] = React.useState<{
-        [key: string]: boolean;
-    }>(JSON.parse(localStorage.getItem('openStates') || '{}'));
+    const { notes, configs } = props;
     const [filter, setFilter] = React.useState([] as ID[]);
-
-    React.useEffect(() => {
-        localStorage.setItem('openStates', JSON.stringify(openStates));
-    }, [openStates]);
 
     const filterFunction = (note: Note) => {
         if (!filter.length) {
@@ -37,7 +31,7 @@ const GraphPage = (props: GraphPageProps) => {
     };
 
     return (
-        <main className="flex h-full flex-grow">
+        <main className="flex flex-grow h-full">
             <aside id="graphFolderContainer">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Files</h1>
@@ -48,7 +42,7 @@ const GraphPage = (props: GraphPageProps) => {
                 </div>
             </aside>
 
-            <section className="h-full flex-1">
+            <section className="flex-1 h-full">
                 <GraphView {...{ ...props, setFilter }} />
             </section>
         </main>
