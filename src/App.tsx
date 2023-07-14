@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Note } from './common/types';
+import { Configs, Note, defaultConfigs } from './common/types';
 import AboutPage from './pages/about/AboutPage';
 import EditNote from './pages/edit/EditNotePage';
 import GraphPage from './pages/graph/GraphPage';
@@ -13,10 +13,9 @@ function App() {
         JSON.parse(localStorage.getItem('notes') || '[]') as Note[]
     );
 
-    const [configs, setConfigs] = React.useState(
+    const [configs, setConfigs] = React.useState<Configs>(
         JSON.parse(
-            localStorage.getItem('configs') ||
-                '{"general": {"askOnDelete":true}}'
+            localStorage.getItem('configs') ?? JSON.stringify(defaultConfigs)
         )
     );
 

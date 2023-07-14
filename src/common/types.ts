@@ -21,3 +21,9 @@ export type Configs = {
 export type GeneralConfigs = {
     askOnDelete: boolean;
 };
+
+export const defaultConfigs: Configs = {
+    general: {
+        askOnDelete: true
+    }
+};
