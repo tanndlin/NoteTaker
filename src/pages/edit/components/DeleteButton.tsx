@@ -1,32 +1,17 @@
 import { useState } from 'react';
 import TrashIcon from '../../../common/Icons/TrashIcon';
-import { Configs } from '../../../common/types';
 import DeleteModal from './DeleteModal';
 
 type Props = {
     name: string;
     deleteNote: () => void;
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
+    askOnDelete: boolean;
+    setAskOnDelete: (b: boolean) => void;
 };
 
 const DeleteButton = (props: Props) => {
-    const { name, deleteNote, configs, setConfigs } = props;
-    const { askOnDelete } = configs.general;
-
+    const { name, deleteNote, askOnDelete, setAskOnDelete } = props;
     const [open, setOpen] = useState(false);
-
-    const setAskOnDelete = (b: boolean) => {
-        console.log('Setting ask on delete to ', b);
-
-        setConfigs({
-            ...configs,
-            general: {
-                ...configs.general,
-                askOnDelete: b
-            }
-        });
-    };
 
     const handleDeleteButtonClicked = () => {
         if (!askOnDelete) {

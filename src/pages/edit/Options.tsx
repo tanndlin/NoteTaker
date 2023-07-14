@@ -26,6 +26,16 @@ const Options = (props: OptionsProps) => {
         window.location.href = `/${id}`;
     };
 
+    const setAskOnDelete = (b: boolean) => {
+        setConfigs({
+            ...configs,
+            general: {
+                ...configs.general,
+                askOnDelete: b
+            }
+        });
+    };
+
     return (
         <aside className="mx-8 mt-16">
             <h2 className="mb-8 text-2xl text-center">Options</h2>
@@ -58,8 +68,8 @@ const Options = (props: OptionsProps) => {
                     <DeleteButton
                         deleteNote={deleteNote}
                         name={note.title}
-                        configs={configs}
-                        setConfigs={setConfigs}
+                        askOnDelete={configs.general.askOnDelete}
+                        setAskOnDelete={setAskOnDelete}
                     />
                 </ButtonBar>
                 <PotentialRefs notes={notes} note={note} edit={edit} />

@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ExportSettings = (props: Props) => {
-    const { notes, configs, setConfigs } = props;
+    const { notes } = props;
 
     const exportToJSON = () => {
         const dataStr =
