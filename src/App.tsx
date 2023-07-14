@@ -5,6 +5,7 @@ import AboutPage from './pages/about/AboutPage';
 import EditNote from './pages/edit/EditNotePage';
 import GraphPage from './pages/graph/GraphPage';
 import { HomePage } from './pages/home/HomePage';
+import SettingsPage from './pages/settings/SettingsPage';
 import ViewNotePage from './pages/view/ViewNotePage';
 
 function App() {
@@ -76,6 +77,10 @@ function App() {
                                 }}
                             />
                         }
+                    />
+                    <Route
+                        path="/settings"
+                        element={<SettingsPage notes={notes} />}
                     />
                     <Route path="**" element={<Navigate to="/" />} />
                 </Routes>
