@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router';
 type Props = {
     to: string;
     children: React.ReactNode;
+    className?: string;
 };
 
 const AnimatedLink = (props: Props) => {
-    const { to, children } = props;
+    const { to, children, className } = props;
     const navigate = useNavigate();
 
     const handleClick = (
@@ -21,7 +22,7 @@ const AnimatedLink = (props: Props) => {
     };
 
     return (
-        <a href={to} onClick={handleClick}>
+        <a href={to} onClick={handleClick} className={className ?? ''}>
             {children}
         </a>
     );

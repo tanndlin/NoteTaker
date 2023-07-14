@@ -34,7 +34,7 @@ function App() {
     };
 
     return (
-        <div className="py-4 h-screen w-screen">
+        <div className="w-screen h-screen py-4">
             <BrowserRouter>
                 <Routes>
                     <Route

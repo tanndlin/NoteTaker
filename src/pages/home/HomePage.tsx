@@ -1,6 +1,6 @@
-import React from 'react';
-import { Note } from '../../common/types';
+import AnimatedLink from '../../common/AnimatedLink';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
+import { Note } from '../../common/types';
 
 type HomePageProps = {
     notes: Note[];
@@ -15,19 +15,22 @@ export const HomePage = (props: HomePageProps) => {
     };
 
     return (
-        <main className="container mx-auto h-full p-8 flex flex-col">
+        <main className="container flex flex-col h-full p-8 mx-auto">
             <header className="flex justify-between">
                 <h1 className="text-4xl font-bold">Home</h1>
                 <span className="flex flex-col">
-                    <a className="text-xl" href="/about">
+                    <AnimatedLink className="text-xl" to={'/about'}>
                         About
-                    </a>
-                    <a className="text-xl" href="/graph">
+                    </AnimatedLink>
+                    <AnimatedLink className="text-xl" to={'/graph'}>
                         Graph
-                    </a>
+                    </AnimatedLink>
+                    <AnimatedLink className="text-xl" to={'/Settings'}>
+                        Settings
+                    </AnimatedLink>
                 </span>
             </header>
-            <article className="bg-secondary container min-h-1/2 mt-16 p-4 rounded-md overflow-auto">
+            <article className="container p-4 mt-16 overflow-auto rounded-md bg-secondary min-h-1/2">
                 <FolderViewWrapper {...{ notes, createNote, onClick }} />
             </article>
         </main>

@@ -48,16 +48,23 @@
     height: 100%;
 }
 
+.settings-page-container {
+    height: 100%;
+    width: 100%;
+    margin: 32px auto;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
 .settings-tab {
     @apply bg-secondary;
 
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 50%;
-
+    width: 100%;
     padding: 24px;
-    margin: 32px auto;
 
     border: 1px solid rgb(107 114 128);
     border-radius: 0.375rem;

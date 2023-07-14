@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import AnimatedLink from '../../common/AnimatedLink';
+import HomeIcon from '../../common/Icons/HomeIcon';
 import TabbedContainer from '../../common/TabbedContainer';
 import { Note } from '../../common/types';
 import AppearanceSettings from './components/AppearanceSettings';
@@ -30,9 +32,17 @@ const SettingsPage = (props: Props) => {
                 <h1>Appearance</h1>
                 <h1>Export</h1>
             </TabbedContainer>
-            {activeTab === 0 && <GeneralSettings notes={notes} />}
-            {activeTab === 1 && <AppearanceSettings notes={notes} />}
-            {activeTab === 2 && <ExportSettings notes={notes} />}
+            <div className="settings-page-container">
+                <p></p>
+                {activeTab === 0 && <GeneralSettings notes={notes} />}
+                {activeTab === 1 && <AppearanceSettings notes={notes} />}
+                {activeTab === 2 && <ExportSettings notes={notes} />}
+                <button className="w-20 h-10 mx-auto">
+                    <AnimatedLink to="/">
+                        <HomeIcon className="mx-auto text-white" />
+                    </AnimatedLink>
+                </button>
+            </div>
         </div>
     );
 };
