@@ -17,7 +17,15 @@ const SettingsPage = (props: Props) => {
 
     return (
         <div className="settings-page">
-            <TabbedContainer activeTab={activeTab} setActiveTab={setActiveTab}>
+            <TabbedContainer
+                activeTab={activeTab}
+                setActiveTab={(n) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (document as any).startViewTransition(() =>
+                        setActiveTab(n)
+                    );
+                }}
+            >
                 <h1>General</h1>
                 <h1>Appearance</h1>
                 <h1>Export</h1>

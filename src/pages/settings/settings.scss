@@ -75,6 +75,7 @@
         font-size: x-large;
         font-weight: bold;
         padding: 4px;
+        border-radius: 0.125rem;
 
         &:hover {
             background: rgb(43, 57, 77);
@@ -84,6 +85,7 @@
 
 .settings-config {
     padding: 4px;
+    border-radius: 0.125rem;
 
     &:hover {
         background: rgb(43, 57, 77);
