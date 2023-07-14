@@ -32,7 +32,8 @@
         border-top: 1px solid rgb(107 114 128);
         border-right: 1px solid rgb(107 114 128);
         border-left: 1px solid rgb(107 114 128);
-        border-bottom: 1px solid #111213;
+        border-bottom: 1px solid;
+        @apply border-b-primary;
         border-radius: 0.25rem 0.25rem 0 0;
 
         & > ::after {
