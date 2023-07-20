@@ -12,6 +12,7 @@ type Props = {
     configs: Configs;
     setConfigs: (configs: Configs) => void;
     notes: Note[];
+    setNotes: (notes: Note[]) => void;
 };
 
 export type ConfigProps = {

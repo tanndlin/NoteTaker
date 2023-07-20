@@ -106,6 +106,7 @@ function App() {
                                 notes={notes}
                                 configs={configs}
                                 setConfigs={setConfigs}
+                                setNotes={setNotes}
                             />
                         }
                     />
