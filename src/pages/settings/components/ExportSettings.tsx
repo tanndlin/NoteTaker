@@ -77,27 +77,23 @@ const ExportSettings = (props: Props) => {
         input.click();
     };
 
-    const setReplaceOnImport = (b: boolean) => {
+    const setExportConfigs = (key: string, b: boolean) => {
         setConfigs({
             ...configs,
             export: {
                 ...configs.export,
-                replaceOnImport: b
+                [key]: b
             }
         });
+    };
+
+    const setReplaceOnImport = (b: boolean) => {
+        setExportConfigs('replaceOnImport', b);
     };
 
     const setResolveConflictsReplace = (b: boolean) => {
-        setConfigs({
-            ...configs,
-            export: {
-                ...configs.export,
-                resolveConflictsReplace: b
-            }
-        });
+        setExportConfigs('resolveConflictsReplace', b);
     };
-
-    console.log(configs);
 
     return (
         <div className="settings-tab">
