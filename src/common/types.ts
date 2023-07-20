@@ -16,6 +16,7 @@ export type Directory = {
 
 export type Configs = {
     general: GeneralConfigs;
+    export: ExportConfigs;
 };
 
 export type GeneralConfigs = {
@@ -23,9 +24,18 @@ export type GeneralConfigs = {
     createUnfilledNote: boolean;
 };
 
+export type ExportConfigs = {
+    replaceOnImport: boolean;
+    resolveConflictsReplace: boolean;
+};
+
 export const defaultConfigs: Configs = {
     general: {
         askOnDelete: true,
         createUnfilledNote: true
+    },
+    export: {
+        replaceOnImport: true,
+        resolveConflictsReplace: true
     }
 };
