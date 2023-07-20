@@ -9,7 +9,7 @@ type ViewNoteProps = {
 };
 
 const ViewNotePage = (props: ViewNoteProps) => {
-    const { notes, createNote, configs } = props;
+    const { notes, createNote } = props;
 
     const { id } = useParams();
     const note = props.notes.find((note) => note.id === Number(id));

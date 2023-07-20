@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
@@ -21,9 +22,11 @@ const Options = (props: OptionsProps) => {
     const { directory, edit, deleteNote, note, notes, configs, setConfigs } =
         props;
 
+    const navigate = useNavigate();
+
     const gotoView = () => {
-        const id = window.location.pathname.split('/')[1];
-        window.location.href = `/${id}`;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (document as any).startViewTransition(() => navigate(`/${note.id}`));
     };
 
     const setAskOnDelete = (b: boolean) => {
