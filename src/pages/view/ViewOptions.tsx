@@ -12,9 +12,9 @@ const ViewOptions = (props: PreviewOptionsProps) => {
     const { directory, id } = props.note;
     const navigate = useNavigate();
 
-    const gotoEdit = () => {
+    const goto = (path: string) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (document as any).startViewTransition(() => navigate(`/${id}/edit`));
+        (document as any).startViewTransition(() => navigate(path));
     };
 
     return (
@@ -26,14 +26,10 @@ const ViewOptions = (props: PreviewOptionsProps) => {
                     <h2>{directory}</h2>
                 </span>
                 <ButtonBar>
-                    <button
-                        onClick={() => {
-                            window.location.href = '/';
-                        }}
-                    >
+                    <button onClick={() => goto('/')}>
                         <HomeIcon className="mx-auto" />
                     </button>
-                    <button onClick={gotoEdit}>
+                    <button onClick={() => goto(`/${id}/edit`)}>
                         <EditIcon className="mx-auto" />
                     </button>
                 </ButtonBar>

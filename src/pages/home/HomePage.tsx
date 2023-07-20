@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import AnimatedLink from '../../common/AnimatedLink';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
 import { Configs, Note } from '../../common/types';
@@ -10,9 +11,11 @@ type HomePageProps = {
 
 export const HomePage = (props: HomePageProps) => {
     const { notes, createNote } = props;
+    const navigate = useNavigate();
 
     const onClick = (note: Note) => {
-        window.location.href = `/${note.id}`;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (document as any).startViewTransition(() => navigate(`/${note.id}`));
     };
 
     return (

@@ -23,10 +23,9 @@ const Options = (props: OptionsProps) => {
         props;
 
     const navigate = useNavigate();
-
-    const gotoView = () => {
+    const goto = (path: string) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (document as any).startViewTransition(() => navigate(`/${note.id}`));
+        (document as any).startViewTransition(() => navigate(path));
     };
 
     const setAskOnDelete = (b: boolean) => {
@@ -58,14 +57,10 @@ const Options = (props: OptionsProps) => {
                     />
                 </span>
                 <ButtonBar>
-                    <button
-                        onClick={() => {
-                            window.location.href = '/';
-                        }}
-                    >
+                    <button onClick={() => goto('/')}>
                         <HomeIcon className="mx-auto" />
                     </button>
-                    <button onClick={gotoView}>
+                    <button onClick={() => goto(`/${note.id}`)}>
                         <MagnifyingGlassIcon className="w-6 mx-auto" />
                     </button>
                     <DeleteButton
