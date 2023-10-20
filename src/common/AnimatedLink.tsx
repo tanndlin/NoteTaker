@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { smoothTransition } from './utils';
 
 type Props = {
     to: string;
@@ -16,7 +17,7 @@ const AnimatedLink = (props: Props) => {
     ) => {
         event.preventDefault();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (document as any).startViewTransition(() => {
+        smoothTransition(() => {
             navigate(to);
         });
     };

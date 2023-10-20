@@ -3,6 +3,7 @@ import AnimatedLink from '../../common/AnimatedLink';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import TabbedContainer from '../../common/TabbedContainer';
 import { Configs, Note } from '../../common/types';
+import { smoothTransition } from '../../common/utils';
 import AppearanceSettings from './components/AppearanceSettings';
 import ExportSettings from './components/ExportSettings';
 import GeneralSettings from './components/GeneralSettings';
@@ -30,9 +31,7 @@ const SettingsPage = (props: Props) => {
                 activeTab={activeTab}
                 setActiveTab={(n) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (document as any).startViewTransition(() =>
-                        setActiveTab(n)
-                    );
+                    smoothTransition(() => setActiveTab(n));
                 }}
             >
                 <h1>General</h1>

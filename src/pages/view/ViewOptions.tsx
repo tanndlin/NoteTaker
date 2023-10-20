@@ -3,6 +3,7 @@ import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import EditIcon from '../../common/Icons/EditIcon';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import { Note } from '../../common/types';
+import { smoothTransition } from '../../common/utils';
 
 type PreviewOptionsProps = {
     note: Note;
@@ -14,7 +15,7 @@ const ViewOptions = (props: PreviewOptionsProps) => {
 
     const goto = (path: string) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (document as any).startViewTransition(() => navigate(path));
+        smoothTransition(() => navigate(path));
     };
 
     return (

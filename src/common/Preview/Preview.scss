@@ -1,5 +1,9 @@
 #previewContainer {
-    // height: 900px !important;
+    view-transition-name: preview-container;
+
+    //     &>div>h1 {
+    //         view-transition-name: preview-title;
+    //     }
 }
 
 .tooltip {

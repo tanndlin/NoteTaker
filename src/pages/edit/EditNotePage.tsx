@@ -1,9 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
 import { createLinks } from '../../common/bodyToView';
 import { Configs, Note } from '../../common/types';
+import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
 import './EditNote.scss';
 import Options from './Options';
@@ -19,6 +20,7 @@ type EditNoteProps = {
 
 const EditNote = (props: EditNoteProps) => {
     const { notes, setNotes, configs, setConfigs } = props;
+    const navigate = useNavigate();
 
     const { id } = useParams();
     const note = notes.find((note) => note.id === Number(id));
@@ -54,7 +56,7 @@ const EditNote = (props: EditNoteProps) => {
                 <FolderViewMinWrapper
                     notes={notes}
                     onClick={(note: Note) =>
-                        (window.location.href = `/${note.id}/edit`)
+                        smoothTransition(() => navigate(`/${note.id}/edit`))
                     }
                 />
             </div>

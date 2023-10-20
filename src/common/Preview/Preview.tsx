@@ -66,7 +66,8 @@ export const Preview = (props: PreviewProps) => {
 
     return (
         <div
-            className="bg-secondary rounded-md p-4 flex-1 overflow-auto"
+            className="flex-1 p-4 overflow-auto rounded-md bg-secondary"
+            id="previewContainer"
             onClick={(e) => {
                 if (e.target instanceof HTMLAnchorElement) {
                     if (!props.onClick) {

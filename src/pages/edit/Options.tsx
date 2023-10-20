@@ -3,6 +3,7 @@ import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
 import { Configs, Note } from '../../common/types';
+import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
 import DeleteButton from './components/DeleteButton';
 import PotentialRefs from './components/PotentialRefs';
@@ -21,12 +22,7 @@ type OptionsProps = {
 const Options = (props: OptionsProps) => {
     const { directory, edit, deleteNote, note, notes, configs, setConfigs } =
         props;
-
     const navigate = useNavigate();
-    const goto = (path: string) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (document as any).startViewTransition(() => navigate(path));
-    };
 
     const setAskOnDelete = (b: boolean) => {
         setConfigs({
@@ -57,10 +53,16 @@ const Options = (props: OptionsProps) => {
                     />
                 </span>
                 <ButtonBar>
-                    <button onClick={() => goto('/')}>
+                    <button
+                        onClick={() => smoothTransition(() => navigate('/'))}
+                    >
                         <HomeIcon className="mx-auto" />
                     </button>
-                    <button onClick={() => goto(`/${note.id}`)}>
+                    <button
+                        onClick={() =>
+                            smoothTransition(() => navigate(`/${note.id}`))
+                        }
+                    >
                         <MagnifyingGlassIcon className="w-6 mx-auto" />
                     </button>
                     <DeleteButton
