@@ -1,17 +1,14 @@
-import { Configs, Note } from '../../../common/types';
+import { useContext } from 'react';
+import { Note } from '../../../common/types';
+import { ConfigContext } from '../../../contexts/ConfigContext';
+import { NoteContext } from '../../../contexts/NoteContext';
 import SettingsCategory from './SettingsCategory';
 import ButtonConfig from './configs/ButtonConfig';
 import ToggleConfig from './configs/ToggleConfig';
 
-type Props = {
-    notes: Note[];
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
-    setNotes: (notes: Note[]) => void;
-};
-
-const ExportSettings = (props: Props) => {
-    const { notes, configs, setConfigs, setNotes } = props;
+const ExportSettings = () => {
+    const { notes, setNotes } = useContext(NoteContext);
+    const { configs, setConfigs } = useContext(ConfigContext);
 
     const exportToJSON = () => {
         const dataStr =

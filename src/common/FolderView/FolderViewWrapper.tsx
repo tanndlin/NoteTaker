@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
+import { Directory, Note } from '../types';
 import { FolderView, getHeirarchy } from './FolderView';
 import FoldingOptions from './FoldingOptions';
-import { Directory, Note } from '../types';
 
 type FolderViewWrapperProps = {
-    notes: Note[];
-    createNote: () => number;
     className?: string;
     onClick: (note: Note) => void;
 };
 
 // Self-sufficient wrapper for FolderView
 const FolderViewWrapper = (props: FolderViewWrapperProps) => {
-    const { notes, className, onClick } = props;
+    const { className, onClick } = props;
+    const { notes, createNote } = useContext(NoteContext);
 
     const [searchTerm, setSearchTerm] = React.useState('');
     const [queue, _setQueue] = React.useState<string[]>([]);
@@ -28,12 +28,12 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
         note.title.toLowerCase().includes(searchTerm.toLowerCase());
 
     const handleNew = () => {
-        const id = props.createNote();
+        const id = createNote();
         window.location.href = `/${id}/edit`;
     };
 
     const expandAll = () => {
-        const heirarchy = getHeirarchy(props.notes, search);
+        const heirarchy = getHeirarchy(notes, search);
         const dfs = (dir: Directory) => {
             Object.keys(dir.dirs).forEach((key) => {
                 queue.push(key);
@@ -47,7 +47,9 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     };
 
     React.useEffect(() => {
-        if (queue.length === 0) return;
+        if (queue.length === 0) {
+            return;
+        }
         const key = queue.shift()!;
 
         setTimeout(() => {
@@ -75,9 +77,9 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             });
         };
 
-        bfs(getHeirarchy(props.notes, search));
+        bfs(getHeirarchy(notes, search));
         setOpenStates(newOpenStates);
-    }, [props.notes]);
+    }, [notes]);
 
     return (
         <div
@@ -86,12 +88,12 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
                 (className ? ` ${className}` : '')
             }
         >
-            <header className="flex justify-between mb-8 sticky top-0 bg-secondary z-50 pt-4">
+            <header className="sticky top-0 z-50 flex justify-between pt-4 mb-8 bg-secondary">
                 <h2 className="text-xl">Notes</h2>
                 <div className="flex gap-4">
                     <FoldingOptions {...{ expandAll, foldAll, handleNew }} />
                     <input
-                        className="rounded-md px-2 py-1"
+                        className="px-2 py-1 rounded-md"
                         type="text"
                         placeholder="Search"
                         value={searchTerm}
@@ -105,7 +107,6 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             <div>
                 <FolderView
                     {...{
-                        notes,
                         filter: search,
                         openStates,
                         setOpenStates,

@@ -1,9 +1,10 @@
+import { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
 import { Directory, Note } from '../types';
 import { File } from './File';
 import Folder from './Folder';
 
 type FolderViewProps = {
-    notes: Note[];
     filter: (note: Note) => boolean;
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
@@ -11,7 +12,8 @@ type FolderViewProps = {
 };
 
 export const FolderView = (props: FolderViewProps) => {
-    const { notes, filter, openStates, setOpenStates, onClick } = props;
+    const { filter, openStates, setOpenStates, onClick } = props;
+    const { notes } = useContext(NoteContext);
 
     // Recursively create the file structure
     const createFileStructure = (heirarchy: Directory) => {

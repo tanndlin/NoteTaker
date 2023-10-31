@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { getRefs } from '../../../common/bodyToView';
-import { Configs, Directory, Note } from '../../../common/types';
+import { Directory } from '../../../common/types';
+import { ConfigContext } from '../../../contexts/ConfigContext';
+import { NoteContext } from '../../../contexts/NoteContext';
 import { Edge, ID, IGraph, IGraphConfig, Node } from '../graph.types';
 import GraphOptions from './GraphOptions';
 
 type GraphProps = {
-    notes: Note[];
     setFilter: React.Dispatch<React.SetStateAction<ID[]>>;
     createNote(qualifiedName: string): void;
-    configs: Configs;
 };
 
 const GraphView = (props: GraphProps) => {
-    const { notes, setFilter, createNote, configs } = props;
+    const { setFilter, createNote } = props;
+    const { configs } = useContext(ConfigContext);
+    const { notes } = useContext(NoteContext);
 
     const [config, setConfig] = React.useState(
         JSON.parse(

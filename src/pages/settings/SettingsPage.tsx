@@ -2,26 +2,18 @@ import { useState } from 'react';
 import AnimatedLink from '../../common/AnimatedLink';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import TabbedContainer from '../../common/TabbedContainer';
-import { Configs, Note } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import AppearanceSettings from './components/AppearanceSettings';
 import ExportSettings from './components/ExportSettings';
 import GeneralSettings from './components/GeneralSettings';
 import './settings.scss';
 
-type Props = {
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
-    notes: Note[];
-    setNotes: (notes: Note[]) => void;
-};
-
 export type ConfigProps = {
     title: string;
     description: string;
 };
 
-const SettingsPage = (props: Props) => {
+const SettingsPage = () => {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
@@ -40,9 +32,9 @@ const SettingsPage = (props: Props) => {
             </TabbedContainer>
             <div className="settings-page-container">
                 <p></p>
-                {activeTab === 0 && <GeneralSettings {...props} />}
-                {activeTab === 1 && <AppearanceSettings {...props} />}
-                {activeTab === 2 && <ExportSettings {...props} />}
+                {activeTab === 0 && <GeneralSettings />}
+                {activeTab === 1 && <AppearanceSettings />}
+                {activeTab === 2 && <ExportSettings />}
                 <button className="w-20 h-10 mx-auto">
                     <AnimatedLink to="/">
                         <HomeIcon className="mx-auto text-white" />

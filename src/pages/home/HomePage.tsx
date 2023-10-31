@@ -1,17 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import AnimatedLink from '../../common/AnimatedLink';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
-import { Configs, Note } from '../../common/types';
+import { Note } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 
-type HomePageProps = {
-    notes: Note[];
-    createNote: () => number;
-    configs: Configs;
-};
-
-export const HomePage = (props: HomePageProps) => {
-    const { notes, createNote } = props;
+export const HomePage = () => {
     const navigate = useNavigate();
 
     const onClick = (note: Note) => {
@@ -35,7 +28,7 @@ export const HomePage = (props: HomePageProps) => {
                 </span>
             </header>
             <article className="container p-4 mt-16 overflow-auto rounded-md bg-secondary min-h-1/2">
-                <FolderViewWrapper {...{ notes, createNote, onClick }} />
+                <FolderViewWrapper onClick={onClick} />
             </article>
         </main>
     );

@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
-import { Configs, Note } from '../../common/types';
+import { Note } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
+import { ConfigContext } from '../../contexts/ConfigContext';
+import { NoteContext } from '../../contexts/NoteContext';
 import DeleteButton from './components/DeleteButton';
 import PotentialRefs from './components/PotentialRefs';
 
@@ -14,14 +17,12 @@ type OptionsProps = {
     edit: (newKeys: any) => void;
     deleteNote: () => void;
     note: Note;
-    notes: Note[];
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
 };
 
 const Options = (props: OptionsProps) => {
-    const { directory, edit, deleteNote, note, notes, configs, setConfigs } =
-        props;
+    const { directory, edit, deleteNote, note } = props;
+    const { notes } = useContext(NoteContext);
+    const { configs, setConfigs } = useContext(ConfigContext);
     const navigate = useNavigate();
 
     const setAskOnDelete = (b: boolean) => {

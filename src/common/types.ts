@@ -39,3 +39,14 @@ export const defaultConfigs: Configs = {
         resolveConflictsReplace: true
     }
 };
+
+export interface INoteContext {
+    notes: Note[];
+    setNotes: (notes: Note[]) => void;
+    createNote: (options?: { title?: string; directory?: string }) => void;
+}
+
+export interface IConfigContext {
+    configs: Configs;
+    setConfigs: (configs: Configs) => void;
+}

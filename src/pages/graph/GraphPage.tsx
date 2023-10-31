@@ -1,20 +1,29 @@
-import React from 'react';
-import { Configs, Note } from '../../common/types';
+import React, { useContext } from 'react';
+import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
+import { NoteContext } from '../../contexts/NoteContext';
 import './GraphPage.scss';
 
-type GraphPageProps = {
-    notes: Note[];
-    createNote: (qualifiedName: string) => void;
-    configs: Configs;
-};
-
-const GraphPage = (props: GraphPageProps) => {
-    const { notes, configs } = props;
+const GraphPage = () => {
+    const noteContext = useContext(NoteContext);
     const [filter, setFilter] = React.useState([] as ID[]);
+
+    const createNote = (qualifiedName: string) => {
+        const split = qualifiedName.split('/');
+        const title = split[split.length - 1];
+
+        // dir is everything before the last
+        const directory = split.slice(0, split.length - 1).join('/');
+        const id = noteContext.createNote({
+            title,
+            directory
+        });
+
+        window.location.href = `/${id}`;
+    };
 
     const filterFunction = (note: Note) => {
         if (!filter.length) {
@@ -35,15 +44,12 @@ const GraphPage = (props: GraphPageProps) => {
             <aside id="graphFolderContainer">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Files</h1>
-                    <FolderViewMinWrapper
-                        notes={notes}
-                        filter={filterFunction}
-                    />
+                    <FolderViewMinWrapper filter={filterFunction} />
                 </div>
             </aside>
 
             <section className="flex-1 h-full">
-                <GraphView {...{ ...props, setFilter }} />
+                <GraphView {...{ createNote, setFilter }} />
             </section>
         </main>
     );

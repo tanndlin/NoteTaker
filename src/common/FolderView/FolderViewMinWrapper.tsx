@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
 import FolderOpenIcon from '../Icons/FolderOpenIcon';
 import HomeIcon from '../Icons/HomeIcon';
@@ -6,13 +7,13 @@ import { Note } from '../types';
 import { FolderView } from './FolderView';
 
 type Props = {
-    notes: Note[];
     onClick?: (note: Note) => void;
     filter?: (note: Note) => boolean;
 };
 
 const FolderViewMinWrapper = (props: Props) => {
-    const { notes, filter } = props;
+    const { filter } = props;
+    const { notes } = useContext(NoteContext);
 
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
@@ -45,7 +46,7 @@ const FolderViewMinWrapper = (props: Props) => {
     return (
         <div className="flex flex-col justify-between h-full">
             <section className="overflow-auto overflow-x-hidden">
-                <div className="w-max mr-4 mb-4">
+                <div className="mb-4 mr-4 w-max">
                     <FolderView
                         {...{
                             notes,
@@ -58,7 +59,7 @@ const FolderViewMinWrapper = (props: Props) => {
                 </div>
             </section>
             <footer className="flex flex-col gap-8">
-                <span className="flex gap-8 justify-center">
+                <span className="flex justify-center gap-8">
                     <button onClick={expandAll}>
                         <FolderOpenIcon className="mx-auto" />
                     </button>

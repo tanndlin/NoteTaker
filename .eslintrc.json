@@ -58,7 +58,8 @@
         "react/prop-types": 0,
         "react/jsx-key": 0,
         "react/react-in-jsx-scope": "off",
-        "react/jsx-uses-react": "off"
+        "react/jsx-uses-react": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

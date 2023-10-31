@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
 import { Note } from '../../common/types';
 import ViewOptions from '../../pages/view/ViewOptions';
 import Tab from './Tab';
 import TabHeader from './TabHeader';
 
+import { NoteContext } from '../../contexts/NoteContext';
 import './Tab.scss';
 
-type TabContainerProps = {
-    notes: Note[];
-    createNote: () => number;
-};
-
-const TabContainer = (props: TabContainerProps) => {
-    const { notes, createNote } = props;
+const TabContainer = () => {
+    const { notes, createNote } = useContext(NoteContext);
 
     const id = window.location.pathname.split('/')[1];
     const [tabbedNotes, setTabbedNotes] = React.useState<Note[]>([
@@ -85,7 +81,6 @@ const TabContainer = (props: TabContainerProps) => {
                         <Tab
                             key={index}
                             tab={tab}
-                            notes={notes}
                             active={index === activeTab}
                             onClick={(id: number) => {
                                 const note = notes.find(

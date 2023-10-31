@@ -1,25 +1,19 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
 import { createLinks } from '../../common/bodyToView';
-import { Configs, Note } from '../../common/types';
+import { Note } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
+import { NoteContext } from '../../contexts/NoteContext';
 import './EditNote.scss';
 import Options from './Options';
 import { Edit } from './components/Edit';
 import Stats from './components/Stats';
 
-type EditNoteProps = {
-    notes: Note[];
-    setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
-};
-
-const EditNote = (props: EditNoteProps) => {
-    const { notes, setNotes, configs, setConfigs } = props;
+const EditNote = () => {
+    const { notes, setNotes } = useContext(NoteContext);
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -54,7 +48,6 @@ const EditNote = (props: EditNoteProps) => {
             <div className="h-full p-4 pt-16 flex flex-col max-h-[85vh]">
                 <h1 className="mx-auto mb-8 text-2xl">Files</h1>
                 <FolderViewMinWrapper
-                    notes={notes}
                     onClick={(note: Note) =>
                         smoothTransition(() => navigate(`/${note.id}/edit`))
                     }
@@ -102,10 +95,7 @@ const EditNote = (props: EditNoteProps) => {
                         edit({ ...note, ...newKeys });
                     }}
                     deleteNote={deleteNote}
-                    notes={props.notes}
                     note={note}
-                    configs={configs}
-                    setConfigs={setConfigs}
                 />
                 <Stats note={note} notes={notes} />
             </div>

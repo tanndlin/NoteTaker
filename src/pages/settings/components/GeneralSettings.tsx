@@ -1,15 +1,10 @@
-import { Configs, Note } from '../../../common/types';
+import { useContext } from 'react';
+import { ConfigContext } from '../../../contexts/ConfigContext';
 import SettingsCategory from './SettingsCategory';
 import ToggleConfig from './configs/ToggleConfig';
 
-type Props = {
-    notes: Note[];
-    configs: Configs;
-    setConfigs: (configs: Configs) => void;
-};
-
-const GeneralSettings = (props: Props) => {
-    const { configs, setConfigs } = props;
+const GeneralSettings = () => {
+    const { configs, setConfigs } = useContext(ConfigContext);
 
     const setAskOnDelete = (b: boolean) => {
         setConfigs({
