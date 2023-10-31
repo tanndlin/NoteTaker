@@ -45,8 +45,8 @@ const EditNote = () => {
 
     return (
         <main id="editPageContainer" className="grid w-full h-full grid-cols-3">
-            <div className="h-full p-4 pt-16 flex flex-col max-h-[85vh]">
-                <h1 className="mx-auto mb-8 text-2xl">Files</h1>
+            <div className="h-full p-4 ml-8 mt-[134px] flex flex-col max-h-[85vh] folder-view bg-secondary rounded-md">
+                <h1 className="mb-8 ml-8 text-2xl">Files</h1>
                 <FolderViewMinWrapper
                     onClick={(note: Note) =>
                         smoothTransition(() => navigate(`/${note.id}/edit`))

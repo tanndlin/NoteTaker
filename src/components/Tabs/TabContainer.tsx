@@ -49,7 +49,7 @@ const TabContainer = () => {
         <div id="tabsContainer">
             <header className="grid w-screen grid-cols-3 px-8 TriplePane">
                 <p />
-                <h1 className="mx-8 mb-8 text-3xl">{note.title}</h1>
+                <h1 className="mx-8 mb-8 text-3xl page-title">{note.title}</h1>
                 <p />
             </header>
             <div className="grid w-screen grid-cols-3 px-8 TriplePane">
@@ -72,7 +72,7 @@ const TabContainer = () => {
                     {...{
                         notes,
                         createNote,
-                        className: 'viewPageFolderView',
+                        className: 'viewPageFolderView folder-view',
                         onClick: openTab
                     }}
                 />

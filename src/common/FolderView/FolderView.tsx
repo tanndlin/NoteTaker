@@ -42,7 +42,7 @@ export const FolderView = (props: FolderViewProps) => {
     };
 
     return (
-        <div className="w-full h-full">
+        <div className="h-full w-max temp">
             {createFileStructure(getHeirarchy(notes, filter))}
         </div>
     );

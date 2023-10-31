@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
 import FolderOpenIcon from '../Icons/FolderOpenIcon';
 import HomeIcon from '../Icons/HomeIcon';
 import { Note } from '../types';
+import { smoothTransition } from '../utils';
 import { FolderView } from './FolderView';
 
 type Props = {
@@ -14,6 +16,7 @@ type Props = {
 const FolderViewMinWrapper = (props: Props) => {
     const { filter } = props;
     const { notes } = useContext(NoteContext);
+    const navigate = useNavigate();
 
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
@@ -67,7 +70,7 @@ const FolderViewMinWrapper = (props: Props) => {
                         <FolderMinusIcon className="mx-auto" />
                     </button>
                 </span>
-                <button onClick={() => (window.location.href = '/')}>
+                <button onClick={() => smoothTransition(() => navigate('/'))}>
                     <HomeIcon className="mx-auto" />
                 </button>
             </footer>

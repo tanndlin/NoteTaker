@@ -14,7 +14,7 @@ export const HomePage = () => {
     return (
         <main className="container flex flex-col h-full p-8 mx-auto">
             <header className="flex justify-between">
-                <h1 className="text-4xl font-bold">Home</h1>
+                <h1 className="text-4xl font-bold page-title">Home</h1>
                 <span className="flex flex-col">
                     <AnimatedLink className="text-xl" to={'/about'}>
                         About
@@ -27,7 +27,7 @@ export const HomePage = () => {
                     </AnimatedLink>
                 </span>
             </header>
-            <article className="container p-4 mt-16 overflow-auto rounded-md bg-secondary min-h-1/2">
+            <article className="container p-4 mt-16 overflow-auto rounded-md bg-secondary min-h-1/2 folder-view">
                 <FolderViewWrapper onClick={onClick} />
             </article>
         </main>

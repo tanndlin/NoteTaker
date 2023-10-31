@@ -3,13 +3,16 @@ import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
+import { useNavigate } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
+import { smoothTransition } from '../../common/utils';
 import { NoteContext } from '../../contexts/NoteContext';
 import './GraphPage.scss';
 
 const GraphPage = () => {
     const noteContext = useContext(NoteContext);
     const [filter, setFilter] = React.useState([] as ID[]);
+    const navigate = useNavigate();
 
     const createNote = (qualifiedName: string) => {
         const split = qualifiedName.split('/');
@@ -39,12 +42,19 @@ const GraphPage = () => {
         return filter.some((dirName) => note.directory.includes(dirName + ''));
     };
 
+    const onClick = (note: Note) => {
+        smoothTransition(() => navigate(`/${note.id}`));
+    };
+
     return (
         <main className="flex flex-grow h-full">
-            <aside id="graphFolderContainer">
+            <aside className="folder-view" id="graphFolderContainer">
                 <div className="flex flex-col">
-                    <h1 className="text-2xl">Files</h1>
-                    <FolderViewMinWrapper filter={filterFunction} />
+                    <h1 className="text-2xl">Notes</h1>
+                    <FolderViewMinWrapper
+                        filter={filterFunction}
+                        onClick={onClick}
+                    />
                 </div>
             </aside>
 

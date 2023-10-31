@@ -1,8 +1,11 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MarkdownRenderer from '../../common/Preview/MarkdownRenderer';
+import { smoothTransition } from '../../common/utils';
 
 const AboutPage = () => {
+    const navigate = useNavigate();
+
     const markdownContent = `
 # Note Taker {#top}
 ## About
@@ -43,11 +46,11 @@ For example [this](#top) hyperlink will take you to the top heading.
 
     return (
         <main className="flex flex-col h-full">
-            <span className="mx-auto w-1/2 flex justify-between">
-                <h1 className="text-3xl text-center font-bold">
+            <span className="flex justify-between w-1/2 mx-auto">
+                <h1 className="text-3xl font-bold text-center">
                     Welcome to Note Taker!
                 </h1>
-                <button onClick={() => (window.location.href = '/')}>
+                <button onClick={() => smoothTransition(() => navigate('/'))}>
                     <HomeIcon />
                 </button>
             </span>
