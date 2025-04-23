@@ -8,7 +8,7 @@ export const createLinks = (note: Note, notes: Note[]) => {
     refs.forEach((ref) => {
         newBody = newBody.replace(
             `ref(${ref.ref.replace(/ /g, '_')})`,
-            `${'../'.repeat(currentDepth)}${ref.note.id}`
+            `${'../'.repeat(currentDepth)}${ref.note.id}/edit`
         );
     });
 

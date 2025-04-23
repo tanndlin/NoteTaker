@@ -8,11 +8,12 @@ type Props = { children: React.ReactNode | React.ReactNode[] };
 
 const ConfigProvider = (props: Props) => {
     const { children } = props;
-    const [configs, setConfigs] = React.useState<Configs>(
-        JSON.parse(
+    const [configs, setConfigs] = React.useState<Configs>({
+        ...defaultConfigs,
+        ...JSON.parse(
             localStorage.getItem('configs') ?? JSON.stringify(defaultConfigs)
         )
-    );
+    });
     React.useEffect(() => {
         localStorage.setItem('configs', JSON.stringify(configs));
     }, [configs]);

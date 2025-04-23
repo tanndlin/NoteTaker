@@ -17,6 +17,7 @@ export type Directory = {
 export type Configs = {
     general: GeneralConfigs;
     export: ExportConfigs;
+    appearance: AppearanceConfigs;
 };
 
 export type GeneralConfigs = {
@@ -29,6 +30,10 @@ export type ExportConfigs = {
     resolveConflictsReplace: boolean;
 };
 
+export type AppearanceConfigs = {
+    previewDelay: number;
+};
+
 export const defaultConfigs: Configs = {
     general: {
         askOnDelete: true,
@@ -37,6 +42,9 @@ export const defaultConfigs: Configs = {
     export: {
         replaceOnImport: true,
         resolveConflictsReplace: true
+    },
+    appearance: {
+        previewDelay: 500 // Default delay in milliseconds
     }
 };
 

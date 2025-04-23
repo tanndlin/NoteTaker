@@ -3,7 +3,7 @@
     gap: 10px;
     border-bottom: 1px solid rgb(107 114 128);
 
-    & > .tab {
+    &>.tab {
         padding: 12px 24px;
         // background: #111213;
         border: 1px solid transparent;
@@ -12,7 +12,7 @@
 
         position: relative;
 
-        & > ::after {
+        &> ::after {
             content: '';
             position: absolute;
             bottom: -1px; // Account for border
@@ -23,12 +23,12 @@
             border-bottom: 1px solid rgb(107 114 128);
         }
 
-        & > :hover {
+        &> :hover {
             color: #bbb;
         }
     }
 
-    & > .active-tab {
+    &>.active-tab {
         border-top: 1px solid rgb(107 114 128);
         border-right: 1px solid rgb(107 114 128);
         border-left: 1px solid rgb(107 114 128);
@@ -36,7 +36,7 @@
         @apply border-b-primary;
         border-radius: 0.25rem 0.25rem 0 0;
 
-        & > ::after {
+        &> ::after {
             border: transparent;
         }
     }
@@ -80,6 +80,7 @@
 
 .settings-category {
     padding: 24px 0;
+
     & h2 {
         font-size: x-large;
         font-weight: bold;
@@ -110,9 +111,14 @@
         padding: 4px 0;
     }
 
-    &.config-button {
-    }
+    &.config-button {}
 
-    &.config-toggle {
+    &.config-toggle {}
+
+    &.config-number {
+        &>input {
+            padding: 2px 4px;
+            border-radius: .25rem;
+        }
     }
 }

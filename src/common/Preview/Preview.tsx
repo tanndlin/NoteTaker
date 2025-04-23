@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ConfigContext } from '../../contexts/ConfigContext';
 import { createLinks } from '../bodyToView';
 import { Note } from '../types';
 import MarkdownRenderer from './MarkdownRenderer';
@@ -11,6 +12,8 @@ type PreviewProps = {
 };
 
 export const Preview = (props: PreviewProps) => {
+    const { configs } = useContext(ConfigContext);
+
     const getID = (href: string): number => {
         const paths = href.split('/');
         const [idAsString] = paths.slice(-1);
@@ -38,6 +41,7 @@ export const Preview = (props: PreviewProps) => {
     const [currentID, setCurrentID] = React.useState<number | null>(null);
 
     const removeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+    const showTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
     const showTooltip = (el: HTMLAnchorElement) => {
         const isCurrentDomain = el.href.includes(window.location.origin);
@@ -50,18 +54,24 @@ export const Preview = (props: PreviewProps) => {
             removeTimeout.current = null;
         }
 
-        const id = getID(el.href);
-        setCurrentID(id);
+        if (showTimeout.current) {
+            clearTimeout(showTimeout.current);
+        }
 
-        const tooltipContent = getTextFromID(id);
-        settooltipContent(tooltipContent);
+        showTimeout.current = setTimeout(() => {
+            const id = getID(el.href);
+            setCurrentID(id);
 
-        const rect = el.getBoundingClientRect();
-        const x = rect.left + window.scrollX;
-        const y = rect.top + window.scrollY;
-        settooltipPosition([x, y]);
+            const tooltipContent = getTextFromID(id);
+            settooltipContent(tooltipContent);
 
-        setTooltipVisible(true);
+            const rect = el.getBoundingClientRect();
+            const x = rect.left + window.scrollX;
+            const y = rect.top + window.scrollY;
+            settooltipPosition([x, y]);
+
+            setTooltipVisible(true);
+        }, configs.appearance.previewDelay);
     };
 
     return (
