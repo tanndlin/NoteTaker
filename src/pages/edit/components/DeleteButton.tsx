@@ -34,10 +34,7 @@ const DeleteButton = (props: Props) => {
                 askOnDelete={askOnDelete}
                 setAskOnDelete={setAskOnDelete}
             />
-            <button
-                className="bg-red-500 hover:bg-red-400"
-                onClick={handleDeleteButtonClicked}
-            >
+            <button className="bg-bad" onClick={handleDeleteButtonClicked}>
                 <TrashIcon className="mx-auto" />
             </button>
         </>

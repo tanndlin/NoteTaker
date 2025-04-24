@@ -17,7 +17,7 @@ a {
     #editPageContainer {
         grid-template-columns: 80vw 1fr;
 
-        & > :first-child {
+        &> :first-child {
             display: none;
         }
     }
@@ -26,4 +26,10 @@ a {
 .stats {
     padding: 4px;
     border-radius: 0.375rem 0 0 0;
+}
+
+
+#editInput {
+    background-color: #121212;
+    color: #e8e6e3;
 }

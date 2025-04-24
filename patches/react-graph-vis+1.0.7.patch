@@ -1,0 +1,26 @@
+diff --git a/node_modules/react-graph-vis/lib/index.js b/node_modules/react-graph-vis/lib/index.js
+index 980450b..3adb5a8 100644
+--- a/node_modules/react-graph-vis/lib/index.js
++++ b/node_modules/react-graph-vis/lib/index.js
+@@ -54,7 +54,7 @@ var Graph = function (_Component) {
+ 
+     _this.updateGraph = _this.updateGraph.bind(_this);
+     _this.state = {
+-      identifier: identifier !== undefined ? identifier : _uuid2.default.v4()
++      identifier: identifier !== undefined ? identifier : (0, _uuid.v4)()
+     };
+     _this.container = _react2.default.createRef();
+     return _this;
+diff --git a/node_modules/react-graph-vis/package.json b/node_modules/react-graph-vis/package.json
+index 38a57d1..b070631 100644
+--- a/node_modules/react-graph-vis/package.json
++++ b/node_modules/react-graph-vis/package.json
+@@ -28,7 +28,7 @@
+   "dependencies": {
+     "lodash": "^4.17.15",
+     "prop-types": "^15.5.10",
+-    "uuid": "^2.0.1",
++    "uuid": "^7.0.0 || ^8.0.0",
+     "vis-data": "^7.1.2",
+     "vis-network": "^9.0.0"
+   },

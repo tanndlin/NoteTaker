@@ -2,6 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+textarea,
+input {
+    background-color: #121212;
+    color: #e8e6e3;
+}
+
 body {
     margin: 0;
     // Roboto
@@ -106,6 +112,14 @@ input[type='text'] {
         &>span {
             margin: auto 0;
         }
+    }
+}
+
+.bg-bad {
+    background-color: var(--color-red-500);
+
+    &:hover {
+        background-color: var(--color-red-400);
     }
 }
 

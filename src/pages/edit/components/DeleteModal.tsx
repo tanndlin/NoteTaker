@@ -52,10 +52,7 @@ const DeleteModal = (props: Props) => {
                         >
                             Cancel
                         </button>
-                        <button
-                            className="bg-red-500 hover:bg-red-400"
-                            onClick={deleteNote}
-                        >
+                        <button className="bg-bad" onClick={deleteNote}>
                             Delete
                         </button>
                     </div>
