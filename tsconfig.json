@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext", // Update target to esnext for modern JavaScript
     "lib": [
       "dom",
       "dom.iterable",
@@ -13,12 +13,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "esnext", // Use ESNext modules
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": true, // Ensure compatibility with Vite
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx", // Keep React JSX runtime
+    "types": [
+      "vite/client"
+    ] // Add Vite's type definitions
   },
   "include": [
     "src"

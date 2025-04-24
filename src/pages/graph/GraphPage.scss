@@ -1,6 +1,8 @@
-#graphFolderContainer {
-    @apply bg-secondary rounded-md;
+@use '../../variables' as *;
 
+#graphFolderContainer {
+    background-color: $secondary;
+    border-radius: .25rem;
     display: flex;
     position: absolute;
     top: 1rem;
@@ -16,7 +18,8 @@
 }
 
 .graph-options {
-    @apply bg-secondary rounded-md;
+    background-color: $secondary;
+    border-radius: .25rem;
     padding: 8px;
     min-width: 200px;
 }

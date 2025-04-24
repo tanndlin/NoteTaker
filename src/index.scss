@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use 'variables' as *;
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
@@ -11,7 +9,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: white;
-    // @apply bg-primary;
     background: linear-gradient(135deg, rgb(17 24 39) 0%, rgb(12 74 110) 100%);
 }
 
@@ -21,7 +18,7 @@ code {
 }
 
 button {
-    @apply bg-tertiary;
+    background-color: $tertiary;
     color: white;
     border: none;
     border-radius: 5px;
@@ -30,12 +27,13 @@ button {
     transition: 200ms;
 
     &:hover {
-        @apply bg-secondary;
+        background-color: $secondary;
     }
 }
 
 input[type='text'] {
-    @apply rounded-md text-black;
+    color: black;
+    border-radius: .125rem;
 }
 
 // Scroll bars
@@ -49,7 +47,7 @@ input[type='text'] {
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-tertiary;
+    background-color: $tertiary;
     border-radius: 0.375rem;
 }
 

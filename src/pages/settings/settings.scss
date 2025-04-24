@@ -1,3 +1,5 @@
+@use '../../variables' as *;
+
 .tab-container {
     display: flex;
     gap: 10px;
@@ -32,8 +34,7 @@
         border-top: 1px solid rgb(107 114 128);
         border-right: 1px solid rgb(107 114 128);
         border-left: 1px solid rgb(107 114 128);
-        border-bottom: 1px solid;
-        @apply border-b-primary;
+        border-bottom: 1px solid $primary;
         border-radius: 0.25rem 0.25rem 0 0;
 
         &> ::after {
@@ -59,7 +60,7 @@
 }
 
 .settings-tab {
-    @apply bg-secondary;
+    background-color: $secondary;
 
     display: flex;
     flex-direction: column;
@@ -85,7 +86,7 @@
         font-size: x-large;
         font-weight: bold;
         padding: 4px;
-        border-radius: 0.125rem;
+        border-radius: 0.25rem;
 
         &:hover {
             background: rgb(43, 57, 77);
@@ -95,7 +96,7 @@
 
 .settings-config {
     padding: 4px;
-    border-radius: 0.125rem;
+    border-radius: 0.25rem;
 
     &:hover {
         background: rgb(43, 57, 77);

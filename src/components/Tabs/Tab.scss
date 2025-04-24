@@ -1,3 +1,5 @@
+@use '../../variables' as *;
+
 #tabsContainer {
     height: 100%;
     width: 100vw;
@@ -16,16 +18,17 @@
 }
 
 .tabHeader {
-    @apply border-tertiary border-2 rounded-t-md;
+    border: 2px solid $tertiary;
+    border-radius: 0.25rem 0.25rem 0 0;
+
+    background-color: $secondary;
     padding: 3px 10px;
-    // height: 28px;
     margin-top: auto;
     padding-right: 30px;
     display: flex;
     justify-content: space-between;
     position: relative;
 
-    @apply bg-secondary;
 
 
     &>.close {
@@ -34,7 +37,7 @@
     }
 
     &:hover {
-        @apply bg-tertiary;
+        background-color: $tertiary;
     }
 
     &.active {
