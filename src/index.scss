@@ -79,30 +79,36 @@ input[type='text'] {
 }
 
 .foldable {
+    padding: 4px;
     transition: 200ms;
     max-height: 500px;
     overflow: hidden;
+    display: flex;
 
     & .foldable-content {
         transition: 200ms;
-        position: relative;
         opacity: 1;
     }
-}
 
-.foldable.folded {
-    max-height: 20px;
+    &.folded {
+        max-height: 35px;
 
-    & .foldable-content {
-        opacity: 0;
-        // unselectable
-        pointer-events: none;
+        & .foldable-content {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    & .title {
+        margin-left: 4px;
+        display: flex;
+
+        &>span {
+            margin: auto 0;
+        }
     }
 }
 
-.foldable .title {
-    margin-left: 4px;
-}
 
 .page-title {
     view-transition-name: page-title;

@@ -25,10 +25,10 @@ const GraphOptions = (props: Props) => {
     };
 
     return (
-        <div className="absolute top-0 right-0 z-10 mr-4 flex flex-col gap-4">
+        <div className="absolute top-0 right-0 z-10 flex flex-col gap-4 mr-4">
             <div className="graph-options">
-                <Foldable title="Config" className="flex flex-col">
-                    <Foldable title="Size" className="flex flex-col mt-2">
+                <Foldable title="Config" className="flex">
+                    <Foldable title="Size" className="flex mt-2">
                         <span className="flex flex-col">
                             <label htmlFor="nodeSize">Node Size</label>
                             <input
@@ -63,9 +63,9 @@ const GraphOptions = (props: Props) => {
 
             <button
                 onClick={startTimelapse}
-                className="w-12 h-12 bg-tertiary circle flex ml-auto"
+                className="flex w-12 h-12 ml-auto bg-tertiary circle"
             >
-                <ArrowPathIcon className="m-auto w-6 h-6" />
+                <ArrowPathIcon className="w-6 h-6 m-auto" />
             </button>
         </div>
     );
