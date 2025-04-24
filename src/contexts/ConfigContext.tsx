@@ -19,6 +19,8 @@ const ConfigProvider = (props: Props) => {
         )
     );
 
+    console.log(configs);
+
     React.useEffect(() => {
         localStorage.setItem('configs', JSON.stringify(configs));
     }, [configs]);

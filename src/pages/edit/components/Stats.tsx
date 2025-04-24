@@ -1,5 +1,5 @@
-import { getRefs } from '../../../common/bodyToView';
 import { Note } from '../../../common/types';
+import { getRefs } from '../../../common/utils';
 
 type Props = {
     note: Note;
@@ -14,7 +14,7 @@ const Stats = (props: Props) => {
     const numChars = note.body.length;
 
     return (
-        <div className="mx-8 mt-16 flex justify-between">
+        <div className="flex justify-between mx-8 mt-16">
             <span className="flex flex-col">
                 <h2 className="mx-auto">Refs</h2>
                 <p className="mx-auto">{numRefs}</p>

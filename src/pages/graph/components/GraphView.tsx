@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
-import { getRefs } from '../../../common/bodyToView';
 import { Directory } from '../../../common/types';
+import { getRefs } from '../../../common/utils';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import { NoteContext } from '../../../contexts/NoteContext';
 import { Edge, ID, IGraph, IGraphConfig, Node } from '../graph.types';

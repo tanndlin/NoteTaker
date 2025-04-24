@@ -123,3 +123,57 @@
         }
     }
 }
+
+.dictionary-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgb(107 114 128);
+
+    & td:nth-child(2),
+    th:nth-child(2) {
+        border-left: 1px solid rgb(107 114 128);
+    }
+
+    & thead {
+        background: rgb(43, 57, 77);
+        color: #fff;
+    }
+
+    & th {
+        padding: 8px 16px;
+        border-bottom: 1px solid rgb(107 114 128);
+        text-align: left;
+    }
+
+    & tbody>tr {
+        position: relative;
+
+        &>td,
+        th {
+            padding: 4px 8px;
+        }
+
+        & .buttons>* {
+            visibility: hidden;
+        }
+
+
+        &:hover {
+            background: rgb(43, 57, 77);
+
+            & .buttons>* {
+                visibility: visible;
+            }
+        }
+
+        &:nth-child(odd) {
+            background: rgb(43, 57, 77);
+        }
+
+        &:nth-child(even) {
+            background: rgb(34, 44, 60);
+        }
+    }
+}

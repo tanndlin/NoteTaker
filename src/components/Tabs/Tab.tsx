@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { Preview } from '../../common/Preview/Preview';
-import { createLinks } from '../../common/bodyToView';
 import { Note } from '../../common/types';
 import { NoteContext } from '../../contexts/NoteContext';
 
@@ -22,11 +21,7 @@ const Tab = (props: TabProps) => {
             aria-hidden={!active}
             hidden={!active}
         >
-            <Preview
-                body={createLinks(tab, notes)}
-                onClick={onClick}
-                notes={notes}
-            />
+            <Preview note={tab} onClick={onClick} notes={notes} />
         </section>
     );
 };

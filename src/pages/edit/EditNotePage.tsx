@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
-import { createLinks } from '../../common/bodyToView';
 import { Note } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
+import { ConfigContext } from '../../contexts/ConfigContext';
 import { NoteContext } from '../../contexts/NoteContext';
 import './EditNote.scss';
 import Options from './Options';
@@ -14,6 +14,7 @@ import Stats from './components/Stats';
 
 const EditNote = () => {
     const { notes, setNotes } = useContext(NoteContext);
+    const { configs } = useContext(ConfigContext);
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -81,10 +82,7 @@ const EditNote = () => {
                         <h2 className="w-full mb-8 text-2xl text-center">
                             Preview
                         </h2>
-                        <Preview
-                            body={createLinks(note, notes)}
-                            notes={notes}
-                        />
+                        <Preview note={note} notes={notes} />
                     </section>
                 </div>
             </div>

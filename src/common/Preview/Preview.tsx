@@ -1,35 +1,40 @@
 import React, { useContext } from 'react';
 import { ConfigContext } from '../../contexts/ConfigContext';
-import { createLinks } from '../bodyToView';
 import { Note } from '../types';
+import { preProcessNote } from '../utils';
 import MarkdownRenderer from './MarkdownRenderer';
 import './Preview.scss';
 
 type PreviewProps = {
-    body: string;
+    note: Note;
     onClick?: (id: number) => void;
     notes: Note[];
 };
 
 export const Preview = (props: PreviewProps) => {
     const { configs } = useContext(ConfigContext);
+    const { note, notes, onClick } = props;
+    const body = preProcessNote(note, notes, configs);
 
     const getID = (href: string): number => {
-        const paths = href.split('/');
+        const paths = href.replace('/edit', '').split('/');
         const [idAsString] = paths.slice(-1);
 
         return parseInt(idAsString);
     };
 
     const getTextFromID = (id: number) => {
-        const note = props.notes.find((note) => note.id === id);
+        const note = notes.find((note) => note.id === id);
         if (!note) {
+            console.error('Note not found', id);
             return <></>;
         }
 
         return (
             <div className="tooltip-content">
-                <MarkdownRenderer markdown={createLinks(note, props.notes)} />
+                <MarkdownRenderer
+                    markdown={preProcessNote(note, notes, configs)}
+                />
             </div>
         );
     };
@@ -80,7 +85,7 @@ export const Preview = (props: PreviewProps) => {
             id="previewContainer"
             onClick={(e) => {
                 if (e.target instanceof HTMLAnchorElement) {
-                    if (!props.onClick) {
+                    if (!onClick) {
                         return;
                     }
 
@@ -92,7 +97,7 @@ export const Preview = (props: PreviewProps) => {
                     }
 
                     e.preventDefault();
-                    props.onClick(getID(e.target.href));
+                    onClick(getID(e.target.href));
                 }
             }}
             onMouseMove={(e) => {
@@ -141,7 +146,7 @@ export const Preview = (props: PreviewProps) => {
             >
                 {tooltipContent}
             </div>
-            <MarkdownRenderer markdown={props.body} />
+            <MarkdownRenderer markdown={body} />
         </div>
     );
 };

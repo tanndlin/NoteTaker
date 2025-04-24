@@ -23,6 +23,7 @@ export type Configs = {
 export type GeneralConfigs = {
     askOnDelete: boolean;
     createUnfilledNote: boolean;
+    shorthands: Record<string, string>;
 };
 
 export type ExportConfigs = {
@@ -37,7 +38,8 @@ export type AppearanceConfigs = {
 export const defaultConfigs: Configs = {
     general: {
         askOnDelete: true,
-        createUnfilledNote: true
+        createUnfilledNote: true,
+        shorthands: {}
     },
     export: {
         replaceOnImport: true,

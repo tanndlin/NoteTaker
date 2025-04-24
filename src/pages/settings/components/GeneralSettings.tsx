@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import SettingsCategory from './SettingsCategory';
+import DictionaryConfig from './configs/DictionaryConfig';
 import ToggleConfig from './configs/ToggleConfig';
 
 const GeneralSettings = () => {
@@ -26,6 +27,16 @@ const GeneralSettings = () => {
         });
     };
 
+    const setShorthands = (newShorthands: Record<string, string>) => {
+        setConfigs({
+            ...configs,
+            general: {
+                ...configs.general,
+                shorthands: newShorthands
+            }
+        });
+    };
+
     return (
         <div className="settings-tab">
             <h1>General</h1>
@@ -35,6 +46,12 @@ const GeneralSettings = () => {
                     description="Whether or not to confirm deletion of notes."
                     value={configs.general.askOnDelete}
                     setValue={setAskOnDelete}
+                />
+                <DictionaryConfig
+                    title="Shorthand Replacements"
+                    description="Define shorthand macros that will be expanded when viewing notes."
+                    value={configs.general.shorthands}
+                    setValue={setShorthands}
                 />
             </SettingsCategory>
             <SettingsCategory title="Graph">

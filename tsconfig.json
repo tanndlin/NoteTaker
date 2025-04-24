@@ -20,7 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx", // Keep React JSX runtime
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ] // Add Vite's type definitions
   },
   "include": [
