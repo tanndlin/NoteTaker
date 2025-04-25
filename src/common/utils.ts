@@ -64,9 +64,6 @@ const replaceShorthands = (
         newString = newString.replaceAll(key, shorthands[key]);
     }
 
-    console.log('shorthands', shorthands);
-    console.log('newString', newString);
-
     return newString;
 };
 

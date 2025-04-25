@@ -1,11 +1,14 @@
 import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthContext';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import SettingsCategory from './SettingsCategory';
+import ButtonConfig from './configs/ButtonConfig';
 import DictionaryConfig from './configs/DictionaryConfig';
 import ToggleConfig from './configs/ToggleConfig';
 
 const GeneralSettings = () => {
     const { configs, setConfigs } = useContext(ConfigContext);
+    const { signOut } = useContext(AuthContext);
 
     const setAskOnDelete = (b: boolean) => {
         setConfigs({
@@ -60,6 +63,14 @@ const GeneralSettings = () => {
                     description="Click on an unfilled (gray) note to create a new note."
                     value={configs.general.createUnfilledNote}
                     setValue={setCreateUnfilledNote}
+                />
+            </SettingsCategory>
+            <SettingsCategory title="Account">
+                <ButtonConfig
+                    title="Sign out"
+                    name="Sign out"
+                    description="Sign out of your account."
+                    onClick={signOut!}
                 />
             </SettingsCategory>
         </div>

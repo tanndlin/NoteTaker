@@ -1,3 +1,5 @@
+import { Auth, User } from 'firebase/auth';
+
 export interface Note {
     id: number;
     title: string;
@@ -59,4 +61,10 @@ export interface INoteContext {
 export interface IConfigContext {
     configs: Configs;
     setConfigs: (configs: Configs) => void;
+}
+
+export interface IUserContext {
+    user: User | undefined;
+    setUser: (user: User | undefined) => void;
+    auth: Auth;
 }
