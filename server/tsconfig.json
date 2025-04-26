@@ -20,9 +20,13 @@
     "noEmit": true,
     "jsx": "react-jsx", // Keep React JSX runtime
     "types": [
-      "vite/client",
       "node"
-    ] // Add Vite's type definitions
+    ],
+    "paths": {
+      "@frontend/*": [
+        "../frontend/src/*"
+      ]
+    }
   },
   "include": [
     "src"

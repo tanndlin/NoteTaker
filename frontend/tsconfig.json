@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // Update target to esnext for modern JavaScript
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext", // Use ESNext modules
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true, // Ensure compatibility with Vite
+    "noEmit": true,
+    "jsx": "react-jsx", // Keep React JSX runtime
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "paths": {
+      "@backend/*": [
+        "../server/src/*"
+      ],
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
