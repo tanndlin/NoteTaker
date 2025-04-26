@@ -4,14 +4,21 @@ import {
 } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
+import { auth } from '../../common/firebase';
+import { AuthContext, AuthStatus } from '../../contexts/AuthContext';
 
 type Props = {};
 
 const LoginPage: React.FC<Props> = ({}) => {
-    const { auth, signIn, signOut } = useContext(AuthContext);
-    const navigate = useNavigate();
+    const authContext = useContext(AuthContext);
+    const { authStatus } = authContext;
+    if (authStatus === AuthStatus.Loading) {
+        return null;
+    }
 
+    const { signIn } = authContext;
+
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = React.useState(true);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -28,7 +35,7 @@ const LoginPage: React.FC<Props> = ({}) => {
     };
 
     const handleLogin = (e: React.FormEvent) => {
-        signInWithEmailAndPassword(auth!, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;

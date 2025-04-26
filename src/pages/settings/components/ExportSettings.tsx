@@ -1,5 +1,7 @@
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { useContext } from 'react';
 import { Note } from '../../../common/types';
+import { app } from '../../../contexts/AuthContext';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import { NoteContext } from '../../../contexts/NoteContext';
 import SettingsCategory from './SettingsCategory';
@@ -9,6 +11,7 @@ import ToggleConfig from './configs/ToggleConfig';
 const ExportSettings = () => {
     const { notes, setNotes } = useContext(NoteContext);
     const { configs, setConfigs } = useContext(ConfigContext);
+    const db = getFirestore(app, 'notes');
 
     const exportToJSON = () => {
         const dataStr =
@@ -49,7 +52,7 @@ const ExportSettings = () => {
 
             const reader = new FileReader();
             reader.readAsText(file, 'UTF-8');
-            reader.onload = (readerEvent) => {
+            reader.onload = async (readerEvent) => {
                 const content = readerEvent.target?.result;
                 if (typeof content !== 'string') {
                     return;
@@ -63,6 +66,10 @@ const ExportSettings = () => {
 
                     if (configs.export.replaceOnImport) {
                         setNotes(importedNotes);
+                        const docRef = await addDoc(collection(db, 'notes'), {
+                            notes: importedNotes
+                        });
+                        console.log('Document written with ID: ', docRef.id);
                     } else {
                         setNotesWithoutReplace(importedNotes);
                     }

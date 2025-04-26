@@ -1,9 +1,11 @@
+@use "sass:color";
+
 a {
     color: rgb(24, 122, 179);
     text-decoration: underline;
 
     &:hover {
-        color: lighten($color: rgb(24, 122, 179), $amount: 20);
+        color: color.scale(rgb(24, 122, 179), $lightness: 33%);
         text-decoration: underline;
     }
 }

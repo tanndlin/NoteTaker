@@ -1,11 +1,24 @@
-import React from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect } from 'react';
+import { db } from '../common/firebase';
 import { INoteContext } from '../common/types';
 
 const NoteContext = React.createContext<INoteContext>({} as INoteContext);
 
-type Props = { children: React.ReactNode | React.ReactNode[] };
-const NoteProvider = (props: Props) => {
-    const { children } = props;
+type Props = { children: React.ReactNode };
+const NoteProvider = ({ children }: Props) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const querySnapshot = await getDocs(collection(db, 'users'));
+            console.log('Fetched data from Firestore:');
+            querySnapshot.forEach((doc) => {
+                console.log(`${doc.id} =>`, doc.data());
+            });
+        };
+
+        fetchData();
+    }, [db]);
+
     const [notes, setNotes] = React.useState(
         JSON.parse(localStorage.getItem('notes') || '[]')
     );

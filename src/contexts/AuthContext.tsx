@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { initializeApp } from 'firebase/app';
-import { Auth, getAuth } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
+import { auth } from '../common/firebase';
 
 export enum AuthStatus {
     Loading,
@@ -9,23 +9,18 @@ export enum AuthStatus {
     SignedOut
 }
 
-//https://medium.com/@remind.stephen.to.do.sth/hands-on-guide-to-secure-react-routes-with-authentication-context-971f37ede990
-export interface IAuth {
-    authStatus: AuthStatus;
-    auth?: Auth;
-    signIn?: () => void;
-    signOut?: () => void;
-}
-
-const defaultState: IAuth = {
-    authStatus: AuthStatus.Loading
+export type IAuth = typeof defaultState;
+const defaultState = {
+    authStatus: AuthStatus.Loading,
+    signIn: () => {},
+    signOut: () => {}
 };
 
 type Props = {
     children?: React.ReactNode;
 };
 
-export const AuthContext = React.createContext(defaultState);
+export const AuthContext = React.createContext<IAuth>(defaultState);
 
 export const AuthIsSignedIn = ({ children }: Props) => {
     const { authStatus }: IAuth = useContext(AuthContext);
@@ -37,18 +32,22 @@ export const AuthIsNotSignedIn = ({ children }: Props) => {
     return <>{authStatus === AuthStatus.SignedOut ? children : null}</>;
 };
 
+console.log('Firebase API Key:', import.meta.env.VITE_FIREBASE_API_KEY);
+export const app = initializeApp({
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
+});
+
 const AuthProvider = ({ children }: Props) => {
     const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
-    const app = initializeApp({
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID
-    });
-    const [auth, setAuth] = useState<Auth>(getAuth());
 
     useEffect(() => {
+        console.log('Firebase Auth:', auth);
         auth.onAuthStateChanged((user) => {
             setAuthStatus(user ? AuthStatus.SignedIn : AuthStatus.SignedOut);
+            console.log('User state changed:', user);
         });
     }, [auth]);
 
@@ -63,7 +62,6 @@ const AuthProvider = ({ children }: Props) => {
     }
 
     const state: IAuth = {
-        auth,
         authStatus,
         signIn,
         signOut
