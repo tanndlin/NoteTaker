@@ -20,7 +20,7 @@ const notesCollection = db.collection('notes');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get<Response<GetNotesResponse>>('/api/notes', async (req, res) => {
+app.get<Response<GetNotesResponse>>('/notes', async (req, res) => {
     try {
         const notes = await notesCollection.find().toArray();
         res.status(200).json({ notes });
@@ -29,16 +29,13 @@ app.get<Response<GetNotesResponse>>('/api/notes', async (req, res) => {
     }
 });
 
-app.post<Response<CreateNoteResponse>>('/api/notes', async (req, res) => {
+app.use(
+    '/notes/create',
+    middleware.parseRequiredFields(['title', 'body', 'directory', 'id'])
+);
+app.post<Response<CreateNoteResponse>>('/notes/create', async (req, res) => {
     try {
-        const { title, body, directory, id } = req.headers;
-        if (!title || !body || !directory || !id) {
-            res.status(400).json({
-                error: 'Title, body, directory, and ID are required'
-            });
-            return;
-        }
-
+        const { title, body, directory, id } = req.body;
         const newNote = { title, body, directory, id };
         await notesCollection.insertOne(newNote);
         res.status(201).json({

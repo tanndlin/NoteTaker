@@ -9,7 +9,6 @@ class Middleware {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
 
-            console.log('Token:', token);
             const decodeValue = await admin.auth().verifyIdToken(token!);
             if (!decodeValue) {
                 return res.status(401).json({ error: 'Unauthorized' });
@@ -20,6 +19,21 @@ class Middleware {
         } catch (error) {
             return res.status(500).json({ error: 'Internal error' });
         }
+    }
+
+    parseRequiredFields(requiredFields: string[]) {
+        return (req: any, res: any, next: any) => {
+            const missingFields = requiredFields.filter(
+                (field) => !req.body[field]
+            );
+            if (missingFields.length) {
+                return res.status(400).json({
+                    error: `Missing fields: ${missingFields.join(', ')}`
+                });
+            }
+
+            return next();
+        };
     }
 }
 

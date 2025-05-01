@@ -2,38 +2,39 @@ import { ApiHeaders } from '@backend/types';
 import axios, { AxiosResponse } from 'axios';
 import { useState } from 'react';
 
-export type Props<T extends ApiHeaders = {}> = {
+export type Props = {
     endpoint: string;
-    headers: T;
     method: 'GET' | 'POST';
     token?: string;
 };
 
-export const apiFetch = <X, T extends ApiHeaders = {}>({
+export const apiFetch = <X, T extends ApiHeaders | null = null>({
     endpoint,
-    headers,
     method,
     token
-}: Props<T>) => {
+}: Props) => {
     const [res, setRes] = useState<X | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const fetchData = async () => {
+    type FetchDataType = T extends null
+        ? (body?: null) => Promise<void>
+        : (body: T) => Promise<void>;
+
+    const fetchData = (async (body?: T) => {
         try {
             let response: AxiosResponse;
             if (method === 'GET') {
                 response = await axios.get(`/api/${endpoint}`, {
+                    data: body,
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        ...headers
+                        Authorization: `Bearer ${token}`
                     }
                 });
             } else if (method === 'POST') {
-                response = await axios.post(`/api/${endpoint}`, headers, {
+                response = await axios.post(`/api/${endpoint}`, body, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        ...headers
+                        Authorization: `Bearer ${token}`
                     }
                 });
             }
@@ -58,7 +59,7 @@ export const apiFetch = <X, T extends ApiHeaders = {}>({
             }
             setLoading(false);
         }
-    };
+    }) as FetchDataType;
 
     return { res, error, loading, fetchData };
 };

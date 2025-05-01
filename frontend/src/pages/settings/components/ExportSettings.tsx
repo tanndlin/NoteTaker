@@ -12,7 +12,12 @@ import ToggleConfig from './configs/ToggleConfig';
 const ExportSettings = () => {
     const { notes, setNotes } = useContext(NoteContext);
     const { configs, setConfigs } = useContext(ConfigContext);
-    const { token, user } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
+    const { fetchData } = apiFetch<CreateNoteResponse, CreateNoteHeaders>({
+        method: 'POST',
+        endpoint: 'notes/create',
+        token
+    });
 
     const exportToJSON = () => {
         const dataStr =
@@ -68,22 +73,12 @@ const ExportSettings = () => {
                     if (configs.export.replaceOnImport) {
                         setNotes(importedNotes);
                         importedNotes.forEach(async (note) => {
-                            const { fetchData } = apiFetch<
-                                CreateNoteResponse,
-                                CreateNoteHeaders
-                            >({
-                                method: 'POST',
-                                endpoint: 'notes',
-                                headers: {
-                                    title: note.title,
-                                    body: note.body,
-                                    directory: note.directory,
-                                    id: note.id
-                                },
-                                token
+                            await fetchData({
+                                title: note.title,
+                                body: note.body,
+                                directory: note.directory,
+                                id: note.id
                             });
-
-                            await fetchData();
                         });
                     } else {
                         setNotesWithoutReplace(importedNotes);

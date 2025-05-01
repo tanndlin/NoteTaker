@@ -13,7 +13,6 @@ const NoteProvider = ({ children }: Props) => {
     const { res, error, loading, fetchData } = apiFetch<GetNotesResponse>({
         method: 'GET',
         endpoint: 'notes',
-        headers: {},
         token
     });
 
@@ -22,6 +21,12 @@ const NoteProvider = ({ children }: Props) => {
             fetchData();
         }
     }, [authStatus]);
+
+    useEffect(() => {
+        if (res) {
+            setNotes(res.notes);
+        }
+    }, [res]);
 
     React.useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
