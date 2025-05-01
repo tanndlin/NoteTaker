@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { initializeApp } from 'firebase/app';
+import { User } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { auth } from '../common/firebase';
 
@@ -12,6 +13,8 @@ export enum AuthStatus {
 export type IAuth = typeof defaultState;
 const defaultState = {
     authStatus: AuthStatus.Loading,
+    user: null as User | null,
+    token: '',
     signIn: () => {},
     signOut: () => {}
 };
@@ -40,14 +43,25 @@ export const app = initializeApp({
     storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
 });
 
-const AuthProvider = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
     const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
+    const [user, setUser] = useState<User | null>(null);
+    const [token, setToken] = useState('');
 
     useEffect(() => {
         console.log('Firebase Auth:', auth);
         auth.onAuthStateChanged((user) => {
             setAuthStatus(user ? AuthStatus.SignedIn : AuthStatus.SignedOut);
             console.log('User state changed:', user);
+            if (user) {
+                setUser(user);
+                user.getIdToken().then((token) => {
+                    setToken(token);
+                    localStorage.setItem('token', token);
+                });
+            } else {
+                setUser(null);
+            }
         });
     }, [auth]);
 
@@ -63,6 +77,8 @@ const AuthProvider = ({ children }: Props) => {
 
     const state: IAuth = {
         authStatus,
+        user,
+        token,
         signIn,
         signOut
     };
@@ -79,5 +95,3 @@ const AuthProvider = ({ children }: Props) => {
         </AuthContext.Provider>
     );
 };
-
-export default AuthProvider;

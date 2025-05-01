@@ -1,27 +1,28 @@
+import { GetNotesResponse } from '@backend/types';
 import React, { useContext, useEffect } from 'react';
-import { INoteContext } from '../common/types';
-import { DBContext } from './DBContext';
+import { apiFetch } from '../common/fetch';
+import { INoteContext, Note } from '../common/types';
+import { AuthContext, AuthStatus } from './AuthContext';
 
 const NoteContext = React.createContext<INoteContext>({} as INoteContext);
 
 type Props = { children: React.ReactNode };
 const NoteProvider = ({ children }: Props) => {
-    const { db } = useContext(DBContext);
+    const { authStatus, user, token } = useContext(AuthContext);
+    const [notes, setNotes] = React.useState<Note[]>([]);
+    const { res, error, loading, fetchData } = apiFetch<GetNotesResponse>({
+        method: 'GET',
+        endpoint: 'notes',
+        headers: {},
+        token
+    });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const collection = db.collection('notes');
-            const notes = await collection.find({}).toArray();
-            console.log('Fetched notes:', notes);
-            setNotes(notes);
-        };
+        if (authStatus === AuthStatus.SignedIn) {
+            fetchData();
+        }
+    }, [authStatus]);
 
-        fetchData();
-    }, [db]);
-
-    const [notes, setNotes] = React.useState(
-        JSON.parse(localStorage.getItem('notes') || '[]')
-    );
     React.useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
     }, [notes]);

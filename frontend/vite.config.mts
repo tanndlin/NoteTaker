@@ -1,4 +1,4 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import { defineConfig } from 'vitest/config';
@@ -7,6 +7,12 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
     base: '/',
     plugins: [react(), svgr(), tailwindcss()],
+    server: {
+        port: 3000,
+        proxy: {
+            '/api': 'http://localhost:5000'
+        }
+    },
     build: {
         outDir: 'build'
     },

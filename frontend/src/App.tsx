@@ -1,10 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import AuthProvider, {
+import {
     AuthIsNotSignedIn,
-    AuthIsSignedIn
+    AuthIsSignedIn,
+    AuthProvider
 } from './contexts/AuthContext';
 import { ConfigProvider } from './contexts/ConfigContext';
-import DBProvider from './contexts/DBContext';
 import { NoteProvider } from './contexts/NoteContext';
 import AboutPage from './pages/about/AboutPage';
 import EditNote from './pages/edit/EditNotePage';
@@ -19,46 +19,41 @@ function App() {
         <AuthProvider>
             <div className="w-screen h-screen py-4">
                 <AuthIsSignedIn>
-                    <DBProvider>
-                        <ConfigProvider>
-                            <NoteProvider>
-                                <BrowserRouter>
-                                    <Routes>
+                    <ConfigProvider>
+                        <NoteProvider>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/" element={<HomePage />} />
+                                    <Route path="/:id">
                                         <Route
-                                            path="/"
-                                            element={<HomePage />}
-                                        />
-                                        <Route path="/:id">
-                                            <Route
-                                                index
-                                                element={<ViewNotePage />}
-                                            />
-                                            <Route
-                                                path="edit"
-                                                element={<EditNote />}
-                                            />
-                                        </Route>
-                                        <Route
-                                            path="/graph"
-                                            element={<GraphPage />}
+                                            index
+                                            element={<ViewNotePage />}
                                         />
                                         <Route
-                                            path="/settings"
-                                            element={<SettingsPage />}
+                                            path="edit"
+                                            element={<EditNote />}
                                         />
-                                        <Route
-                                            path="/login"
-                                            element={<LoginPage />}
-                                        />
-                                        <Route
-                                            path="*"
-                                            element={<Navigate to="/" />}
-                                        />
-                                    </Routes>
-                                </BrowserRouter>
-                            </NoteProvider>
-                        </ConfigProvider>
-                    </DBProvider>
+                                    </Route>
+                                    <Route
+                                        path="/graph"
+                                        element={<GraphPage />}
+                                    />
+                                    <Route
+                                        path="/settings"
+                                        element={<SettingsPage />}
+                                    />
+                                    <Route
+                                        path="/login"
+                                        element={<LoginPage />}
+                                    />
+                                    <Route
+                                        path="*"
+                                        element={<Navigate to="/" />}
+                                    />
+                                </Routes>
+                            </BrowserRouter>
+                        </NoteProvider>
+                    </ConfigProvider>
                 </AuthIsSignedIn>
                 <AuthIsNotSignedIn>
                     <BrowserRouter>

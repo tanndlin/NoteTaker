@@ -1,7 +1,8 @@
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { CreateNoteHeaders, CreateNoteResponse } from '@backend/types';
 import { useContext } from 'react';
+import { apiFetch } from '../../../common/fetch';
 import { Note } from '../../../common/types';
-import { app } from '../../../contexts/AuthContext';
+import { AuthContext } from '../../../contexts/AuthContext';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import { NoteContext } from '../../../contexts/NoteContext';
 import SettingsCategory from './SettingsCategory';
@@ -11,7 +12,7 @@ import ToggleConfig from './configs/ToggleConfig';
 const ExportSettings = () => {
     const { notes, setNotes } = useContext(NoteContext);
     const { configs, setConfigs } = useContext(ConfigContext);
-    const db = getFirestore(app, 'notes');
+    const { token, user } = useContext(AuthContext);
 
     const exportToJSON = () => {
         const dataStr =
@@ -66,10 +67,24 @@ const ExportSettings = () => {
 
                     if (configs.export.replaceOnImport) {
                         setNotes(importedNotes);
-                        const docRef = await addDoc(collection(db, 'notes'), {
-                            notes: importedNotes
+                        importedNotes.forEach(async (note) => {
+                            const { fetchData } = apiFetch<
+                                CreateNoteResponse,
+                                CreateNoteHeaders
+                            >({
+                                method: 'POST',
+                                endpoint: 'notes',
+                                headers: {
+                                    title: note.title,
+                                    body: note.body,
+                                    directory: note.directory,
+                                    id: note.id
+                                },
+                                token
+                            });
+
+                            await fetchData();
                         });
-                        console.log('Document written with ID: ', docRef.id);
                     } else {
                         setNotesWithoutReplace(importedNotes);
                     }

@@ -9,14 +9,14 @@ export type BadResponse = {
 
 export type Response<T> = GoodResponse<T> | BadResponse;
 
-export type GetNotesResponse =
-    | {
-          notes: Note[];
-      }
-    | BadResponse;
+export type ApiHeaders = Record<string, string>;
 
-export type CreateNoteResponse =
-    | {
-          message: string;
-      }
-    | BadResponse;
+export type GetNotesResponse = { notes: Note[] };
+
+export type CreateNoteResponse = { message: string };
+export type CreateNoteHeaders = ApiHeaders & {
+    title: string;
+    body: string;
+    directory: string;
+    id: number;
+};
