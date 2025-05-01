@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import HomeIcon from '../../common/Icons/HomeIcon';
 import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
-import { Note } from '../../common/types';
+import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
 import { ConfigContext } from '../../contexts/ConfigContext';
@@ -13,15 +13,12 @@ import PotentialRefs from './components/PotentialRefs';
 
 type OptionsProps = {
     directory: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    edit: (newKeys: any) => void;
     deleteNote: () => void;
-    note: Note;
+    note: StoredNote;
 };
 
-const Options = (props: OptionsProps) => {
-    const { directory, edit, deleteNote, note } = props;
-    const { notes } = useContext(NoteContext);
+const Options = ({ directory, deleteNote, note }: OptionsProps) => {
+    const { notes, editNote } = useContext(NoteContext);
     const { configs, setConfigs } = useContext(ConfigContext);
     const navigate = useNavigate();
 
@@ -49,7 +46,7 @@ const Options = (props: OptionsProps) => {
                             if (!val.startsWith('/')) {
                                 val = '/' + val;
                             }
-                            edit({ directory: val });
+                            editNote({ ...note, directory: val });
                         }}
                     />
                 </span>
@@ -73,7 +70,7 @@ const Options = (props: OptionsProps) => {
                         setAskOnDelete={setAskOnDelete}
                     />
                 </ButtonBar>
-                <PotentialRefs notes={notes} note={note} edit={edit} />
+                <PotentialRefs note={note} />
             </div>
         </aside>
     );

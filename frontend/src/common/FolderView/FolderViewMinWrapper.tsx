@@ -4,13 +4,13 @@ import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
 import FolderOpenIcon from '../Icons/FolderOpenIcon';
 import HomeIcon from '../Icons/HomeIcon';
-import { Note } from '../types';
+import { Note, StoredNote } from '../types';
 import { smoothTransition } from '../utils';
 import { FolderView } from './FolderView';
 
 type Props = {
-    onClick?: (note: Note) => void;
-    filter?: (note: Note) => boolean;
+    onClick?: (note: StoredNote) => void;
+    filter?: (note: StoredNote) => boolean;
 };
 
 const FolderViewMinWrapper = (props: Props) => {

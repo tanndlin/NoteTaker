@@ -1,6 +1,9 @@
+import { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
 import FolderOpenIcon from '../Icons/FolderOpenIcon';
 import PlusIcon from '../Icons/PlusIcon';
+import RefreshIcon from '../Icons/RefreshIcon';
 
 type FolderOptionsProps = {
     handleNew: () => void;
@@ -8,18 +11,30 @@ type FolderOptionsProps = {
     foldAll: () => void;
 };
 
-const FoldingOptions = (props: FolderOptionsProps) => {
+const FoldingOptions = ({
+    handleNew,
+    expandAll,
+    foldAll
+}: FolderOptionsProps) => {
+    const { updateAllNotes } = useContext(NoteContext);
+    const { notes } = useContext(NoteContext);
+
     return (
         <span className="flex justify-between gap-4">
-            <button className="!bg-transparent" onClick={props.handleNew}>
+            <button className="!bg-transparent" onClick={handleNew}>
                 <PlusIcon />
             </button>
-            <button className="!bg-transparent" onClick={props.expandAll}>
+            <button className="!bg-transparent" onClick={expandAll}>
                 <FolderOpenIcon />
             </button>
-            <button className="!bg-transparent" onClick={props.foldAll}>
+            <button className="!bg-transparent" onClick={foldAll}>
                 <FolderMinusIcon />
             </button>
+            {notes.filter((n) => n.changed).length > 0 && (
+                <button className="!bg-transparent" onClick={updateAllNotes}>
+                    <RefreshIcon />
+                </button>
+            )}
         </span>
     );
 };

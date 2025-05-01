@@ -1,19 +1,18 @@
-import React from 'react';
-import { Note } from '../../../common/types';
+import React, { useContext } from 'react';
+import { Note, StoredNote } from '../../../common/types';
+import { NoteContext } from '../../../contexts/NoteContext';
 
 type PotentialRefsProps = {
-    note: Note;
-    notes: Note[];
-    edit: (newKeys: any) => void;
+    note: StoredNote;
 };
 
-const PotentialRefs = (props: PotentialRefsProps) => {
-    const { note, notes } = props;
+const PotentialRefs = ({ note }: PotentialRefsProps) => {
     const [potentialRefs, setPotentialRefs] = React.useState<Note[]>([]);
+    const { notes, editNote } = useContext(NoteContext);
 
     React.useEffect(() => {
         setPotentialRefs(getPotentialRefs());
-    }, [props.note]);
+    }, [note]);
 
     const getPotentialRefs = (): Note[] => {
         try {
@@ -48,7 +47,7 @@ const PotentialRefs = (props: PotentialRefsProps) => {
             )}))`
         );
 
-        props.edit({ body: newBody });
+        editNote({ ...note, body: newBody });
     };
 
     if (!potentialRefs.length) {
@@ -56,8 +55,8 @@ const PotentialRefs = (props: PotentialRefsProps) => {
     }
 
     return (
-        <div className="p-4 bg-secondary rounded-md">
-            <h1 className="text-center text-xl border-b-2">Potential Refs</h1>
+        <div className="p-4 rounded-md bg-secondary">
+            <h1 className="text-xl text-center border-b-2">Potential Refs</h1>
             <ul>
                 {potentialRefs.map((ref) => (
                     <li key={ref.id}>

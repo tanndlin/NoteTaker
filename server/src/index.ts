@@ -1,3 +1,4 @@
+import { Note } from '@frontend/common/types';
 import cors from 'cors';
 import { config } from 'dotenv';
 import express from 'express';
@@ -15,7 +16,7 @@ app.use((req, res, next) => {
 
 const client = new MongoClient(process.env.MONGODB_URI!);
 const db = client.db(process.env.MONGODB_DB_NAME!);
-const notesCollection = db.collection('notes');
+const notesCollection = db.collection<Note>('notes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,8 +37,16 @@ app.use(
 app.post<Response<CreateNoteResponse>>('/notes/create', async (req, res) => {
     try {
         const { title, body, directory, id } = req.body;
-        const newNote = { title, body, directory, id };
-        await notesCollection.insertOne(newNote);
+        const updatedAt = Date.now();
+        const newNote = { title, body, directory, id, updatedAt };
+
+        const existingNote = await notesCollection.findOne({ id });
+        if (existingNote) {
+            await notesCollection.updateOne({ id }, { $set: newNote });
+        } else {
+            await notesCollection.insertOne(newNote);
+        }
+
         res.status(201).json({
             message: 'Note created successfully'
         });

@@ -82,7 +82,7 @@
     &>a:hover {
         cursor: pointer;
 
-        &+svg {
+        &~svg {
             margin-left: .5rem;
             opacity: 1;
         }

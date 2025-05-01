@@ -5,6 +5,11 @@ export interface Note {
     title: string;
     body: string;
     directory: string;
+    updatedAt: number;
+}
+
+export interface StoredNote extends Note {
+    changed: boolean;
 }
 
 export type IconProps = {
@@ -12,7 +17,7 @@ export type IconProps = {
 };
 
 export type Directory = {
-    notes: Note[];
+    notes: StoredNote[];
     dirs: { [key: string]: Directory };
 };
 
@@ -51,12 +56,6 @@ export const defaultConfigs: Configs = {
         previewDelay: 500 // Default delay in milliseconds
     }
 };
-
-export interface INoteContext {
-    notes: Note[];
-    setNotes: (notes: Note[]) => void;
-    createNote: (options?: { title?: string; directory?: string }) => void;
-}
 
 export interface IConfigContext {
     configs: Configs;

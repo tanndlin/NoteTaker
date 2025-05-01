@@ -2,10 +2,9 @@ import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
 import { Preview } from '../../common/Preview/Preview';
-import { Note } from '../../common/types';
+import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
-import { ConfigContext } from '../../contexts/ConfigContext';
 import { NoteContext } from '../../contexts/NoteContext';
 import './EditNote.scss';
 import Options from './Options';
@@ -13,29 +12,19 @@ import { Edit } from './components/Edit';
 import Stats from './components/Stats';
 
 const EditNote = () => {
-    const { notes, setNotes } = useContext(NoteContext);
-    const { configs } = useContext(ConfigContext);
-    const navigate = useNavigate();
+    const { id: idParam } = useParams();
+    const id = Number(idParam);
 
-    const { id } = useParams();
+    const { notes, setNotes, editNote } = useContext(NoteContext);
     const note = notes.find((note) => note.id === Number(id));
-    if (!note) {
+    if (!note || !id) {
         return <h1>404</h1>;
     }
 
+    const navigate = useNavigate();
+
     document.title = note.title;
-
     const { title, body, directory } = note;
-
-    const edit = (note: Note) => {
-        const newNotes = notes.map((n) => {
-            if (n.id === note.id) {
-                return note;
-            }
-            return n;
-        });
-        setNotes(newNotes);
-    };
 
     const deleteNote = () => {
         const newNotes = notes.filter((n) => n.id !== note.id);
@@ -49,7 +38,7 @@ const EditNote = () => {
             <div className="h-full p-4 ml-8 mt-[134px] flex flex-col max-h-[85vh] folder-view bg-secondary rounded-md">
                 <h1 className="mb-8 ml-8 text-2xl">Files</h1>
                 <FolderViewMinWrapper
-                    onClick={(note: Note) =>
+                    onClick={(note: StoredNote) =>
                         smoothTransition(() => navigate(`/${note.id}/edit`))
                     }
                 />
@@ -60,7 +49,7 @@ const EditNote = () => {
                     className="mb-8 text-3xl"
                     value={title}
                     onChange={(e) => {
-                        edit({ ...note, title: e.target.value });
+                        editNote({ ...note, title: e.target.value });
                     }}
                 />
                 <div
@@ -74,7 +63,7 @@ const EditNote = () => {
                         <Edit
                             body={body}
                             edit={(body) => {
-                                edit({ ...note, body });
+                                editNote({ ...note, body });
                             }}
                         />
                     </section>
@@ -89,9 +78,6 @@ const EditNote = () => {
             <div>
                 <Options
                     directory={directory}
-                    edit={(newKeys) => {
-                        edit({ ...note, ...newKeys });
-                    }}
                     deleteNote={deleteNote}
                     note={note}
                 />

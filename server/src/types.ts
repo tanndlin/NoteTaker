@@ -9,7 +9,7 @@ export type BadResponse = {
 
 export type Response<T> = GoodResponse<T> | BadResponse;
 
-export type ApiHeaders = Record<string, string>;
+export type ApiHeaders = Record<string, string | number | boolean>;
 
 export type GetNotesResponse = { notes: Note[] };
 

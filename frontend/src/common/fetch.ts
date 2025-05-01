@@ -1,6 +1,11 @@
-import { ApiHeaders } from '@backend/types';
-import axios, { AxiosResponse } from 'axios';
+import {
+    ApiHeaders,
+    CreateNoteHeaders,
+    CreateNoteResponse
+} from '@backend/types';
+import axios from 'axios';
 import { useState } from 'react';
+import { StoredNote } from './types';
 
 export type Props = {
     endpoint: string;
@@ -18,37 +23,39 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
     const [loading, setLoading] = useState<boolean>(true);
 
     type FetchDataType = T extends null
-        ? (body?: null) => Promise<void>
-        : (body: T) => Promise<void>;
+        ? (body?: null, callback?: Function) => Promise<void>
+        : (body: T, callback?: Function) => Promise<void>;
 
-    const fetchData = (async (body?: T) => {
+    const fetchData = (async (body?: T, callback?: Function) => {
         try {
-            let response: AxiosResponse;
-            if (method === 'GET') {
-                response = await axios.get(`/api/${endpoint}`, {
-                    data: body,
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-            } else if (method === 'POST') {
-                response = await axios.post(`/api/${endpoint}`, body, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-            }
-            if (response!.status !== 200) {
-                setError(`Error: ${response!.status} ${response!.statusText}`);
+            const response = await (method === 'GET'
+                ? axios.get(`/api/${endpoint}`, {
+                      data: body,
+                      headers: {
+                          Authorization: `Bearer ${token}`
+                      }
+                  })
+                : axios.post(`/api/${endpoint}`, body, {
+                      headers: {
+                          Authorization: `Bearer ${token}`
+                      }
+                  }));
+
+            // Check if 2xx
+            if (response.status < 200 || response.status >= 300) {
+                console.error(response.data);
+                setError(`Error: ${response.status} ${response.statusText}`);
                 setLoading(false);
                 return;
             }
 
-            console.log(response!);
-            const data = response!.data as X;
-            console.log(data);
+            const data = response.data as X;
             setRes(data as X);
             setLoading(false);
+
+            if (callback) {
+                callback(data);
+            }
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 console.error(err.response?.data);
@@ -63,3 +70,24 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
 
     return { res, error, loading, fetchData };
 };
+
+export function updateNote(note: StoredNote) {
+    if (!note.changed) return;
+
+    console.log('Updating note', note);
+
+    const { id, title, body, directory } = note;
+    const { fetchData } = apiFetch<CreateNoteResponse, CreateNoteHeaders>({
+        endpoint: 'notes/create',
+        method: 'POST',
+        token: localStorage.getItem('token') ?? undefined
+    });
+
+    return () =>
+        fetchData({
+            id,
+            title,
+            body,
+            directory
+        });
+}

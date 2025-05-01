@@ -1,20 +1,18 @@
-import React from 'react';
-
 type EditProps = {
     body: string;
     edit: (body: string) => void;
 };
 
-export const Edit = (props: EditProps) => {
+export const Edit = ({ body, edit }: EditProps) => {
     return (
-        <div className="w-full flex-1">
+        <div className="flex-1 w-full">
             <textarea
-                className="text-black w-full h-full p-2 rounded-md"
+                className="w-full h-full p-2 text-black rounded-md"
                 name="editInput"
                 id="editInput"
-                value={props.body}
+                value={body}
                 onChange={(e) => {
-                    props.edit(e.target.value);
+                    edit(e.target.value);
                 }}
             />
         </div>

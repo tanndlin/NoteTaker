@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 import { NoteContext } from '../../contexts/NoteContext';
-import { Directory, Note } from '../types';
+import { Directory, StoredNote } from '../types';
 import { File } from './File';
 import Folder from './Folder';
 
 type FolderViewProps = {
-    filter: (note: Note) => boolean;
+    filter: (note: StoredNote) => boolean;
     openStates: { [key: string]: boolean };
     setOpenStates: (openStates: { [key: string]: boolean }) => void;
-    onClick: (note: Note) => void;
+    onClick: (note: StoredNote) => void;
 };
 
 export const FolderView = (props: FolderViewProps) => {
@@ -50,8 +50,8 @@ export const FolderView = (props: FolderViewProps) => {
 
 // This will display notes in a folder heirarchy according to their directory
 export const getHeirarchy = (
-    notes: Note[],
-    filter: (note: Note) => boolean
+    notes: StoredNote[],
+    filter: (note: StoredNote) => boolean
 ) => {
     const heirarchy: Directory = { notes: [], dirs: {} };
     notes.forEach((note) => {
