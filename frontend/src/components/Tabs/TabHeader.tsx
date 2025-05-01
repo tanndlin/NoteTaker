@@ -1,14 +1,14 @@
 import React from 'react';
-import { Note } from '../../common/types';
 import Close from '../Close/Close';
 
+import { StoredNote } from '../../common/types';
 import '../Close/Close.scss';
 
 type TabHeaderProps = {
     active: boolean;
     onClick: () => void;
-    tab: Note;
-    closeTab: (tab: Note) => void;
+    tab: StoredNote;
+    closeTab: (tab: StoredNote) => void;
 };
 
 const TabHeader = (props: TabHeaderProps) => {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import admin from '../config/firebase-config';
+import admin from './config/firebase-config.js';
 
 class Middleware {
     async decodeToken(req: Request, res: Response, next: NextFunction) {
@@ -19,6 +19,12 @@ class Middleware {
         } catch (error) {
             return res.status(500).json({ error: 'Internal error' });
         }
+    }
+
+    // Firebase weirdness
+    removeDuplicatePath(req: Request, res: Response, next: NextFunction) {
+        req.url = req.url.replace('api/api', 'api');
+        return next();
     }
 
     parseRequiredFields(requiredFields: string[]) {

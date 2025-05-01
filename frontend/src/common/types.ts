@@ -1,12 +1,5 @@
+import { Note } from '@backend/types';
 import { Auth, User } from 'firebase/auth';
-
-export interface Note {
-    id: number;
-    title: string;
-    body: string;
-    directory: string;
-    updatedAt: number;
-}
 
 export interface StoredNote extends Note {
     changed: boolean;

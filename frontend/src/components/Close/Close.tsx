@@ -4,7 +4,7 @@ type CloseProps = {
 };
 
 const Close = (props: CloseProps) => {
-    const className = 'close ' + props.className ?? '';
+    const className = 'close ' + (props.className ?? '');
 
     return (
         <input

@@ -1,7 +1,7 @@
 import { CreateNoteHeaders, CreateNoteResponse } from '@backend/types';
 import { useContext } from 'react';
 import { apiFetch } from '../../../common/fetch';
-import { Note } from '../../../common/types';
+import { StoredNote } from '../../../common/types';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import { NoteContext } from '../../../contexts/NoteContext';
@@ -32,7 +32,7 @@ const ExportSettings = () => {
     };
 
     // Dont add notes that already exist
-    const setNotesWithoutReplace = (newNotes: Note[]) => {
+    const setNotesWithoutReplace = (newNotes: StoredNote[]) => {
         if (configs.export.resolveConflictsReplace) {
             const oldNotes = notes.filter(
                 (note) => !newNotes.some((newNote) => newNote.id === note.id)

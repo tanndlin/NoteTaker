@@ -1,9 +1,9 @@
-import { Note } from '../../../common/types';
+import { StoredNote } from '../../../common/types';
 import { getRefs } from '../../../common/utils';
 
 type Props = {
-    note: Note;
-    notes: Note[];
+    note: StoredNote;
+    notes: StoredNote[];
 };
 
 const Stats = (props: Props) => {

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
-import { Note } from '../../common/types';
 import ViewOptions from '../../pages/view/ViewOptions';
 import Tab from './Tab';
 import TabHeader from './TabHeader';
 
+import { StoredNote } from '../../common/types';
 import { NoteContext } from '../../contexts/NoteContext';
 import './Tab.scss';
 
@@ -12,14 +12,14 @@ const TabContainer = () => {
     const { notes, createNote } = useContext(NoteContext);
 
     const id = window.location.pathname.split('/')[1];
-    const [tabbedNotes, setTabbedNotes] = React.useState<Note[]>([
+    const [tabbedNotes, setTabbedNotes] = React.useState<StoredNote[]>([
         notes.find((note) => note.id === parseInt(id))!
     ]);
 
     const [activeTab, setActiveTab] = React.useState(0);
     const note = tabbedNotes[activeTab];
 
-    const closeTab = (tab: Note) => {
+    const closeTab = (tab: StoredNote) => {
         if (tabbedNotes.length === 1) {
             window.location.href = '/';
         }
@@ -36,7 +36,7 @@ const TabContainer = () => {
         }
     };
 
-    const openTab = (note: Note) => {
+    const openTab = (note: StoredNote) => {
         if (!tabbedNotes.includes(note)) {
             setTabbedNotes([...tabbedNotes, note]);
             setActiveTab(tabbedNotes.length);

@@ -4,12 +4,12 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "main": "build/server.js",
   "scripts": {
     "watch": "nodemon -e ts -w ./src -x npm run watch:serve",
-    "watch:serve": "tsx ./src/index.ts",
-    "start": "node dist/index.js",
+    "watch:serve": "tsx ./src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix"
@@ -21,6 +21,7 @@
     "csurf": "^1.10.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "firebase": "^11.6.1",
     "firebase-admin": "^13.3.0",
     "firebase-functions": "^6.3.2",
     "mongodb": "^6.16.0"

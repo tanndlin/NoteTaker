@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import EditIcon from '../../common/Icons/EditIcon';
 import HomeIcon from '../../common/Icons/HomeIcon';
-import { Note } from '../../common/types';
+import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 
 type PreviewOptionsProps = {
-    note: Note;
+    note: StoredNote;
 };
 
 const ViewOptions = (props: PreviewOptionsProps) => {

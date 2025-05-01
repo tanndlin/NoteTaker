@@ -58,9 +58,11 @@ const NoteProvider = ({ children }: Props) => {
     }, [authStatus]);
 
     useEffect(() => {
-        if (!res) {
+        if (!res || error) {
             return;
         }
+
+        console.log(res);
 
         // Use the updatedAt timestamp to determine which note is newer
         // Overwrite the existing note if the one from the server is newer
@@ -84,10 +86,6 @@ const NoteProvider = ({ children }: Props) => {
 
     React.useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
-        console.log(
-            'Changed notes:',
-            notes.filter((note) => note.changed)
-        );
     }, [notes]);
 
     const createNote = (options?: { title?: string; directory?: string }) => {
@@ -125,11 +123,9 @@ const NoteProvider = ({ children }: Props) => {
     };
 
     const updateAllNotes = () => {
-        console.log('Updating all notes...');
         notes
             .filter((note) => note.changed)
             .forEach((note) => {
-                console.log('Updating note:', note);
                 const { id, title, body, directory } = note;
                 updateNote(
                     {

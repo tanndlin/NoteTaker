@@ -1,4 +1,11 @@
-import { Note } from '@frontend/common/types';
+export interface Note {
+    id: number;
+    title: string;
+    body: string;
+    directory: string;
+    updatedAt: number;
+}
+
 export type GoodResponse<T> = {
     data: T;
 };

@@ -27,6 +27,8 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
         : (body: T, callback?: Function) => Promise<void>;
 
     const fetchData = (async (body?: T, callback?: Function) => {
+        const prefix =
+            process.env.NODE_ENV === 'development' ? '/api' : '/api/api';
         try {
             const response = await (method === 'GET'
                 ? axios.get(`/api/${endpoint}`, {
@@ -73,8 +75,6 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
 
 export function updateNote(note: StoredNote) {
     if (!note.changed) return;
-
-    console.log('Updating note', note);
 
     const { id, title, body, directory } = note;
     const { fetchData } = apiFetch<CreateNoteResponse, CreateNoteHeaders>({

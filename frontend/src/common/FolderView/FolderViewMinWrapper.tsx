@@ -4,7 +4,7 @@ import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
 import FolderOpenIcon from '../Icons/FolderOpenIcon';
 import HomeIcon from '../Icons/HomeIcon';
-import { Note, StoredNote } from '../types';
+import { StoredNote } from '../types';
 import { smoothTransition } from '../utils';
 import { FolderView } from './FolderView';
 
@@ -42,7 +42,7 @@ const FolderViewMinWrapper = (props: Props) => {
         setOpenStates(newOpenStates);
     };
 
-    const onClick = (note: Note) => {
+    const onClick = (note: StoredNote) => {
         window.location.href = `/${note.id}`;
     };
 

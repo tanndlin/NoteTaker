@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Preview } from '../../common/Preview/Preview';
-import { Note } from '../../common/types';
+import { StoredNote } from '../../common/types';
 import { NoteContext } from '../../contexts/NoteContext';
 
 type TabProps = {
-    tab: Note;
+    tab: StoredNote;
     active: boolean;
     onClick: (id: number) => void;
 };

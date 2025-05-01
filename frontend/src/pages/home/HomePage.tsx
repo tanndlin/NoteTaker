@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import AnimatedLink from '../../common/AnimatedLink';
 import FolderViewWrapper from '../../common/FolderView/FolderViewWrapper';
-import { Note } from '../../common/types';
+import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 
 export const HomePage = () => {
     const navigate = useNavigate();
 
-    const onClick = (note: Note) => {
+    const onClick = (note: StoredNote) => {
         smoothTransition(() => navigate(`/${note.id}`));
     };
 

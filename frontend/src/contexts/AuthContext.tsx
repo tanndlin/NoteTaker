@@ -35,7 +35,6 @@ export const AuthIsNotSignedIn = ({ children }: Props) => {
     return <>{authStatus === AuthStatus.SignedOut ? children : null}</>;
 };
 
-console.log('Firebase API Key:', import.meta.env.VITE_FIREBASE_API_KEY);
 export const app = initializeApp({
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -49,10 +48,8 @@ export const AuthProvider = ({ children }: Props) => {
     const [token, setToken] = useState('');
 
     useEffect(() => {
-        console.log('Firebase Auth:', auth);
         auth.onAuthStateChanged((user) => {
             setAuthStatus(user ? AuthStatus.SignedIn : AuthStatus.SignedOut);
-            console.log('User state changed:', user);
             if (user) {
                 setUser(user);
                 user.getIdToken().then((token) => {

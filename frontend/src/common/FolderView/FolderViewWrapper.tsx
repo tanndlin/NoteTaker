@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { NoteContext } from '../../contexts/NoteContext';
-import { Directory, Note } from '../types';
+import { Directory, StoredNote } from '../types';
 import { FolderView, getHeirarchy } from './FolderView';
 import FoldingOptions from './FoldingOptions';
 
 type FolderViewWrapperProps = {
     className?: string;
-    onClick: (note: Note) => void;
+    onClick: (note: StoredNote) => void;
 };
 
 // Self-sufficient wrapper for FolderView
@@ -24,7 +24,7 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
         localStorage.setItem('openStates', JSON.stringify(openStates));
     }, [openStates]);
 
-    const search = (note: Note) =>
+    const search = (note: StoredNote) =>
         note.title.toLowerCase().includes(searchTerm.toLowerCase());
 
     const handleNew = () => {

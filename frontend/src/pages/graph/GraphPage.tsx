@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Note } from '../../common/types';
 import GraphView from './components/GraphView';
 import { ID } from './graph.types';
 
 import { useNavigate } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
+import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import { NoteContext } from '../../contexts/NoteContext';
 import './GraphPage.scss';
@@ -28,7 +28,7 @@ const GraphPage = () => {
         window.location.href = `/${id}`;
     };
 
-    const filterFunction = (note: Note) => {
+    const filterFunction = (note: StoredNote) => {
         if (!filter.length) {
             return true;
         }
@@ -42,7 +42,7 @@ const GraphPage = () => {
         return filter.some((dirName) => note.directory.includes(dirName + ''));
     };
 
-    const onClick = (note: Note) => {
+    const onClick = (note: StoredNote) => {
         smoothTransition(() => navigate(`/${note.id}`));
     };
 

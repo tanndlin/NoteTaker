@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { ConfigContext } from '../../contexts/ConfigContext';
-import { Note } from '../types';
+import { StoredNote } from '../types';
 import { preProcessNote } from '../utils';
 import MarkdownRenderer from './MarkdownRenderer';
 import './Preview.scss';
 
 type PreviewProps = {
-    note: Note;
+    note: StoredNote;
     onClick?: (id: number) => void;
-    notes: Note[];
+    notes: StoredNote[];
 };
 
 export const Preview = (props: PreviewProps) => {

@@ -1,7 +1,11 @@
 import ReactDOM from 'react-dom';
-import { Configs, Note } from './types';
+import { Configs, StoredNote } from './types';
 
-export const preProcessNote = (note: Note, notes: Note[], config: Configs) => {
+export const preProcessNote = (
+    note: StoredNote,
+    notes: StoredNote[],
+    config: Configs
+) => {
     const withLinks = createLinks(note, notes);
     const withShorthands = replaceShorthands(
         withLinks,
@@ -10,7 +14,7 @@ export const preProcessNote = (note: Note, notes: Note[], config: Configs) => {
     return withShorthands;
 };
 
-export const createLinks = (note: Note, notes: Note[]) => {
+export const createLinks = (note: StoredNote, notes: StoredNote[]) => {
     const currentDepth = (note.directory.match(/\//g) || []).length;
     let newBody = note.body + '';
     const refs = getNonNullRefs(note, notes);
@@ -26,17 +30,20 @@ export const createLinks = (note: Note, notes: Note[]) => {
 };
 
 const getNonNullRefs = (
-    note: Note,
-    notes: Note[]
-): { ref: string; note: Note }[] => {
+    note: StoredNote,
+    notes: StoredNote[]
+): { ref: string; note: StoredNote }[] => {
     const refs = getRefs(note, notes);
-    return refs.filter((ref) => !!ref.note) as { ref: string; note: Note }[];
+    return refs.filter((ref) => !!ref.note) as {
+        ref: string;
+        note: StoredNote;
+    }[];
 };
 
 export const getRefs = (
-    note: Note,
-    notes: Note[]
-): { ref: string; note: Note | undefined }[] => {
+    note: StoredNote,
+    notes: StoredNote[]
+): { ref: string; note: StoredNote | undefined }[] => {
     const findNoteFromRef = (ref: string) => {
         return notes.find((note) => `${note.directory}/${note.title}` === ref);
     };

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Note, StoredNote } from '../../../common/types';
+import { StoredNote } from '../../../common/types';
 import { NoteContext } from '../../../contexts/NoteContext';
 
 type PotentialRefsProps = {
@@ -7,18 +7,18 @@ type PotentialRefsProps = {
 };
 
 const PotentialRefs = ({ note }: PotentialRefsProps) => {
-    const [potentialRefs, setPotentialRefs] = React.useState<Note[]>([]);
+    const [potentialRefs, setPotentialRefs] = React.useState<StoredNote[]>([]);
     const { notes, editNote } = useContext(NoteContext);
 
     React.useEffect(() => {
         setPotentialRefs(getPotentialRefs());
     }, [note]);
 
-    const getPotentialRefs = (): Note[] => {
+    const getPotentialRefs = (): StoredNote[] => {
         try {
             return notes
                 .filter((n) => n.id !== note.id)
-                .reduce((acc: Note[], n: Note) => {
+                .reduce((acc: StoredNote[], n: StoredNote) => {
                     // eslint-disable-next-line no-useless-escape
                     const regex = new RegExp(
                         `(?<!(\\[|/))${n.title}(?!(\\]|/))`,
@@ -31,12 +31,12 @@ const PotentialRefs = ({ note }: PotentialRefsProps) => {
                     return acc;
                 }, []);
         } catch (e) {
-            console.log(e);
+            console.error(e);
             return [];
         }
     };
 
-    const assignRef = (ref: Note) => () => {
+    const assignRef = (ref: StoredNote) => () => {
         // eslint-disable-next-line no-useless-escape
         const regex = new RegExp(`(?<!(\\[|/))${ref.title}(?!(\\]|/))`, 'gi');
         const newBody = note.body.replace(
