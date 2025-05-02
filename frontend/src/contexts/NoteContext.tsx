@@ -70,9 +70,10 @@ const NoteProvider = ({ children }: Props) => {
         // Use the updatedAt timestamp to determine which note is newer
         // Overwrite the existing note if the one from the server is newer
         const { notes: notesFromServer } = res;
-        const deletedNotes = notesFromServer.filter(
-            (note) => note.deleted == true
-        );
+        const deletedIDs = notesFromServer
+            .filter((note) => note.deleted === true)
+            .map((note) => note.id);
+
         const nonDeletedNotes = notesFromServer.filter(
             (note) => note.deleted === false
         );
@@ -92,16 +93,7 @@ const NoteProvider = ({ children }: Props) => {
                     changed: false // Mark as not changed since it's from the server
                 };
             })
-            .filter((existingNote) => {
-                const deletedNote = deletedNotes.find(
-                    (n) => n.id === existingNote.id
-                );
-                if (deletedNote) {
-                    return false; // Filter out deleted notes
-                }
-
-                return true; // Keep non-deleted notes
-            });
+            .filter((existingNote) => !deletedIDs.includes(existingNote.id));
 
         setNotes(updatedNotes);
     }, [res]);
