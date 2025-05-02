@@ -1,10 +1,20 @@
-export interface Note {
+export type NoteBase = {
     id: number;
+};
+
+export type DeletedNote = NoteBase & {
+    deleted: true;
+};
+
+export type ExistingNote = NoteBase & {
     title: string;
     body: string;
     directory: string;
     updatedAt: number;
-}
+    deleted: false;
+};
+
+export type Note = DeletedNote | ExistingNote;
 
 export type GoodResponse<T> = {
     data: T;
@@ -25,5 +35,10 @@ export type CreateNoteHeaders = ApiHeaders & {
     title: string;
     body: string;
     directory: string;
+    id: number;
+};
+
+export type DeleteNoteResponse = { message: string };
+export type DeleteNoteHeaders = ApiHeaders & {
     id: number;
 };

@@ -1,21 +1,31 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TrashIcon from '../../../common/Icons/TrashIcon';
+import { StoredNote } from '../../../common/types';
+import { ConfigContext } from '../../../contexts/ConfigContext';
+import { NoteContext } from '../../../contexts/NoteContext';
 import DeleteModal from './DeleteModal';
 
 type Props = {
+    note: StoredNote;
     name: string;
-    deleteNote: () => void;
-    askOnDelete: boolean;
-    setAskOnDelete: (b: boolean) => void;
 };
 
-const DeleteButton = (props: Props) => {
-    const { name, deleteNote, askOnDelete, setAskOnDelete } = props;
+const DeleteButton = ({ name, note }: Props) => {
     const [open, setOpen] = useState(false);
+    const { deleteNote } = useContext(NoteContext);
+    const { configs } = useContext(ConfigContext);
+    const { askOnDelete } = configs.general;
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        deleteNote(note);
+        navigate('/');
+    };
 
     const handleDeleteButtonClicked = () => {
         if (!askOnDelete) {
-            deleteNote();
+            handleDelete();
             return;
         }
 
@@ -27,12 +37,10 @@ const DeleteButton = (props: Props) => {
             <DeleteModal
                 name={name}
                 open={open}
-                deleteNote={deleteNote}
+                deleteNote={handleDelete}
                 setOpen={(open: boolean) => {
                     setOpen(open);
                 }}
-                askOnDelete={askOnDelete}
-                setAskOnDelete={setAskOnDelete}
             />
             <button className="bg-bad" onClick={handleDeleteButtonClicked}>
                 <TrashIcon className="mx-auto" />

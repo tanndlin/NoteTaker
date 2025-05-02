@@ -6,31 +6,18 @@ import MagnifyingGlassIcon from '../../common/Icons/MagnifyingGlassIcon';
 import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
-import { ConfigContext } from '../../contexts/ConfigContext';
 import { NoteContext } from '../../contexts/NoteContext';
 import DeleteButton from './components/DeleteButton';
 import PotentialRefs from './components/PotentialRefs';
 
 type OptionsProps = {
     directory: string;
-    deleteNote: () => void;
     note: StoredNote;
 };
 
-const Options = ({ directory, deleteNote, note }: OptionsProps) => {
-    const { notes, editNote } = useContext(NoteContext);
-    const { configs, setConfigs } = useContext(ConfigContext);
+const Options = ({ directory, note }: OptionsProps) => {
+    const { editNote } = useContext(NoteContext);
     const navigate = useNavigate();
-
-    const setAskOnDelete = (b: boolean) => {
-        setConfigs({
-            ...configs,
-            general: {
-                ...configs.general,
-                askOnDelete: b
-            }
-        });
-    };
 
     return (
         <aside className="mx-8 mt-16">
@@ -63,12 +50,7 @@ const Options = ({ directory, deleteNote, note }: OptionsProps) => {
                     >
                         <MagnifyingGlassIcon className="w-6 mx-auto" />
                     </button>
-                    <DeleteButton
-                        deleteNote={deleteNote}
-                        name={note.title}
-                        askOnDelete={configs.general.askOnDelete}
-                        setAskOnDelete={setAskOnDelete}
-                    />
+                    <DeleteButton name={note.title} note={note} />
                 </ButtonBar>
                 <PotentialRefs note={note} />
             </div>

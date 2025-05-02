@@ -12,7 +12,7 @@ type FolderViewWrapperProps = {
 // Self-sufficient wrapper for FolderView
 const FolderViewWrapper = (props: FolderViewWrapperProps) => {
     const { className, onClick } = props;
-    const { notes, createNote } = useContext(NoteContext);
+    const { notes } = useContext(NoteContext);
 
     const [searchTerm, setSearchTerm] = React.useState('');
     const [queue, _setQueue] = React.useState<string[]>([]);
@@ -26,11 +26,6 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
 
     const search = (note: StoredNote) =>
         note.title.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const handleNew = () => {
-        const id = createNote();
-        window.location.href = `/${id}/edit`;
-    };
 
     const expandAll = () => {
         const heirarchy = getHeirarchy(notes, search);
@@ -91,7 +86,7 @@ const FolderViewWrapper = (props: FolderViewWrapperProps) => {
             <header className="sticky top-0 z-50 flex justify-between pt-4 mb-8 bg-secondary">
                 <h2 className="text-xl">Notes</h2>
                 <div className="flex gap-4">
-                    <FoldingOptions {...{ expandAll, foldAll, handleNew }} />
+                    <FoldingOptions {...{ expandAll, foldAll }} />
                     <input
                         className="px-2 py-1 rounded-md"
                         type="text"

@@ -47,6 +47,10 @@ function App() {
                                         element={<LoginPage />}
                                     />
                                     <Route
+                                        path="/about"
+                                        element={<AboutPage />}
+                                    />
+                                    <Route
                                         path="*"
                                         element={<Navigate to="/" />}
                                     />

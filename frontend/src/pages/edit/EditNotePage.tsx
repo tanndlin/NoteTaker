@@ -76,11 +76,7 @@ const EditNote = () => {
                 </div>
             </div>
             <div>
-                <Options
-                    directory={directory}
-                    deleteNote={deleteNote}
-                    note={note}
-                />
+                <Options directory={directory} note={note} />
                 <Stats note={note} notes={notes} />
             </div>
         </main>

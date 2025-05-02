@@ -1,6 +1,8 @@
 import {
     CreateNoteHeaders,
     CreateNoteResponse,
+    DeleteNoteHeaders,
+    DeleteNoteResponse,
     GetNotesResponse
 } from '@backend/types';
 import React, { useContext, useEffect } from 'react';
@@ -13,6 +15,7 @@ export interface INoteContext {
     setNotes: (notes: StoredNote[]) => void;
     createNote: (options?: { title?: string; directory?: string }) => void;
     editNote: (note: StoredNote) => void;
+    deleteNote: (note: StoredNote) => void;
     updateAllNotes: () => void;
 }
 
@@ -21,16 +24,9 @@ const NoteContext = React.createContext({} as INoteContext);
 type Props = { children: React.ReactNode };
 const NoteProvider = ({ children }: Props) => {
     const { authStatus, user, token } = useContext(AuthContext);
-    const [notes, setNotes] = React.useState<StoredNote[]>(() => {
-        const notes = JSON.parse(localStorage.getItem('notes') ?? '[]');
-        notes.forEach((note: StoredNote) => {
-            if (note.updatedAt === undefined) {
-                note.updatedAt = Date.now();
-            }
-        });
-
-        return notes;
-    });
+    const [notes, setNotes] = React.useState<StoredNote[]>(
+        JSON.parse(localStorage.getItem('notes') ?? '[]')
+    );
     const {
         res,
         error,
@@ -51,6 +47,15 @@ const NoteProvider = ({ children }: Props) => {
         token: localStorage.getItem('token') ?? undefined
     });
 
+    const { fetchData: deleteNoteApi } = apiFetch<
+        DeleteNoteResponse,
+        DeleteNoteHeaders
+    >({
+        endpoint: 'notes/delete',
+        method: 'POST',
+        token: localStorage.getItem('token') ?? undefined
+    });
+
     useEffect(() => {
         if (authStatus === AuthStatus.SignedIn) {
             fetchNotes();
@@ -62,24 +67,41 @@ const NoteProvider = ({ children }: Props) => {
             return;
         }
 
-        console.log(res);
-
         // Use the updatedAt timestamp to determine which note is newer
         // Overwrite the existing note if the one from the server is newer
-        const updatedNotes = res.notes.map((note) => {
-            const existingNote = notes.find((n) => n.id === note.id);
-            if (
-                existingNote &&
-                existingNote.updatedAt > (note.updatedAt ?? 0)
-            ) {
-                existingNote.changed = true; // Mark as changed if the existing note is newer
-                return existingNote;
-            }
-            return {
-                ...note,
-                changed: false // Mark as not changed since it's from the server
-            };
-        });
+        const { notes: notesFromServer } = res;
+        const deletedNotes = notesFromServer.filter(
+            (note) => note.deleted == true
+        );
+        const nonDeletedNotes = notesFromServer.filter(
+            (note) => note.deleted === false
+        );
+
+        const updatedNotes = nonDeletedNotes
+            .map((note) => {
+                const existingNote = notes.find((n) => n.id === note.id);
+                if (
+                    existingNote &&
+                    existingNote.updatedAt > (note.updatedAt ?? 0)
+                ) {
+                    existingNote.changed = true; // Mark as changed if the existing note is newer
+                    return existingNote;
+                }
+                return {
+                    ...note,
+                    changed: false // Mark as not changed since it's from the server
+                };
+            })
+            .filter((existingNote) => {
+                const deletedNote = deletedNotes.find(
+                    (n) => n.id === existingNote.id
+                );
+                if (deletedNote) {
+                    return false; // Filter out deleted notes
+                }
+
+                return true; // Keep non-deleted notes
+            });
 
         setNotes(updatedNotes);
     }, [res]);
@@ -93,15 +115,18 @@ const NoteProvider = ({ children }: Props) => {
             options = { title: 'Title', directory: '/' };
         }
 
-        const newNote = {
+        const newNote: StoredNote = {
             id: Date.now(),
             title: options.title ?? 'Title',
             body: `# ${options.title ?? 'Hello World'}`,
             directory: options.directory ?? '/',
             changed: true,
-            updatedAt: Date.now()
+            updatedAt: Date.now(),
+            deleted: false
         };
         setNotes([...notes, newNote]);
+
+        updateNote(newNote);
 
         return newNote.id;
     };
@@ -120,6 +145,13 @@ const NoteProvider = ({ children }: Props) => {
                 return oldNote;
             })
         );
+    };
+
+    const deleteNote = (note: StoredNote) => {
+        const updatedNotes = notes.filter((n) => n.id !== note.id);
+        setNotes(updatedNotes);
+
+        deleteNoteApi({ id: note.id, deleted: true });
     };
 
     const updateAllNotes = () => {
@@ -141,7 +173,14 @@ const NoteProvider = ({ children }: Props) => {
 
     return (
         <NoteContext.Provider
-            value={{ notes, setNotes, createNote, editNote, updateAllNotes }}
+            value={{
+                notes,
+                setNotes,
+                createNote,
+                editNote,
+                deleteNote,
+                updateAllNotes
+            }}
         >
             {children}
         </NoteContext.Provider>

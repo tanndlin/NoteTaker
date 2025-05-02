@@ -19,6 +19,7 @@ refreshers on related topics.
 - Markdown support for formatting notes
 - Hyperlinks for referencing other notes
 - Search for note titles and note contents
+- Shorthands for expanding text in notes
 
 ## Search
 Note Taker supports searching for note titles and note contents. To search for
@@ -42,6 +43,12 @@ This will scroll your notes to the location of the heading. For example, to
 reference the heading \`Hello World\` you can give it an id by typing \`## Hello
 World {#hello-world}\` and then reference it by typing \`[Text Here](#hello-world)\`.
 For example [this](#top) hyperlink will take you to the top heading.
+
+## Shorthands
+In the settings page, under the general tab, you can set shorthands to be expanded
+when preivewing notes. For exmaple, if you are taking chemstry notes and you dont want
+to type of the formula for water in latex, you can set the shorthand \`H2O\` to be expanded to (\\$H_2O\\$)
+which looks like this: $H_2O$.
 `;
 
     return (

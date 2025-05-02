@@ -4,7 +4,7 @@
 
 textarea,
 input {
-    background-color: #121212;
+    // background-color: #121212;
     color: #e8e6e3;
 }
 
@@ -38,7 +38,8 @@ button {
 }
 
 input[type='text'] {
-    color: black;
+    background-color: #121212;
+    color: white;
     border-radius: .125rem;
 }
 

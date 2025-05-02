@@ -28,16 +28,16 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
 
     const fetchData = (async (body?: T, callback?: Function) => {
         const prefix =
-            process.env.NODE_ENV === 'development' ? '/api' : '/api/api';
+            process.env.NODE_ENV === 'production' ? '/api' : '/api/api';
         try {
             const response = await (method === 'GET'
-                ? axios.get(`/api/${endpoint}`, {
+                ? axios.get(`${prefix}/${endpoint}`, {
                       data: body,
                       headers: {
                           Authorization: `Bearer ${token}`
                       }
                   })
-                : axios.post(`/api/${endpoint}`, body, {
+                : axios.post(`${prefix}/${endpoint}`, body, {
                       headers: {
                           Authorization: `Bearer ${token}`
                       }

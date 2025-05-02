@@ -1,17 +1,27 @@
+import { useContext } from 'react';
 import Close from '../../../components/Close/Close';
+import { ConfigContext } from '../../../contexts/ConfigContext';
 
 type Props = {
     name: string;
     open: boolean;
     setOpen: (open: boolean) => void;
     deleteNote: () => void;
-    askOnDelete: boolean;
-    setAskOnDelete: (askOnDelete: boolean) => void;
 };
 
-const DeleteModal = (props: Props) => {
-    const { name, open, setOpen, deleteNote, askOnDelete, setAskOnDelete } =
-        props;
+const DeleteModal = ({ name, open, setOpen, deleteNote }: Props) => {
+    const { configs, setConfigs } = useContext(ConfigContext);
+    const { askOnDelete } = configs.general;
+
+    const setAskOnDelete = (b: boolean) => {
+        setConfigs({
+            ...configs,
+            general: {
+                ...configs.general,
+                askOnDelete: b
+            }
+        });
+    };
 
     return (
         <dialog

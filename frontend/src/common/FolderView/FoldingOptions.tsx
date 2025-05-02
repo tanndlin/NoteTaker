@@ -6,18 +6,18 @@ import PlusIcon from '../Icons/PlusIcon';
 import RefreshIcon from '../Icons/RefreshIcon';
 
 type FolderOptionsProps = {
-    handleNew: () => void;
     expandAll: () => void;
     foldAll: () => void;
 };
 
-const FoldingOptions = ({
-    handleNew,
-    expandAll,
-    foldAll
-}: FolderOptionsProps) => {
+const FoldingOptions = ({ expandAll, foldAll }: FolderOptionsProps) => {
     const { updateAllNotes } = useContext(NoteContext);
-    const { notes } = useContext(NoteContext);
+    const { notes, createNote } = useContext(NoteContext);
+
+    const handleNew = () => {
+        const id = createNote();
+        window.location.href = `/${id}/edit`;
+    };
 
     return (
         <span className="flex justify-between gap-4">

@@ -1,9 +1,9 @@
-import { Note } from '@backend/types';
+import { ExistingNote } from '@backend/types';
 import { Auth, User } from 'firebase/auth';
 
-export interface StoredNote extends Note {
+export type StoredNote = ExistingNote & {
     changed: boolean;
-}
+};
 
 export type IconProps = {
     className?: string;
