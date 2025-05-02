@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 type Props = {
     children: React.ReactNode[];
@@ -7,11 +7,14 @@ type Props = {
     setActiveTab: (index: number) => void;
 };
 
-const TabbedContainer = (props: Props) => {
-    const { children, activeTab, setActiveTab } = props;
-
+const TabbedContainer: FC<Props> = ({
+    children,
+    className,
+    activeTab,
+    setActiveTab
+}) => {
     return (
-        <ul className={'tab-container ' + (props.className ?? '')}>
+        <ul className={'tab-container ' + (className ?? '')}>
             {children.map((child, index) => {
                 const className =
                     'tab' + (activeTab === index ? ' active-tab' : '');

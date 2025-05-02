@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import Graph from 'react-graph-vis';
 import { getHeirarchy } from '../../../common/FolderView/FolderView';
 import { Directory } from '../../../common/types';
@@ -13,8 +13,7 @@ type GraphProps = {
     createNote(qualifiedName: string): void;
 };
 
-const GraphView = (props: GraphProps) => {
-    const { setFilter, createNote } = props;
+const GraphView: FC<GraphProps> = ({ setFilter, createNote }) => {
     const { configs } = useContext(ConfigContext);
     const { notes } = useContext(NoteContext);
 

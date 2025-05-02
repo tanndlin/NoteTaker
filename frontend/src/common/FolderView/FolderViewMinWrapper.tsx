@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoteContext } from '../../contexts/NoteContext';
 import FolderMinusIcon from '../Icons/FolderMinusIcon';
@@ -13,8 +13,10 @@ type Props = {
     filter?: (note: StoredNote) => boolean;
 };
 
-const FolderViewMinWrapper = (props: Props) => {
-    const { filter } = props;
+const FolderViewMinWrapper: FC<Props> = ({
+    filter,
+    onClick: defaultOnClick
+}) => {
     const { notes } = useContext(NoteContext);
     const navigate = useNavigate();
 
@@ -56,7 +58,7 @@ const FolderViewMinWrapper = (props: Props) => {
                             filter: filter || (() => true),
                             openStates,
                             setOpenStates,
-                            onClick: props.onClick || onClick
+                            onClick: defaultOnClick || onClick
                         }}
                     />
                 </div>

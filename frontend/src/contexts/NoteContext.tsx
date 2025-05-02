@@ -81,13 +81,15 @@ const NoteProvider = ({ children }: Props) => {
         const updatedNotes = nonDeletedNotes
             .map((note) => {
                 const existingNote = notes.find((n) => n.id === note.id);
-                if (
+                const isNewer =
                     existingNote &&
-                    existingNote.updatedAt > (note.updatedAt ?? 0)
-                ) {
+                    existingNote.updatedAt > (note.updatedAt ?? 0);
+
+                if (isNewer) {
                     existingNote.changed = true; // Mark as changed if the existing note is newer
                     return existingNote;
                 }
+
                 return {
                     ...note,
                     changed: false // Mark as not changed since it's from the server

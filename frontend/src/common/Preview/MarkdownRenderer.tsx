@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import 'github-markdown-css';
-import './Markdown.scss';
+import 'katex/dist/katex.min.css';
+import { FC } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
+import './Markdown.scss';
 
 type MarkdownRendererProps = {
     markdown: string;
 };
 
-const MarkdownRenderer = (props: MarkdownRendererProps) => {
+const MarkdownRenderer: FC<MarkdownRendererProps> = ({ markdown }) => {
     const HeadingRenderer = (props: any) => {
         const { level, ...rest } = props;
 
@@ -44,7 +44,7 @@ const MarkdownRenderer = (props: MarkdownRendererProps) => {
                 h6: HeadingRenderer
             }}
         >
-            {props.markdown}
+            {markdown}
         </ReactMarkdown>
     );
 };

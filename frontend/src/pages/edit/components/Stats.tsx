@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { StoredNote } from '../../../common/types';
 import { getRefs } from '../../../common/utils';
 
@@ -6,9 +7,7 @@ type Props = {
     notes: StoredNote[];
 };
 
-const Stats = (props: Props) => {
-    const { note, notes } = props;
-
+const Stats: FC<Props> = ({ note, notes }) => {
     const numRefs = getRefs(note, notes).length;
     const numWords = note.body.split(/\s+/).length + 1;
     const numChars = note.body.length;

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { ConfigProps } from '../../SettingsPage';
 
 type Props = {
@@ -6,9 +7,13 @@ type Props = {
     className?: string;
 } & ConfigProps;
 
-const ButtonConfig = (props: Props) => {
-    const { title, description, name, onClick, className } = props;
-
+const ButtonConfig: FC<Props> = ({
+    name,
+    onClick,
+    className,
+    title,
+    description
+}) => {
     return (
         <div className="settings-config config-button">
             <h3>{title}</h3>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { smoothTransition } from './utils';
 
@@ -8,8 +8,7 @@ type Props = {
     className?: string;
 };
 
-const AnimatedLink = (props: Props) => {
-    const { to, children, className } = props;
+const AnimatedLink: FC<Props> = ({ to, children, className }) => {
     const navigate = useNavigate();
 
     const handleClick = (

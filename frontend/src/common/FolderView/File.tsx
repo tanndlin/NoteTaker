@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import MagnifyingGlassIcon from '../Icons/MagnifyingGlassIcon';
 import { StoredNote } from '../types';
 
@@ -6,9 +7,7 @@ type FileProps = {
     onClick: (note: StoredNote) => void;
 };
 
-export const File = (props: FileProps) => {
-    const { note, onClick } = props;
-
+export const File: FC<FileProps> = ({ note, onClick }) => {
     return (
         <li key={note.id} className="flex ml-8 file">
             <a onClick={() => onClick(note)}>{note.title}</a>

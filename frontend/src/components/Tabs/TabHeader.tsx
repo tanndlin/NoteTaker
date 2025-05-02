@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Close from '../Close/Close';
 
 import { StoredNote } from '../../common/types';
@@ -11,9 +11,7 @@ type TabHeaderProps = {
     closeTab: (tab: StoredNote) => void;
 };
 
-const TabHeader = (props: TabHeaderProps) => {
-    const { active, onClick, tab, closeTab } = props;
-
+const TabHeader: FC<TabHeaderProps> = ({ active, closeTab, onClick, tab }) => {
     const tryOpenTab = (e: React.MouseEvent) => {
         // If e.target has className 'close', don't open the tab
         if (e.target instanceof HTMLElement) {

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonBar } from '../../common/ButtonBar/ButtonBar';
 import EditIcon from '../../common/Icons/EditIcon';
@@ -9,8 +10,8 @@ type PreviewOptionsProps = {
     note: StoredNote;
 };
 
-const ViewOptions = (props: PreviewOptionsProps) => {
-    const { directory, id } = props.note;
+const ViewOptions: FC<PreviewOptionsProps> = ({ note }) => {
+    const { id, directory } = note;
     const navigate = useNavigate();
 
     const goto = (path: string) => {

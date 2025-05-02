@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { ConfigProps } from '../../SettingsPage';
 
 type Props = {
@@ -5,9 +6,7 @@ type Props = {
     setValue: (b: boolean) => void;
 } & ConfigProps;
 
-const ToggleConfig = (props: Props) => {
-    const { title, description, value, setValue } = props;
-
+const ToggleConfig: FC<Props> = ({ value, setValue, title, description }) => {
     return (
         <div className="settings-config config-toggle">
             <h3>{title}</h3>

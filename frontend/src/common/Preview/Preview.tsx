@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { ConfigContext } from '../../contexts/ConfigContext';
 import { StoredNote } from '../types';
 import { preProcessNote } from '../utils';
@@ -11,9 +11,8 @@ type PreviewProps = {
     notes: StoredNote[];
 };
 
-export const Preview = (props: PreviewProps) => {
+const Preview: FC<PreviewProps> = ({ note, notes, onClick }) => {
     const { configs } = useContext(ConfigContext);
-    const { note, notes, onClick } = props;
     const body = preProcessNote(note, notes, configs);
 
     const getID = (href: string): number => {
@@ -150,3 +149,5 @@ export const Preview = (props: PreviewProps) => {
         </div>
     );
 };
+
+export default Preview;

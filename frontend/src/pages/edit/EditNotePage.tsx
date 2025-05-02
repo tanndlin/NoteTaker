@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderViewMinWrapper from '../../common/FolderView/FolderViewMinWrapper';
-import { Preview } from '../../common/Preview/Preview';
+import Preview from '../../common/Preview/Preview';
 import { StoredNote } from '../../common/types';
 import { smoothTransition } from '../../common/utils';
 import EditableText from '../../components/EditableText/EditableText';
@@ -25,13 +25,6 @@ const EditNote = () => {
 
     document.title = note.title;
     const { title, body, directory } = note;
-
-    const deleteNote = () => {
-        const newNotes = notes.filter((n) => n.id !== note.id);
-        setNotes(newNotes);
-
-        window.location.href = '/';
-    };
 
     return (
         <main id="editPageContainer" className="grid w-full h-full grid-cols-3">

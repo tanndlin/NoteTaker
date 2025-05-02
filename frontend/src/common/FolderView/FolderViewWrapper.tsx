@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { NoteContext } from '../../contexts/NoteContext';
 import { Directory, StoredNote } from '../types';
 import { FolderView, getHeirarchy } from './FolderView';
@@ -10,8 +10,10 @@ type FolderViewWrapperProps = {
 };
 
 // Self-sufficient wrapper for FolderView
-const FolderViewWrapper = (props: FolderViewWrapperProps) => {
-    const { className, onClick } = props;
+const FolderViewWrapper: FC<FolderViewWrapperProps> = ({
+    className,
+    onClick
+}) => {
     const { notes } = useContext(NoteContext);
 
     const [searchTerm, setSearchTerm] = React.useState('');

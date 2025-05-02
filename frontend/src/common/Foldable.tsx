@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import React, { FC } from 'react';
 
 type Props = {
     title: string;
@@ -7,19 +7,18 @@ type Props = {
     children: React.ReactNode;
 };
 
-const Foldable = (props: Props) => {
-    const { title, children } = props;
+const Foldable: FC<Props> = ({ title, className, children }) => {
     const [open, setOpen] = React.useState(true);
 
     const toggleOpen = () => {
         setOpen(!open);
     };
 
-    const className =
-        (props.className ?? '') + ' foldable' + (open ? '' : ' folded');
+    const calculatedClassName =
+        (className ?? '') + ' foldable' + (open ? '' : ' folded');
 
     return (
-        <div className={className}>
+        <div className={calculatedClassName}>
             <button
                 onClick={toggleOpen}
                 className="flex w-8 h-8 !bg-transparent !hover:bg-transparent"

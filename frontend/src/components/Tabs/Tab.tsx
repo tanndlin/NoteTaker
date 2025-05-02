@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Preview } from '../../common/Preview/Preview';
+import { FC, useContext } from 'react';
+import Preview from '../../common/Preview/Preview';
 import { StoredNote } from '../../common/types';
 import { NoteContext } from '../../contexts/NoteContext';
 
@@ -9,8 +9,7 @@ type TabProps = {
     onClick: (id: number) => void;
 };
 
-const Tab = (props: TabProps) => {
-    const { tab, active, onClick } = props;
+const Tab: FC<TabProps> = ({ active, onClick, tab }) => {
     const { notes } = useContext(NoteContext);
 
     return (

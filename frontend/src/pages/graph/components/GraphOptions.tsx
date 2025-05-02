@@ -1,4 +1,5 @@
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
+import { FC } from 'react';
 import Foldable from '../../../common/Foldable';
 import { IGraphConfig } from '../graph.types';
 
@@ -8,8 +9,7 @@ type Props = {
     startTimelapse: () => void;
 };
 
-const GraphOptions = (props: Props) => {
-    const { config, setConfig, startTimelapse } = props;
+const GraphOptions: FC<Props> = ({ config, setConfig, startTimelapse }) => {
     const { nodeSize, edgeSize, showFolders } = config;
 
     const setNodeSize = (value: number) => {

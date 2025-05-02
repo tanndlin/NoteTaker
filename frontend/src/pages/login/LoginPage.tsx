@@ -2,14 +2,14 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../common/firebase';
 import { AuthContext, AuthStatus } from '../../contexts/AuthContext';
 
 type Props = {};
 
-const LoginPage: React.FC<Props> = ({}) => {
+const LoginPage: FC<Props> = ({}) => {
     const authContext = useContext(AuthContext);
     const { authStatus } = authContext;
     if (authStatus === AuthStatus.Loading) {
