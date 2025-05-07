@@ -1,6 +1,6 @@
 import 'github-markdown-css';
 import 'katex/dist/katex.min.css';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
@@ -28,6 +28,15 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = ({ markdown }) => {
         const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
         return <HeadingTag {...rest} />;
     };
+
+    useEffect(() => {
+        document.querySelectorAll('.markdown-body>*').forEach((element, i) => {
+            element.setAttribute(
+                'style',
+                `view-transition-name: preview-item-${i}`
+            );
+        });
+    }, [markdown]);
 
     return (
         <ReactMarkdown
