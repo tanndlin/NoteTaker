@@ -25,6 +25,9 @@ export const HomePage = () => {
                     <AnimatedLink className="text-xl" to={'/Settings'}>
                         Settings
                     </AnimatedLink>
+                    <AnimatedLink className="text-xl" to={'/search'}>
+                        Search
+                    </AnimatedLink>
                 </span>
             </header>
             <article className="container p-4 mt-16 overflow-auto rounded-md bg-secondary min-h-1/2 folder-view">

@@ -11,6 +11,7 @@ import EditNote from './pages/edit/EditNotePage';
 import GraphPage from './pages/graph/GraphPage';
 import { HomePage } from './pages/home/HomePage';
 import LoginPage from './pages/login/LoginPage';
+import SearchPage from './pages/search/SearchPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import ViewNotePage from './pages/view/ViewNotePage';
 
@@ -41,6 +42,10 @@ function App() {
                                     <Route
                                         path="/settings"
                                         element={<SettingsPage />}
+                                    />
+                                    <Route
+                                        path="/search"
+                                        element={<SearchPage />}
                                     />
                                     <Route
                                         path="/login"
