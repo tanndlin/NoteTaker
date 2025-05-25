@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Header from './components/Header/Header';
 import {
     AuthIsNotSignedIn,
     AuthIsSignedIn,
@@ -18,11 +19,12 @@ import ViewNotePage from './pages/view/ViewNotePage';
 function App() {
     return (
         <AuthProvider>
-            <div className="w-screen h-screen py-4">
+            <div className="flex flex-col w-screen h-screen">
                 <AuthIsSignedIn>
                     <ConfigProvider>
                         <NoteProvider>
                             <BrowserRouter>
+                                <Header />
                                 <Routes>
                                     <Route path="/" element={<HomePage />} />
                                     <Route path="/:id">

@@ -47,7 +47,7 @@ const GraphPage = () => {
     };
 
     return (
-        <main className="flex flex-grow h-full">
+        <main className="relative flex flex-1">
             <aside className="folder-view" id="graphFolderContainer">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Notes</h1>

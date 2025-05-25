@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import HomeIcon from '../../common/Icons/HomeIcon';
 import MarkdownRenderer from '../../common/Preview/MarkdownRenderer';
-import { smoothTransition } from '../../common/utils';
 
 const AboutPage = () => {
     const navigate = useNavigate();
@@ -52,14 +50,11 @@ which looks like this: $H_2O$.
 `;
 
     return (
-        <main className="flex flex-col h-full">
+        <main className="flex flex-col gap-8 mt-16 flex-0">
             <span className="flex justify-between w-1/2 mx-auto">
                 <h1 className="text-3xl font-bold text-center">
                     Welcome to Note Taker!
                 </h1>
-                <button onClick={() => smoothTransition(() => navigate('/'))}>
-                    <HomeIcon />
-                </button>
             </span>
 
             <article className="flex h-full">
