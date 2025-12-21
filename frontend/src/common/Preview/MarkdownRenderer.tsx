@@ -1,6 +1,6 @@
 import 'github-markdown-css';
 import 'katex/dist/katex.min.css';
-import { FC, useEffect } from 'react';
+import { FC, JSX, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
@@ -39,22 +39,23 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = ({ markdown }) => {
     }, [markdown]);
 
     return (
-        <ReactMarkdown
-            className="markdown-body"
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-                header: HeadingRenderer,
-                h1: HeadingRenderer,
-                h2: HeadingRenderer,
-                h3: HeadingRenderer,
-                h4: HeadingRenderer,
-                h5: HeadingRenderer,
-                h6: HeadingRenderer
-            }}
-        >
-            {markdown}
-        </ReactMarkdown>
+        <div className="markdown-body">
+            <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                    header: HeadingRenderer,
+                    h1: HeadingRenderer,
+                    h2: HeadingRenderer,
+                    h3: HeadingRenderer,
+                    h4: HeadingRenderer,
+                    h5: HeadingRenderer,
+                    h6: HeadingRenderer
+                }}
+            >
+                {markdown}
+            </ReactMarkdown>
+        </div>
     );
 };
 

@@ -11,7 +11,7 @@ import {
     Response
 } from './types.js';
 
-import functions from 'firebase-functions';
+import * as functions from 'firebase-functions';
 
 config();
 
