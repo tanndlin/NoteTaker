@@ -21,20 +21,22 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "firebase": "^12.7.0",
-    "firebase-admin": "^13.6.0",
-    "firebase-functions": "^7.0.2",
+    "firebase-admin": "^13.10.0",
+    "firebase-functions": "^7.2.5",
     "mongodb": "^7.0.0"
+  },
+  "overrides": {
+    "@tootallnate/once": "^3.0.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/csurf": "^1.11.5",
     "@types/express": "^5.0.6",
-    "@babel/eslint-parser": "^7.28.5",
-    "eslint": "^9.39.2",
+    "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   }
 }
