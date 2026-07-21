@@ -38,6 +38,17 @@ class Middleware {
                 });
             }
 
+            // Reject objects/arrays (e.g. { "$ne": 5 }) so callers can't
+            // smuggle query operators into fields used in DB filters.
+            const invalidFields = requiredFields.filter(
+                (field) => typeof req.body[field] === 'object'
+            );
+            if (invalidFields.length) {
+                return res.status(400).json({
+                    error: `Invalid fields: ${invalidFields.join(', ')}`
+                });
+            }
+
             return next();
         };
     }
