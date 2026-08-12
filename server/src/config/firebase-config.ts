@@ -1,12 +1,12 @@
-import admin, { ServiceAccount } from 'firebase-admin';
+import { cert, initializeApp, ServiceAccount } from 'firebase-admin/app';
 import fs from 'fs';
 
 const serviceAccount = JSON.parse(
     fs.readFileSync('./src/config/serviceAccount.json', 'utf8')
 ) as ServiceAccount;
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as ServiceAccount)
+const app = initializeApp({
+    credential: cert(serviceAccount)
 });
 
-export default admin;
+export default app;

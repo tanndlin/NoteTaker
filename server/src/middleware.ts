@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import admin from './config/firebase-config.js';
+import { getAuth } from 'firebase-admin/auth';
+import app from './config/firebase-config.js';
 
 class Middleware {
     async decodeToken(req: Request, res: Response, next: NextFunction) {
@@ -9,7 +10,7 @@ class Middleware {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
 
-            const decodeValue = await admin.auth().verifyIdToken(token!);
+            const decodeValue = await getAuth(app).verifyIdToken(token!);
             if (!decodeValue) {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
