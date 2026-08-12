@@ -22,7 +22,6 @@ const SettingsPage = () => {
                 className="px-16"
                 activeTab={activeTab}
                 setActiveTab={(n) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     smoothTransition(() => setActiveTab(n));
                 }}
             >

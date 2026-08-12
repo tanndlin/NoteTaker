@@ -17,7 +17,7 @@ const FolderViewWrapper: FC<FolderViewWrapperProps> = ({
     const { notes } = useContext(NoteContext);
 
     const [searchTerm, setSearchTerm] = React.useState('');
-    const [queue, _setQueue] = React.useState<string[]>([]);
+    const [queue] = React.useState<string[]>([]);
     const [openStates, setOpenStates] = React.useState(
         JSON.parse(localStorage.getItem('openStates') || '{}')
     );

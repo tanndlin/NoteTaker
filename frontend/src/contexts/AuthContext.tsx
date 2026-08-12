@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { initializeApp } from 'firebase/app';
 import { User } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';

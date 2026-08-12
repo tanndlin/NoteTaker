@@ -8,9 +8,7 @@ import { auth } from '../../common/firebase';
 import { AuthContext, AuthStatus } from '../../contexts/AuthContext';
 import './LoginPage.scss';
 
-type Props = {};
-
-const LoginPage: FC<Props> = ({}) => {
+const LoginPage: FC = () => {
     const authContext = useContext(AuthContext);
     const { authStatus } = authContext;
     if (authStatus === AuthStatus.Loading) {
@@ -25,44 +23,35 @@ const LoginPage: FC<Props> = ({}) => {
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState('');
     const [showPassword, setShowPassword] = React.useState(false);
-    const [showForgotPassword, setShowForgotPassword] = React.useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (isLogin) {
-            handleLogin(e);
+            handleLogin();
         } else {
-            handleSignUp(e);
+            handleSignUp();
         }
     };
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
+            .then(() => {
                 signIn!();
                 navigate('/');
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+            .catch(() => {
                 setError('Invalid email or password. Please try again.');
             });
     };
 
-    const handleSignUp = (e: React.FormEvent) => {
+    const handleSignUp = () => {
         createUserWithEmailAndPassword(auth!, email, password)
-            .then((userCredential) => {
-                // Signed up
-                const user = userCredential.user;
+            .then(() => {
                 signIn!();
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error('Error signing up:', errorCode, errorMessage);
+                console.error('Error signing up:', error.code, error.message);
                 setError('Error signing up. Please try again.');
             });
     };
@@ -136,14 +125,7 @@ const LoginPage: FC<Props> = ({}) => {
                                     </span>
                                 </div>
                                 <div className="forgot-password">
-                                    <a
-                                        href="#"
-                                        onClick={() =>
-                                            setShowForgotPassword(true)
-                                        }
-                                    >
-                                        Forgot password?
-                                    </a>
+                                    <a href="#">Forgot password?</a>
                                 </div>
                                 <div
                                     className="error-message"

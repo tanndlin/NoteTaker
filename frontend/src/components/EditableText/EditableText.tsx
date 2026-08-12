@@ -12,7 +12,7 @@ type EditableTextProps = {
 
 const EditableText = (props: EditableTextProps) => {
     function onBlur(e: React.FocusEvent<HTMLInputElement>) {
-        props.onBlur && props.onBlur(e);
+        props.onBlur?.(e);
     }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {

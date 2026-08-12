@@ -15,7 +15,6 @@ const ViewOptions: FC<PreviewOptionsProps> = ({ note }) => {
     const navigate = useNavigate();
 
     const goto = (path: string) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         smoothTransition(() => navigate(path));
     };
 

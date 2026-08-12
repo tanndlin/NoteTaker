@@ -1,7 +1,7 @@
 import 'github-markdown-css';
 import 'katex/dist/katex.min.css';
 import { FC, JSX, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { ExtraProps } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -11,21 +11,28 @@ type MarkdownRendererProps = {
     markdown: string;
 };
 
+type HeadingRendererProps = JSX.IntrinsicElements['h1'] &
+    ExtraProps & { level?: number };
+
 const MarkdownRenderer: FC<MarkdownRendererProps> = ({ markdown }) => {
-    const HeadingRenderer = (props: any) => {
+    const HeadingRenderer = (props: HeadingRendererProps) => {
         const { level, ...rest } = props;
 
-        if (!props.children) return null;
+        if (!props.children) {
+            return null;
+        }
 
         const idRegex = /\s*{#([\w-]+)}\s*/;
-        const idMatch = props.children[0].match(idRegex);
+        const children = props.children as unknown as string[];
+        const idMatch = children[0].match(idRegex);
         if (idMatch) {
             rest.id = idMatch[1];
-            rest.children = props.children[0].replace(idRegex, '');
+            rest.children = children[0].replace(idRegex, '');
         }
 
         delete rest.node;
-        const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+        const HeadingTag = `h${level}` as
+            'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
         return <HeadingTag {...rest} />;
     };
 
@@ -44,7 +51,6 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = ({ markdown }) => {
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
-                    header: HeadingRenderer,
                     h1: HeadingRenderer,
                     h2: HeadingRenderer,
                     h3: HeadingRenderer,

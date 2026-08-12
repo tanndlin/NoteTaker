@@ -21,19 +21,15 @@ export default tseslint.config(
             prettier
         },
         rules: {
-            'eqeqeq': ['error', 'smart'],
+            eqeqeq: ['error', 'smart'],
             'eol-last': ['error'],
-            'curly': 'warn',
+            curly: 'warn',
             'no-var': 'error',
             'prefer-const': 'error',
-            'semi': 'error',
+            semi: 'error',
             'space-before-blocks': 'error',
             'spaced-comment': 'warn',
-            'quotes': [
-                'error',
-                'single',
-                { avoidEscape: true }
-            ],
+            quotes: ['error', 'single', { avoidEscape: true }],
             'prettier/prettier': [
                 'error',
                 { singleQuote: true, endOfLine: 'auto' }

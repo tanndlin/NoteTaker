@@ -15,7 +15,7 @@ const EditNote = () => {
     const { id: idParam } = useParams();
     const id = Number(idParam);
 
-    const { notes, setNotes, editNote } = useContext(NoteContext);
+    const { notes, editNote } = useContext(NoteContext);
     const note = notes.find((note) => note.id === Number(id));
     if (!note || !id) {
         return <h1>404</h1>;

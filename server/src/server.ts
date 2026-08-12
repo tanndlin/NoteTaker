@@ -37,7 +37,7 @@ app.get<Response<GetNotesResponse>>('/api/notes', async (req, res) => {
     try {
         const notes = (await notesCollection.find().toArray()) ?? [];
         res.status(200).json({ notes });
-    } catch (error) {
+    } catch {
         res.status(500).json({ error: 'Failed to fetch notes' });
     }
 });
@@ -71,7 +71,7 @@ app.post<Response<CreateNoteResponse>>(
             res.status(201).json({
                 message: 'Note created successfully'
             });
-        } catch (error) {
+        } catch {
             res.status(500).json({ error: 'Failed to create note' });
         }
     }
@@ -95,7 +95,7 @@ app.post<Response<DeleteNoteResponse>>(
             res.status(201).json({
                 message: 'Note deleted successfully'
             });
-        } catch (error) {
+        } catch {
             res.status(500).json({ error: 'Failed to create note' });
         }
     }

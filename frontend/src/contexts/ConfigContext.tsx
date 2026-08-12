@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { FC } from 'react';
 import { Configs, IConfigContext, defaultConfigs } from '../common/types';
 import { objectMerge } from '../common/utils';

@@ -1,6 +1,6 @@
 import js from '@eslint/js';
-import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import prettier from 'eslint-plugin-prettier';
 import react from 'eslint-plugin-react';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -29,19 +29,15 @@ export default tseslint.config(
             prettier
         },
         rules: {
-            'eqeqeq': ['error', 'smart'],
+            eqeqeq: ['error', 'smart'],
             'eol-last': ['error'],
-            'curly': 'warn',
+            curly: 'warn',
             'no-var': 'error',
             'prefer-const': 'error',
-            'semi': 'error',
+            semi: 'error',
             'space-before-blocks': 'error',
-            'spaced-comment': 'warn',
-            'quotes': [
-                'error',
-                'single',
-                { avoidEscape: true }
-            ],
+            'spaced-comment': ['warn', 'always', { markers: ['/'] }],
+            quotes: ['error', 'single', { avoidEscape: true }],
             'prettier/prettier': [
                 'error',
                 { singleQuote: true, endOfLine: 'auto' }

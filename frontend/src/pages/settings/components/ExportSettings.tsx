@@ -83,7 +83,7 @@ const ExportSettings = () => {
                     } else {
                         setNotesWithoutReplace(importedNotes);
                     }
-                } catch (e) {
+                } catch {
                     alert('Invalid JSON');
                 }
             };

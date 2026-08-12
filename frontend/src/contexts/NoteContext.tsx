@@ -23,14 +23,13 @@ const NoteContext = React.createContext({} as INoteContext);
 
 type Props = { children: React.ReactNode };
 const NoteProvider = ({ children }: Props) => {
-    const { authStatus, user, token } = useContext(AuthContext);
+    const { authStatus, token } = useContext(AuthContext);
     const [notes, setNotes] = React.useState<StoredNote[]>(
         JSON.parse(localStorage.getItem('notes') ?? '[]')
     );
     const {
         res,
         error,
-        loading,
         fetchData: fetchNotes
     } = apiFetch<GetNotesResponse>({
         method: 'GET',

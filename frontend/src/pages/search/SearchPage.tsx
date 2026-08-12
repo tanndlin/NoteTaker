@@ -48,7 +48,6 @@ const SearchPage = () => {
 
     const formatDate = (timestamp: number) => {
         const date = new Date(timestamp);
-        const now = new Date();
         const diffInHours = (Date.now() - timestamp) / (1000 * 60 * 60);
 
         if (diffInHours < 24) {
@@ -61,12 +60,16 @@ const SearchPage = () => {
     };
 
     const truncateText = (text: string, maxLength = 150) => {
-        if (text.length <= maxLength) return text;
+        if (text.length <= maxLength) {
+            return text;
+        }
         return text.substring(0, maxLength) + '...';
     };
 
     const highlightText = (text: string, query: string) => {
-        if (!query.trim()) return text;
+        if (!query.trim()) {
+            return text;
+        }
 
         const regex = new RegExp(
             `(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,

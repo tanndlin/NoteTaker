@@ -13,6 +13,8 @@ export type Props = {
     token?: string;
 };
 
+type Callback<T> = (data: T) => void;
+
 export const apiFetch = <X, T extends ApiHeaders | null = null>({
     endpoint,
     method,
@@ -23,10 +25,10 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
     const [loading, setLoading] = useState<boolean>(true);
 
     type FetchDataType = T extends null
-        ? (body?: null, callback?: Function) => Promise<void>
-        : (body: T, callback?: Function) => Promise<void>;
+        ? (body?: null, callback?: Callback<X>) => Promise<void>
+        : (body: T, callback?: Callback<X>) => Promise<void>;
 
-    const fetchData = (async (body?: T, callback?: Function) => {
+    const fetchData = (async (body?: T, callback?: Callback<X>) => {
         const prefix =
             process.env.NODE_ENV === 'production' ? '/api' : '/api/api';
         try {
@@ -74,7 +76,9 @@ export const apiFetch = <X, T extends ApiHeaders | null = null>({
 };
 
 export function updateNote(note: StoredNote) {
-    if (!note.changed) return;
+    if (!note.changed) {
+        return;
+    }
 
     const { id, title, body, directory } = note;
     const { fetchData } = apiFetch<CreateNoteResponse, CreateNoteHeaders>({

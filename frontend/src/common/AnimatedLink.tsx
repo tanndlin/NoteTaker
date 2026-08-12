@@ -15,7 +15,6 @@ const AnimatedLink: FC<Props> = ({ to, children, className }) => {
         event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
     ) => {
         event.preventDefault();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         smoothTransition(() => {
             navigate(to);
         });

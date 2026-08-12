@@ -74,14 +74,18 @@ const replaceShorthands = (
     return newString;
 };
 
+type DocumentWithViewTransition = Document & {
+    startViewTransition?: (callback: () => void) => void;
+};
+
 export const smoothTransition = (updateDOM: () => void) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (!(document as any).startViewTransition) {
+    const doc = document as DocumentWithViewTransition;
+    if (!doc.startViewTransition) {
         updateDOM();
         return;
     }
 
-    (document as any).startViewTransition(() => {
+    doc.startViewTransition(() => {
         ReactDOM.flushSync(() => {
             updateDOM();
         });

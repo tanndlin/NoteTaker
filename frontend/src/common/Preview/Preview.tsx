@@ -117,12 +117,10 @@ const Preview: FC<PreviewProps> = ({ note, notes, onClick }) => {
 
                     const el = e.target;
                     showTooltip(el);
-                } else if (
-                    !(
-                        e.currentTarget === tooltip ||
-                        tooltip?.contains(e.target as Node)
-                    )
-                ) {
+                } else if (!(
+                    e.currentTarget === tooltip ||
+                    tooltip?.contains(e.target as Node)
+                )) {
                     if (removeTimeout.current) {
                         return;
                     }

@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import MarkdownRenderer from '../../common/Preview/MarkdownRenderer';
 
 const AboutPage = () => {
-    const navigate = useNavigate();
-
     const markdownContent = `
 # Note Taker {#top}
 ## About

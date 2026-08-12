@@ -17,19 +17,19 @@ class Middleware {
 
             req.headers['uid'] = decodeValue.uid;
             return next();
-        } catch (error) {
+        } catch {
             return res.status(500).json({ error: 'Internal error' });
         }
     }
 
     // Firebase weirdness
-    removeDuplicatePath(req: Request, res: Response, next: NextFunction) {
+    removeDuplicatePath(req: Request, _res: Response, next: NextFunction) {
         req.url = req.url.replace('api/api', 'api');
         return next();
     }
 
     parseRequiredFields(requiredFields: string[]) {
-        return (req: any, res: any, next: any) => {
+        return (req: Request, res: Response, next: NextFunction) => {
             const missingFields = requiredFields.filter(
                 (field) => !req.body[field]
             );
