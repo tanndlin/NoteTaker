@@ -8,11 +8,11 @@
     z-index: 100;
     padding: 1% 0;
 
-    &>div {
+    & > div {
         height: 100%;
         width: max-content;
         background-color: $secondary;
-        border-radius: .25rem;
+        border-radius: 0.25rem;
         padding: 1rem;
     }
 }
@@ -23,7 +23,7 @@
 
 .graph-options {
     background-color: $secondary;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     padding: 8px;
     min-width: 200px;
 }

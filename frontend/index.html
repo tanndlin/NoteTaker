@@ -1,30 +1,37 @@
-<!DOCTYPE html>
-<html lang="en" style="overflow: hidden;">
+<!doctype html>
+<html lang="en" style="overflow: hidden">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="description" content="A note taking app" />
+        <link rel="apple-touch-icon" href="/logo192.png" />
+        <link
+            rel="manifest"
+            crossorigin="use-credentials"
+            href="/manifest.json"
+        />
+        <title>Note Taker</title>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="A note taking app" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
-    <title>Note Taker</title>
-</head>
+    <body>
+        <div id="root"></div>
 
-<body>
-    <div id="root"></div>
+        <script type="module" src="/src/index.tsx"></script>
+        <!-- Google tag (gtag.js) -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-QM95PFJ9YP"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-    <script type="module" src="/src/index.tsx"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QM95PFJ9YP"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-QM95PFJ9YP');
-    </script>
-</body>
-
+            gtag('config', 'G-QM95PFJ9YP');
+        </script>
+    </body>
 </html>

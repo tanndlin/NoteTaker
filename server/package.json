@@ -1,49 +1,49 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "module",
-  "main": "build/server.js",
-  "scripts": {
-    "watch": "nodemon -e ts -w ./src -x npm run watch:serve",
-    "watch:serve": "tsx ./src/server.ts",
-    "start": "node dist/server.js",
-    "build": "tsc",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "dependencies": {
-    "body-parser": "^2.3.0",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "firebase": "^12.17.1",
-    "firebase-admin": "^14.2.0",
-    "firebase-functions": "^7.3.2",
-    "mongodb": "^7.5.0"
-  },
-  "overrides": {
-    "@tootallnate/once": "^3.0.1",
-    "uuid": "^11.1.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/cookie-parser": "^1.4.10",
-    "@types/cors": "^2.8.19",
-    "@types/csurf": "^1.11.5",
-    "@types/express": "^5.0.6",
-    "eslint": "^10.8.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.6",
-    "globals": "^17.10.0",
-    "prettier": "^3.9.6",
-    "tsx": "^4.23.12",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.67.0"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "",
+    "type": "module",
+    "main": "build/server.js",
+    "scripts": {
+        "watch": "nodemon -e ts -w ./src -x npm run watch:serve",
+        "watch:serve": "tsx ./src/server.ts",
+        "start": "node dist/server.js",
+        "build": "tsc",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "dependencies": {
+        "body-parser": "^2.3.0",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "firebase": "^12.17.1",
+        "firebase-admin": "^14.2.0",
+        "firebase-functions": "^7.3.2",
+        "mongodb": "^7.5.0"
+    },
+    "overrides": {
+        "@tootallnate/once": "^3.0.1",
+        "uuid": "^11.1.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/cookie-parser": "^1.4.10",
+        "@types/cors": "^2.8.19",
+        "@types/csurf": "^1.11.5",
+        "@types/express": "^5.0.6",
+        "eslint": "^10.8.1",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.6",
+        "globals": "^17.10.0",
+        "prettier": "^3.9.6",
+        "tsx": "^4.23.12",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.67.0"
+    }
 }

@@ -3,8 +3,7 @@
     min-height: 1.75rem;
     overflow: hidden;
 
-    &>h1 {
-
+    & > h1 {
         // Display an arrow after the folder name using border
         &:after {
             content: '';
@@ -21,10 +20,9 @@
         }
     }
 
-    &>.dirs {
-
+    & > .dirs {
         // Notes in the folder
-        &>li {
+        & > li {
             position: relative;
 
             &:before {
@@ -43,28 +41,23 @@
                 top: -10%;
                 height: 70%;
             }
-
         }
     }
 
-
-    &>ul,
-    &>ul * {
+    & > ul,
+    & > ul * {
         transition: 300ms linear;
     }
 
-
     // Me when chess
     &.folded {
-
         // Change the borders to point down
-        &>h1:after {
+        & > h1:after {
             transform: rotate(0deg);
         }
 
-
-        &>ul,
-        &>ul * {
+        & > ul,
+        & > ul * {
             opacity: 0;
             margin-top: -25px;
             visibility: hidden;
@@ -73,17 +66,17 @@
 }
 
 .file {
-    &>svg {
+    & > svg {
         opacity: 0;
-        margin-left: -.5rem;
+        margin-left: -0.5rem;
         transition: 300ms ease;
     }
 
-    &>a:hover {
+    & > a:hover {
         cursor: pointer;
 
-        &~svg {
-            margin-left: .5rem;
+        & ~ svg {
+            margin-left: 0.5rem;
             opacity: 1;
         }
     }

@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 a {
     color: rgb(24, 122, 179);
@@ -19,7 +19,7 @@ a {
     #editPageContainer {
         grid-template-columns: 80vw 1fr;
 
-        &> :first-child {
+        & > :first-child {
             display: none;
         }
     }
@@ -29,7 +29,6 @@ a {
     padding: 4px;
     border-radius: 0.375rem 0 0 0;
 }
-
 
 #editInput {
     background-color: #121212;

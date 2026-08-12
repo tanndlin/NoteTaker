@@ -19,8 +19,8 @@ body {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+    font-family:
+        source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 button {
@@ -40,7 +40,7 @@ button {
 input[type='text'] {
     background-color: #121212;
     color: white;
-    border-radius: .125rem;
+    border-radius: 0.125rem;
 }
 
 // Scroll bars
@@ -110,7 +110,7 @@ input[type='text'] {
         margin-left: 4px;
         display: flex;
 
-        &>span {
+        & > span {
             margin: auto 0;
         }
     }
@@ -124,7 +124,6 @@ input[type='text'] {
     }
 }
 
-
 .page-title {
     view-transition-name: page-title;
 }
@@ -137,7 +136,6 @@ input[type='text'] {
 ::view-transition-old(*) {
     // animation-duration: 1s;
 }
-
 
 ::view-transition-old(folder-view),
 ::view-transition-new(folder-view) {

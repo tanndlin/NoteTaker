@@ -1,80 +1,80 @@
 {
-  "name": "note-taker",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:5000",
-  "dependencies": {
-    "@heroicons/react": "2.2.0",
-    "@vitejs/plugin-react-swc": "4.3.3",
-    "github-markdown-css": "5.9.0",
-    "js-cookie": "3.0.8",
-    "lucide-react": "1.31.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "react-graph-vis": "1.0.7",
-    "react-markdown": "10.1.0",
-    "react-router-dom": "^7.18.2",
-    "rehype-katex": "7.0.1",
-    "remark-gfm": "4.0.1",
-    "remark-math": "6.0.0",
-    "vis-data": "8.0.5",
-    "vite-plugin-svgr": "5.2.0",
-    "web-vitals": "6.1.0"
-  },
-  "overrides": {
-    "uuid": "^11.1.1"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "postinstall": "patch-package"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.5",
-    "@tailwindcss/postcss": "4.3.3",
-    "@tailwindcss/vite": "4.3.3",
-    "@testing-library/jest-dom": "7.0.1",
-    "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.4",
-    "@types/jest": "30.0.0",
-    "@types/js-cookie": "3.0.6",
-    "@types/node": "26.2.0",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.4",
-    "autoprefixer": "10.5.4",
-    "axios": "^1.19.0",
-    "eslint": "9.39.5",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.6",
-    "eslint-plugin-react": "7.37.5",
-    "firebase": "12.17.1",
-    "globals": "^17.10.0",
-    "jsdom": "^30.0.1",
-    "patch-package": "^8.0.1",
-    "prettier": "3.9.6",
-    "sass": "1.102.0",
-    "tailwindcss": "4.3.3",
-    "typescript": "6.0.3",
-    "typescript-eslint": "^8.67.0",
-    "vitest": "4.1.10"
-  }
+    "name": "note-taker",
+    "version": "0.1.0",
+    "private": true,
+    "proxy": "http://localhost:5000",
+    "dependencies": {
+        "@heroicons/react": "2.2.0",
+        "@vitejs/plugin-react-swc": "4.3.3",
+        "github-markdown-css": "5.9.0",
+        "js-cookie": "3.0.8",
+        "lucide-react": "1.31.0",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "react-graph-vis": "1.0.7",
+        "react-markdown": "10.1.0",
+        "react-router-dom": "^7.18.2",
+        "rehype-katex": "7.0.1",
+        "remark-gfm": "4.0.1",
+        "remark-math": "6.0.0",
+        "vis-data": "8.0.5",
+        "vite-plugin-svgr": "5.2.0",
+        "web-vitals": "6.1.0"
+    },
+    "overrides": {
+        "uuid": "^11.1.1"
+    },
+    "scripts": {
+        "start": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "postinstall": "patch-package"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.5",
+        "@tailwindcss/postcss": "4.3.3",
+        "@tailwindcss/vite": "4.3.3",
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.2",
+        "@testing-library/user-event": "14.6.4",
+        "@types/jest": "30.0.0",
+        "@types/js-cookie": "3.0.6",
+        "@types/node": "26.2.0",
+        "@types/react": "19.2.18",
+        "@types/react-dom": "19.2.4",
+        "autoprefixer": "10.5.4",
+        "axios": "^1.19.0",
+        "eslint": "9.39.5",
+        "eslint-config-prettier": "10.1.8",
+        "eslint-plugin-prettier": "5.5.6",
+        "eslint-plugin-react": "7.37.5",
+        "firebase": "12.17.1",
+        "globals": "^17.10.0",
+        "jsdom": "^30.0.1",
+        "patch-package": "^8.0.1",
+        "prettier": "3.9.6",
+        "sass": "1.102.0",
+        "tailwindcss": "4.3.3",
+        "typescript": "6.0.3",
+        "typescript-eslint": "^8.67.0",
+        "vitest": "4.1.10"
+    }
 }
